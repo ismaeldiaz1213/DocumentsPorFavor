@@ -1,0 +1,31 @@
+# Keep line endings identical on Windows and Linux.
+# Every text file is stored AND checked out with LF, so the two machines
+# never fight over CRLF vs LF in Unity's YAML files or our C# scripts.
+* text=auto eol=lf
+
+# Unity YAML files: always text.
+*.unity    text eol=lf
+*.prefab   text eol=lf
+*.asset    text eol=lf
+*.meta     text eol=lf
+*.mat      text eol=lf
+*.anim     text eol=lf
+*.controller text eol=lf
+*.inputactions text eol=lf
+*.cs       text eol=lf
+
+# Binary files: never touch them.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.psd  binary
+*.aseprite binary
+*.ase  binary
+*.wav  binary
+*.mp3  binary
+*.ogg  binary
+*.ttf  binary
+*.otf  binary
+*.fbx  binary
+*.dll  binary
+*.so   binary
