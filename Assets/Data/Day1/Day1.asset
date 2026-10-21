@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e102c536e0b4ad4d8cd92210ac2444d, type: 3}
+  m_Name: Day1
+  m_EditorClassIdentifier: Assembly-CSharp::DayData
+  dayNumber: 1
+  todaysDate: 2027-08-01
+  travelers:
+  - {fileID: 11400000, guid: f492872b37690a94488e27d3780197f9, type: 2}
+  - {fileID: 11400000, guid: abea7859380c2bd44b66d5c4d296138e, type: 2}
+  - {fileID: 11400000, guid: 742853d8f85e5144faf6c20f8aaaf1c0, type: 2}
