@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ public class XRayPanel : MonoBehaviour
 
     public int FoundCount => found.Count;
     public int WrongClicks { get; private set; }
+    public event Action WrongClicked;
 
     void OnEnable()
     {
@@ -53,9 +55,10 @@ public class XRayPanel : MonoBehaviour
             return;
         }
 
-        List<XRayItem> items = AllItems(car.Traveler);
-        sideView.Show(items);
-        topView.Show(items);
+        TravelerData traveler = car.Traveler;
+        VehicleModel model = traveler.vehicleModel;
+        sideView.Show(model != null ? model.xraySide : null, AllItems(traveler, model != null && model.xraySide != null));
+        topView.Show(model != null ? model.xrayTop : null, AllItems(traveler, model != null && model.xrayTop != null));
     }
 
     void HandleClick(XRayView view, Vector2 point)
@@ -71,7 +74,6 @@ public class XRayPanel : MonoBehaviour
             {
                 sideView.MarkFound(item);
                 topView.MarkFound(item);
-                Debug.Log($"Found contraband: {item.label} ({found.Count}/{shownCar.Traveler.contraband.Count})");
             }
             return;
         }
@@ -79,13 +81,14 @@ public class XRayPanel : MonoBehaviour
         WrongClicks++;
         view.ShowMiss(point);
         if (boss != null) boss.Yell();
-        Debug.Log($"Wrong click! {Scoring.WrongClick} point (total wrong clicks: {WrongClicks})");
+        WrongClicked?.Invoke();
     }
 
-    static List<XRayItem> AllItems(TravelerData traveler)
+    // The vehicle's plain base shapes are only needed when there's no detailed X-ray picture.
+    static List<XRayItem> AllItems(TravelerData traveler, bool hasVehiclePicture)
     {
         var items = new List<XRayItem>();
-        if (traveler.vehicleModel != null)
+        if (traveler.vehicleModel != null && !hasVehiclePicture)
             items.AddRange(traveler.vehicleModel.baseItems);
         items.AddRange(traveler.harmlessExtras);
         items.AddRange(traveler.contraband);

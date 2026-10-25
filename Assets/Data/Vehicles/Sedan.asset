@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0e6078832736c4bb2e86fde93180a7, type: 3}
   m_Name: Sedan
   m_EditorClassIdentifier: Assembly-CSharp::VehicleModel
+  bodySprite: {fileID: 21300000, guid: 7c3811addea54504cbc17506fa0ddb1d, type: 3}
+  detailSprite: {fileID: 21300000, guid: 5b1ac3bb52a2ebd49a4dbff9b9b46af9, type: 3}
+  xraySide: {fileID: 21300000, guid: 65634aa059afc2544846755cd4453349, type: 3}
+  xrayTop: {fileID: 21300000, guid: 173b21b83f59b9147b3f423e075043b9, type: 3}
   baseItems:
   - label: Body
     shape: 0
     brightness: 0.22
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 1
     sideViewPosition: {x: 0.5, y: 0.42}
     sideViewSize: {x: 0.94, y: 0.42}
@@ -25,6 +31,8 @@ MonoBehaviour:
   - label: Cabin
     shape: 0
     brightness: 0.15
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 1
     sideViewPosition: {x: 0.46, y: 0.72}
     sideViewSize: {x: 0.48, y: 0.26}
@@ -34,6 +42,8 @@ MonoBehaviour:
   - label: Back-left wheel
     shape: 1
     brightness: 0.7
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 1
     sideViewPosition: {x: 0.22, y: 0.2}
     sideViewSize: {x: 0.12, y: 0.33}
@@ -43,6 +53,8 @@ MonoBehaviour:
   - label: Back-right wheel
     shape: 1
     brightness: 0.7
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 0
     sideViewPosition: {x: 0.5, y: 0.5}
     sideViewSize: {x: 0, y: 0}
@@ -52,6 +64,8 @@ MonoBehaviour:
   - label: Front-left wheel
     shape: 1
     brightness: 0.7
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 1
     sideViewPosition: {x: 0.78, y: 0.2}
     sideViewSize: {x: 0.12, y: 0.33}
@@ -61,6 +75,8 @@ MonoBehaviour:
   - label: Front-right wheel
     shape: 1
     brightness: 0.7
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 0
     sideViewPosition: {x: 0.5, y: 0.5}
     sideViewSize: {x: 0, y: 0}
@@ -70,6 +86,8 @@ MonoBehaviour:
   - label: Engine
     shape: 0
     brightness: 0.6
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 1
     sideViewPosition: {x: 0.87, y: 0.45}
     sideViewSize: {x: 0.14, y: 0.25}
@@ -79,6 +97,8 @@ MonoBehaviour:
   - label: Driver seat
     shape: 0
     brightness: 0.45
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 1
     sideViewPosition: {x: 0.56, y: 0.55}
     sideViewSize: {x: 0.08, y: 0.3}
@@ -88,6 +108,8 @@ MonoBehaviour:
   - label: Passenger seat
     shape: 0
     brightness: 0.45
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 0
     sideViewPosition: {x: 0.5, y: 0.5}
     sideViewSize: {x: 0, y: 0}
@@ -97,6 +119,8 @@ MonoBehaviour:
   - label: Back seat
     shape: 0
     brightness: 0.45
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 1
     sideViewPosition: {x: 0.36, y: 0.52}
     sideViewSize: {x: 0.1, y: 0.26}
@@ -106,6 +130,8 @@ MonoBehaviour:
   - label: Spare tire
     shape: 1
     brightness: 0.5
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 1
     sideViewPosition: {x: 0.08, y: 0.42}
     sideViewSize: {x: 0.08, y: 0.22}
@@ -115,6 +141,8 @@ MonoBehaviour:
   - label: Gas tank
     shape: 0
     brightness: 0.4
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
     showInSideView: 1
     sideViewPosition: {x: 0.25, y: 0.3}
     sideViewSize: {x: 0.12, y: 0.1}

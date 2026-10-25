@@ -19,29 +19,49 @@ MonoBehaviour:
   registrationPlate: CHH-2093
   vehiclePlate: CHH-2093
   vehicleColor: {r: 0.6509434, g: 0.12588999, b: 0.1839724, a: 1}
-  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  vehicleModel: {fileID: 11400000, guid: a331920dbfd016c4e8fc755bf5d95b8d, type: 2}
   harmlessExtras:
   - label: Toolbox
     shape: 0
     brightness: 0.75
+    sideSprite: {fileID: 21300000, guid: 6fe138e34c85e1741b6920d2a9378a1b, type: 3}
+    topSprite: {fileID: 21300000, guid: d5a93625e80946e47a402c33ee2eb108, type: 3}
     showInSideView: 1
-    sideViewPosition: {x: 0.14, y: 0.45}
-    sideViewSize: {x: 0.12, y: 0.2}
+    sideViewPosition: {x: 0.22, y: 0.55}
+    sideViewSize: {x: 0.12, y: 0.18}
     showInTopView: 1
-    topViewPosition: {x: 0.14, y: 0.5}
+    topViewPosition: {x: 0.2, y: 0.5}
     topViewSize: {x: 0.1, y: 0.35}
   contraband: []
   boothLines:
   - Hey, boss! Long line today, eh? I've been practicing my handshake in the mirror
     for forty minutes.
   - Job interview. Diesel mechanic. They said 'come in person.' So. Here's my person.
-  - The car? It's my cousin Neto's. He said it's fine. Neto says a lot of things
+  - The truck? It's my cousin Neto's. He said it's fine. Neto says a lot of things
     are fine. Neto set his own kitchen on fire. Twice.
   - If I'm late I'll just tell them I was stuck at the border. They'll understand.
     ...Right? They'll understand?
   lineIfApproved: "\xA1Gracias, jefe! If I get the job, I'll fix your car for free.
     If you have a car. Do they pay you enough for a car?"
   lineIfRejected: No, no, no, it's... okay. Okay. I'll call Neto. Neto will fix it.
-  lineIfImprisoned: For borrowing a CAR?! Neto! NETO, THIS IS YOUR FAULT!
+  lineIfImprisoned: For borrowing a TRUCK?! Neto! NETO, THIS IS YOUR FAULT!
   bribeAmount: 0
   bribeLine: 
+  newsIfApproved:
+  - headline: El Paso Truck Shop Adds Night Shift
+    body: '"Finally found a mechanic who shows up early," said the owner. "He asked
+      if we had coffee before he asked about the pay."'
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: Man Recovered from Rio Grande Near Anapra
+    body: 'He carried no identification. In his pocket: a folded listing for a diesel
+      mechanic job in El Paso, and the keys to a red pickup.'
+    daysLater: 1
+    frontPage: 1
+  newsIfImprisoned:
+  - headline: "Ju\xE1rez Man Reports Truck \"Missing\" for Third Time This Year"
+    body: Ernesto Valdez says he lent it to family. "They always bring it back,"
+      he said. "Usually."
+    daysLater: 0
+    frontPage: 0

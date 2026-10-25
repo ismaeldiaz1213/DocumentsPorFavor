@@ -17,4 +17,5 @@ MonoBehaviour:
   travelers:
   - {fileID: 11400000, guid: f492872b37690a94488e27d3780197f9, type: 2}
   - {fileID: 11400000, guid: abea7859380c2bd44b66d5c4d296138e, type: 2}
+  - {fileID: 11400000, guid: 04269b66648691543b312778a00a88fe, type: 2}
   - {fileID: 11400000, guid: 742853d8f85e5144faf6c20f8aaaf1c0, type: 2}

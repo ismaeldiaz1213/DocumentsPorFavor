@@ -40,6 +40,21 @@ public class TravelerData : ScriptableObject
     public int bribeAmount;
     [TextArea] public string bribeLine;
 
+    [Header("Newspaper (what happens after your decision)")]
+    public List<NewsStory> newsIfApproved = new List<NewsStory>();
+    public List<NewsStory> newsIfRejected = new List<NewsStory>();
+    public List<NewsStory> newsIfImprisoned = new List<NewsStory>();
+
     public bool HasContraband => contraband.Count > 0;
+
+    public List<NewsStory> NewsFor(Decision decision)
+    {
+        switch (decision)
+        {
+            case Decision.Approve: return newsIfApproved;
+            case Decision.Reject: return newsIfRejected;
+            default: return newsIfImprisoned;
+        }
+    }
     public bool OffersBribe => bribeAmount > 0;
 }

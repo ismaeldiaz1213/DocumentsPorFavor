@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -49,15 +50,26 @@ public class XRayView : MonoBehaviour, IPointerClickHandler
         SetReveal(0f);
     }
 
-    public void Show(IEnumerable<XRayItem> items)
+    public XRayAngle Angle => angle;
+
+    // vehicle: the detailed X-ray of the empty vehicle (may be null).
+    // items: luggage and contraband drawn on top.
+    public void Show(Sprite vehicle, IEnumerable<XRayItem> items)
     {
         Clear();
+
+        if (vehicle != null)
+            CreateImage("Vehicle", content, new Vector2(0.5f, 0.5f), Vector2.one, vehicle, glowColor);
+
         foreach (XRayItem item in items)
         {
             if (!TryGetRect(item, out Vector2 position, out Vector2 size)) continue;
+
+            Sprite picture = angle == XRayAngle.Side ? item.sideSprite : item.topSprite;
             Color color = glowColor;
-            color.a = item.brightness * maxOpacity;
-            CreateImage(item.label, content, position, size, SpriteFor(item.shape), color);
+            // Detailed pictures carry their own density; plain shapes use brightness.
+            color.a = picture != null ? Mathf.Lerp(0.6f, 1f, item.brightness) : item.brightness * maxOpacity;
+            CreateImage(item.label, content, position, size, picture != null ? picture : SpriteFor(item.shape), color);
         }
     }
 
@@ -114,22 +126,36 @@ public class XRayView : MonoBehaviour, IPointerClickHandler
         Clicked?.Invoke(this, point);
     }
 
+    // A ring where you clicked, and a "-1" that floats up and fades.
     IEnumerator MissMarker(Vector2 point)
     {
         Image marker = CreateImage("Miss", content, point, Vector2.zero, XRaySprites.Ring, missColor);
         marker.rectTransform.sizeDelta = new Vector2(24f, 24f);
 
-        const float duration = 0.8f;
+        RectTransform penaltyRect = CreateRect("MinusOne", content);
+        penaltyRect.anchorMin = penaltyRect.anchorMax = point;
+        penaltyRect.sizeDelta = new Vector2(80f, 36f);
+        TextMeshProUGUI penalty = penaltyRect.gameObject.AddComponent<TextMeshProUGUI>();
+        penalty.text = "-1";
+        penalty.fontSize = 30;
+        penalty.fontStyle = FontStyles.Bold;
+        penalty.alignment = TextAlignmentOptions.Center;
+        penalty.raycastTarget = false;
+
+        const float duration = 1.1f;
         for (float t = 0f; t < duration; t += Time.deltaTime)
         {
-            if (marker == null) yield break; // cleared because the car left
+            if (marker == null || penalty == null) yield break; // cleared because the car left
             Color c = missColor;
             c.a = 1f - t / duration;
             marker.color = c;
+            penalty.color = c;
+            penaltyRect.anchoredPosition = new Vector2(0f, 18f + 40f * t / duration);
             yield return null;
         }
 
         if (marker != null) Destroy(marker.gameObject);
+        if (penalty != null) Destroy(penalty.gameObject);
     }
 
     bool TryGetRect(XRayItem item, out Vector2 position, out Vector2 size)

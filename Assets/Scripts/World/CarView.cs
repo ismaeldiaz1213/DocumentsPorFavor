@@ -6,6 +6,8 @@ public class CarView : MonoBehaviour
 {
     [Tooltip("The car's main body sprite. Tinted with the traveler's vehicle color.")]
     [SerializeField] SpriteRenderer body;
+    [Tooltip("Glass, wheels and lights on top of the body. Never tinted.")]
+    [SerializeField] SpriteRenderer details;
     [Tooltip("The little driver shape. Hidden while they're inside the car or the booth.")]
     [SerializeField] Transform driver;
 
@@ -26,6 +28,14 @@ public class CarView : MonoBehaviour
         Traveler = traveler;
         body.color = traveler.vehicleColor;
         name = "Car - " + traveler.name;
+
+        // Swap in this traveler's kind of vehicle (sedan, pickup, van...).
+        VehicleModel model = traveler.vehicleModel;
+        if (model != null && model.bodySprite != null)
+        {
+            body.sprite = model.bodySprite;
+            if (details != null) details.sprite = model.detailSprite;
+        }
     }
 
     // Flip the whole car so it faces left (used when a rejected car turns around).

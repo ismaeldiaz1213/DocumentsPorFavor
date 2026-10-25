@@ -24,6 +24,8 @@ MonoBehaviour:
   - label: Tamal pot
     shape: 1
     brightness: 0.65
+    sideSprite: {fileID: 21300000, guid: a3e611c7296a2254699541bee12fb4b9, type: 3}
+    topSprite: {fileID: 21300000, guid: b4995d81ba7a36946bfb857d01dc8bb5, type: 3}
     showInSideView: 1
     sideViewPosition: {x: 0.38, y: 0.6}
     sideViewSize: {x: 0.09, y: 0.25}
@@ -33,6 +35,8 @@ MonoBehaviour:
   - label: Gift box
     shape: 0
     brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 66d5be9a1e549f74ca3506d0913bf0e7, type: 3}
+    topSprite: {fileID: 21300000, guid: 397bc8d8bc46d644dac2b7bdc02f3a69, type: 3}
     showInSideView: 1
     sideViewPosition: {x: 0.15, y: 0.5}
     sideViewSize: {x: 0.08, y: 0.18}
@@ -55,3 +59,21 @@ MonoBehaviour:
     semester, but still!
   bribeAmount: 0
   bribeLine: 
+  newsIfApproved:
+  - headline: "Quincea\xF1era in San Antonio Draws 300 Guests"
+    body: Guests praised the food. "Two hundred tamales," said the DJ. "Gone in an
+      hour."
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: "San Antonio Quincea\xF1era Ends Early"
+    body: The birthday girl left her own party before the cake. One chair at the
+      family table stayed empty all night.
+    daysLater: 0
+    frontPage: 0
+  newsIfImprisoned:
+  - headline: Otero County Detention Facility Reaches Capacity
+    body: Among the newest detainees is a 71-year-old woman. Staff say she has been
+      teaching the guards to cook.
+    daysLater: 0
+    frontPage: 1

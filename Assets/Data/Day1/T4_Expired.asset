@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: T4_Expired
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: Roberto Salinas Cruz
+  passportNumber: MX-1958-RS
+  passportExpiry: 2027-07-15
+  registrationOwner: Roberto Salinas Cruz
+  registrationPlate: JAL-0771
+  vehiclePlate: JAL-0771
+  vehicleColor: {r: 0.45, g: 0.52, b: 0.66, a: 1}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: "Guitarr\xF3n case"
+    shape: 1
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 1e4fd084a1af48b4f9d8eea79e79fdd9, type: 3}
+    topSprite: {fileID: 21300000, guid: d21f8efacb47da74eacc1385912c485a, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.36, y: 0.62}
+    sideViewSize: {x: 0.16, y: 0.3}
+    showInTopView: 1
+    topViewPosition: {x: 0.36, y: 0.5}
+    topViewSize: {x: 0.16, y: 0.34}
+  - label: Trumpet
+    shape: 0
+    brightness: 0.85
+    sideSprite: {fileID: 21300000, guid: 7199548c67819934abbd3960b6f27002, type: 3}
+    topSprite: {fileID: 21300000, guid: 2401f7ef96c149840a10ecd401c53f2f, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.12, y: 0.45}
+    sideViewSize: {x: 0.09, y: 0.1}
+    showInTopView: 1
+    topViewPosition: {x: 0.12, y: 0.4}
+    topViewSize: {x: 0.09, y: 0.08}
+  contraband: []
+  boothLines:
+  - "\xA1Buenas tardes, oficial! Roberto Salinas, trumpet, Mariachi Los Desvelados.
+    Forty-two years. You've heard of us. No? Your mother has."
+  - We have a wedding tonight in Las Cruces. The groom's family paid half up front.
+    The other half depends on me hitting the high note in 'El Son de la Negra.'
+  - My passport? Ah, yes. Expired. Two weeks. But my face is the same, look. Older,
+    maybe. Sadder. Same face.
+  - Do you want me to play something? It helps with the waiting. No? Okay. I'll hum.
+  lineIfApproved: "\xA1Aj\xFAa! I'll play one for you tonight, oficial. You won't
+    hear it, but I'll play it."
+  lineIfRejected: Two weeks... Okay. The bride will have to walk down the aisle to
+    a cell phone.
+  lineIfImprisoned: For an EXPIRED PASSPORT? At least let me bring the trumpet. The
+    cell needs music.
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: Las Cruces Wedding Goes Until Dawn
+    body: Neighbors complained about a trumpet at 4 a.m. Nobody called the police.
+      Some of them danced.
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: Las Cruces Wedding Proceeds Without Band
+    body: The bride walked down the aisle to music from a phone. It cut out halfway.
+      Someone got a text.
+    daysLater: 0
+    frontPage: 0
+  newsIfImprisoned:
+  - headline: Detention Center Guards Request Earplugs
+    body: Staff describe a detainee who hums the same song every night. "It's beautiful,"
+      said one guard. "That's the problem."
+    daysLater: 0
+    frontPage: 0

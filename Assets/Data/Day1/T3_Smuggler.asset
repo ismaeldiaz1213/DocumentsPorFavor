@@ -19,36 +19,75 @@ MonoBehaviour:
   registrationPlate: NLE-5560
   vehiclePlate: NLE-5560
   vehicleColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  vehicleModel: {fileID: 11400000, guid: 79444bccb4201a84eabaf02286d2a00a, type: 2}
   harmlessExtras:
-  - label: Mango crates
+  - label: Mango crate
     shape: 0
     brightness: 0.3
+    sideSprite: {fileID: 21300000, guid: a05f1616976c24b49a70f551e2046e2d, type: 3}
+    topSprite: {fileID: 21300000, guid: 0b871b98e341f204ea66c55c06f63c73, type: 3}
     showInSideView: 1
-    sideViewPosition: {x: 0.38, y: 0.55}
-    sideViewSize: {x: 0.14, y: 0.3}
+    sideViewPosition: {x: 0.22, y: 0.32}
+    sideViewSize: {x: 0.12, y: 0.26}
     showInTopView: 1
-    topViewPosition: {x: 0.38, y: 0.5}
-    topViewSize: {x: 0.14, y: 0.7}
+    topViewPosition: {x: 0.22, y: 0.3}
+    topViewSize: {x: 0.12, y: 0.34}
+  - label: Mango crate
+    shape: 0
+    brightness: 0.3
+    sideSprite: {fileID: 21300000, guid: a05f1616976c24b49a70f551e2046e2d, type: 3}
+    topSprite: {fileID: 21300000, guid: 0b871b98e341f204ea66c55c06f63c73, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.22, y: 0.58}
+    sideViewSize: {x: 0.12, y: 0.26}
+    showInTopView: 1
+    topViewPosition: {x: 0.22, y: 0.7}
+    topViewSize: {x: 0.12, y: 0.34}
+  - label: Mango crate
+    shape: 0
+    brightness: 0.3
+    sideSprite: {fileID: 21300000, guid: a05f1616976c24b49a70f551e2046e2d, type: 3}
+    topSprite: {fileID: 21300000, guid: 0b871b98e341f204ea66c55c06f63c73, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.38, y: 0.32}
+    sideViewSize: {x: 0.12, y: 0.26}
+    showInTopView: 1
+    topViewPosition: {x: 0.38, y: 0.3}
+    topViewSize: {x: 0.12, y: 0.34}
+  - label: Mango crate
+    shape: 0
+    brightness: 0.3
+    sideSprite: {fileID: 21300000, guid: a05f1616976c24b49a70f551e2046e2d, type: 3}
+    topSprite: {fileID: 21300000, guid: 0b871b98e341f204ea66c55c06f63c73, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.38, y: 0.58}
+    sideViewSize: {x: 0.12, y: 0.26}
+    showInTopView: 1
+    topViewPosition: {x: 0.38, y: 0.7}
+    topViewSize: {x: 0.12, y: 0.34}
   contraband:
   - label: Hidden passenger
     shape: 0
     brightness: 0.5
+    sideSprite: {fileID: 21300000, guid: dc0b15879660cb543befce5dad47bf2a, type: 3}
+    topSprite: {fileID: 21300000, guid: 9277ec598dcda284a8e8d30c64ffaa44, type: 3}
     showInSideView: 1
-    sideViewPosition: {x: 0.16, y: 0.45}
-    sideViewSize: {x: 0.12, y: 0.22}
+    sideViewPosition: {x: 0.56, y: 0.4}
+    sideViewSize: {x: 0.1, y: 0.34}
     showInTopView: 1
-    topViewPosition: {x: 0.17, y: 0.32}
-    topViewSize: {x: 0.12, y: 0.3}
+    topViewPosition: {x: 0.57, y: 0.32}
+    topViewSize: {x: 0.1, y: 0.3}
   - label: Hidden passenger
     shape: 0
     brightness: 0.5
+    sideSprite: {fileID: 21300000, guid: fe8ddd856ffae5b4db3a3662f78e120f, type: 3}
+    topSprite: {fileID: 21300000, guid: 900d589b7237bb04baa4e438b603ef26, type: 3}
     showInSideView: 0
     sideViewPosition: {x: 0.5, y: 0.5}
     sideViewSize: {x: 0, y: 0}
     showInTopView: 1
-    topViewPosition: {x: 0.17, y: 0.68}
-    topViewSize: {x: 0.12, y: 0.3}
+    topViewPosition: {x: 0.57, y: 0.68}
+    topViewSize: {x: 0.1, y: 0.3}
   boothLines:
   - Mangos. It's mangos. Ataulfo. The good ones. Very... mango.
   - Sorry, it's hot. Is it hot in here? It's hot. You should get a fan. I could get
@@ -61,6 +100,30 @@ MonoBehaviour:
     okay. Okay.
   lineIfImprisoned: ...Are they gonna be okay? The ones in the back. Somebody should
     give them water. Please.
-  bribeAmount: 200
-  bribeLine: Look... jefe. Those are... very heavy mangos. Two hundred dollars says
-    they're mangos. I don't want trouble. I just want to drive.
+  bribeAmount: 40
+  bribeLine: Look... jefe. Those are... very heavy mangos. Forty dollars says they're
+    mangos. It's all I have. I don't want trouble. I just want to drive.
+  newsIfApproved:
+  - headline: Abandoned Produce Van Found Outside Odessa
+    body: The engine was off. The back doors were locked from the outside. Between
+      the crates of mangos, two people were still breathing. The driver has not been
+      found.
+    daysLater: 0
+    frontPage: 1
+  newsIfRejected:
+  - headline: "Burned Van Found Near Ciudad Ju\xE1rez"
+    body: '"It smelled like fruit," said a firefighter. No one was inside. No one
+      has reported it missing.'
+    daysLater: 1
+    frontPage: 1
+  newsIfImprisoned:
+  - headline: Two Taken Into Federal Custody
+    body: Officials did not release their names. A crate of mangos was entered as
+      evidence.
+    daysLater: 0
+    frontPage: 0
+  - headline: Deportation Hearings Scheduled for Thursday
+    body: Two of the cases have no attorney assigned. The court calendar lists them
+      only by number.
+    daysLater: 2
+    frontPage: 0

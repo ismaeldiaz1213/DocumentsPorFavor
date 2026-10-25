@@ -13,6 +13,10 @@ public class XRayItem
     public XRayShape shape = XRayShape.Box;
     [Tooltip("How bright it glows on the X-ray. Dense things (metal, people) glow brighter.")]
     [Range(0f, 1f)] public float brightness = 0.5f;
+    [Tooltip("Detailed X-ray picture for the side view. Leave empty to draw a plain shape.")]
+    public Sprite sideSprite;
+    [Tooltip("Detailed X-ray picture for the top view. Leave empty to draw a plain shape.")]
+    public Sprite topSprite;
 
     [Header("Side X-ray")]
     public bool showInSideView = true;
