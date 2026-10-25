@@ -12,23 +12,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
   m_Name: T3_Smuggler
   m_EditorClassIdentifier: Assembly-CSharp::TravelerData
-  passportName: Marcos
-  passportNumber: Diaz
-  passportExpiry: 10-31-2027
-  registrationOwner: Marcos Diaz
-  registrationPlate: CSV-2234
-  vehiclePlate: CSV-2234
+  passportName: "Ram\xF3n Trevi\xF1o Garza"
+  passportNumber: MX-3302-RT
+  passportExpiry: 2028-02-10
+  registrationOwner: "Ram\xF3n Trevi\xF1o Garza"
+  registrationPlate: NLE-5560
+  vehiclePlate: NLE-5560
   vehicleColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  contraband:
-  - label: Hidden Passenger
-    showInSideView: 0
-    sideViewPosition: {x: 0, y: 0}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: Mango crates
+    shape: 0
+    brightness: 0.3
+    showInSideView: 1
+    sideViewPosition: {x: 0.38, y: 0.55}
+    sideViewSize: {x: 0.14, y: 0.3}
     showInTopView: 1
-    topViewPosition: {x: 0, y: 0}
-  boothLines: []
-  lineIfApproved: 
-  lineIfRejected: 
-  lineIfImprisoned: 
-  bribeAmount: 50
-  bribeLine: You must be new. So listen... I work for La Mosca. You don't want to
-    start the first day of our relationship to go this way right?
+    topViewPosition: {x: 0.38, y: 0.5}
+    topViewSize: {x: 0.14, y: 0.7}
+  contraband:
+  - label: Hidden passenger
+    shape: 0
+    brightness: 0.5
+    showInSideView: 1
+    sideViewPosition: {x: 0.16, y: 0.45}
+    sideViewSize: {x: 0.12, y: 0.22}
+    showInTopView: 1
+    topViewPosition: {x: 0.17, y: 0.32}
+    topViewSize: {x: 0.12, y: 0.3}
+  - label: Hidden passenger
+    shape: 0
+    brightness: 0.5
+    showInSideView: 0
+    sideViewPosition: {x: 0.5, y: 0.5}
+    sideViewSize: {x: 0, y: 0}
+    showInTopView: 1
+    topViewPosition: {x: 0.17, y: 0.68}
+    topViewSize: {x: 0.12, y: 0.3}
+  boothLines:
+  - Mangos. It's mangos. Ataulfo. The good ones. Very... mango.
+  - Sorry, it's hot. Is it hot in here? It's hot. You should get a fan. I could get
+    you a fan.
+  - No, I didn't load it. A guy loaded it. A different guy. A guy I don't know. Normal
+    stuff.
+  lineIfApproved: Thank you. Thank you. Don't... don't think about it, okay? I'm
+    trying not to.
+  lineIfRejected: Back? I can't go back with them. You don't understand what they'll...
+    okay. Okay.
+  lineIfImprisoned: ...Are they gonna be okay? The ones in the back. Somebody should
+    give them water. Please.
+  bribeAmount: 200
+  bribeLine: Look... jefe. Those are... very heavy mangos. Two hundred dollars says
+    they're mangos. I don't want trouble. I just want to drive.

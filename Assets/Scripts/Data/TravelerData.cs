@@ -20,9 +20,14 @@ public class TravelerData : ScriptableObject
     [Tooltip("The plate painted on the car. Should match the registration plate.")]
     public string vehiclePlate;
     public Color vehicleColor = Color.gray;
+    [Tooltip("Which kind of car. Its parts always show on the X-ray.")]
+    public VehicleModel vehicleModel;
 
     [Header("What the X-ray will show")]
-    public List<ContrabandItem> contraband = new List<ContrabandItem>();
+    [Tooltip("Harmless things only this traveler carries (luggage, a tamal pot...).")]
+    public List<XRayItem> harmlessExtras = new List<XRayItem>();
+    [Tooltip("Things the player must find. Any contraband means arrest.")]
+    public List<XRayItem> contraband = new List<XRayItem>();
 
     [Header("Dialogue")]
     [Tooltip("What they say in the booth, one line per entry, in order.")]

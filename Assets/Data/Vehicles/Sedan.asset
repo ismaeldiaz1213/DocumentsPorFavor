@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0e6078832736c4bb2e86fde93180a7, type: 3}
+  m_Name: Sedan
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleModel
+  baseItems:
+  - label: Body
+    shape: 0
+    brightness: 0.22
+    showInSideView: 1
+    sideViewPosition: {x: 0.5, y: 0.42}
+    sideViewSize: {x: 0.94, y: 0.42}
+    showInTopView: 1
+    topViewPosition: {x: 0.5, y: 0.5}
+    topViewSize: {x: 0.94, y: 0.8}
+  - label: Cabin
+    shape: 0
+    brightness: 0.15
+    showInSideView: 1
+    sideViewPosition: {x: 0.46, y: 0.72}
+    sideViewSize: {x: 0.48, y: 0.26}
+    showInTopView: 1
+    topViewPosition: {x: 0.46, y: 0.5}
+    topViewSize: {x: 0.48, y: 0.7}
+  - label: Back-left wheel
+    shape: 1
+    brightness: 0.7
+    showInSideView: 1
+    sideViewPosition: {x: 0.22, y: 0.2}
+    sideViewSize: {x: 0.12, y: 0.33}
+    showInTopView: 1
+    topViewPosition: {x: 0.22, y: 0.08}
+    topViewSize: {x: 0.12, y: 0.14}
+  - label: Back-right wheel
+    shape: 1
+    brightness: 0.7
+    showInSideView: 0
+    sideViewPosition: {x: 0.5, y: 0.5}
+    sideViewSize: {x: 0, y: 0}
+    showInTopView: 1
+    topViewPosition: {x: 0.22, y: 0.92}
+    topViewSize: {x: 0.12, y: 0.14}
+  - label: Front-left wheel
+    shape: 1
+    brightness: 0.7
+    showInSideView: 1
+    sideViewPosition: {x: 0.78, y: 0.2}
+    sideViewSize: {x: 0.12, y: 0.33}
+    showInTopView: 1
+    topViewPosition: {x: 0.78, y: 0.08}
+    topViewSize: {x: 0.12, y: 0.14}
+  - label: Front-right wheel
+    shape: 1
+    brightness: 0.7
+    showInSideView: 0
+    sideViewPosition: {x: 0.5, y: 0.5}
+    sideViewSize: {x: 0, y: 0}
+    showInTopView: 1
+    topViewPosition: {x: 0.78, y: 0.92}
+    topViewSize: {x: 0.12, y: 0.14}
+  - label: Engine
+    shape: 0
+    brightness: 0.6
+    showInSideView: 1
+    sideViewPosition: {x: 0.87, y: 0.45}
+    sideViewSize: {x: 0.14, y: 0.25}
+    showInTopView: 1
+    topViewPosition: {x: 0.87, y: 0.5}
+    topViewSize: {x: 0.14, y: 0.5}
+  - label: Driver seat
+    shape: 0
+    brightness: 0.45
+    showInSideView: 1
+    sideViewPosition: {x: 0.56, y: 0.55}
+    sideViewSize: {x: 0.08, y: 0.3}
+    showInTopView: 1
+    topViewPosition: {x: 0.56, y: 0.3}
+    topViewSize: {x: 0.08, y: 0.25}
+  - label: Passenger seat
+    shape: 0
+    brightness: 0.45
+    showInSideView: 0
+    sideViewPosition: {x: 0.5, y: 0.5}
+    sideViewSize: {x: 0, y: 0}
+    showInTopView: 1
+    topViewPosition: {x: 0.56, y: 0.7}
+    topViewSize: {x: 0.08, y: 0.25}
+  - label: Back seat
+    shape: 0
+    brightness: 0.45
+    showInSideView: 1
+    sideViewPosition: {x: 0.36, y: 0.52}
+    sideViewSize: {x: 0.1, y: 0.26}
+    showInTopView: 1
+    topViewPosition: {x: 0.36, y: 0.5}
+    topViewSize: {x: 0.1, y: 0.7}
+  - label: Spare tire
+    shape: 1
+    brightness: 0.5
+    showInSideView: 1
+    sideViewPosition: {x: 0.08, y: 0.42}
+    sideViewSize: {x: 0.08, y: 0.22}
+    showInTopView: 1
+    topViewPosition: {x: 0.08, y: 0.5}
+    topViewSize: {x: 0.08, y: 0.3}
+  - label: Gas tank
+    shape: 0
+    brightness: 0.4
+    showInSideView: 1
+    sideViewPosition: {x: 0.25, y: 0.3}
+    sideViewSize: {x: 0.12, y: 0.1}
+    showInTopView: 1
+    topViewPosition: {x: 0.25, y: 0.5}
+    topViewSize: {x: 0.12, y: 0.4}

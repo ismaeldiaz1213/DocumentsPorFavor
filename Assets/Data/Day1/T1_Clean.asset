@@ -12,17 +12,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
   m_Name: T1_Clean
   m_EditorClassIdentifier: Assembly-CSharp::TravelerData
-  passportName: Jose
-  passportNumber: Cerrano
-  passportExpiry: 08-18-2027
-  registrationOwner: Jose Cerrano
-  registrationPlate: LEV-0223
-  vehiclePlate: LEV-0223
+  passportName: "Guadalupe Ram\xEDrez Ochoa"
+  passportNumber: MX-0451-LR
+  passportExpiry: 2029-08-02
+  registrationOwner: "Guadalupe Ram\xEDrez Ochoa"
+  registrationPlate: GTO-4417
+  vehiclePlate: GTO-4417
   vehicleColor: {r: 0.15917587, g: 0.2697958, b: 0.46226418, a: 1}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: Tamal pot
+    shape: 1
+    brightness: 0.65
+    showInSideView: 1
+    sideViewPosition: {x: 0.38, y: 0.6}
+    sideViewSize: {x: 0.09, y: 0.25}
+    showInTopView: 1
+    topViewPosition: {x: 0.38, y: 0.62}
+    topViewSize: {x: 0.08, y: 0.3}
+  - label: Gift box
+    shape: 0
+    brightness: 0.35
+    showInSideView: 1
+    sideViewPosition: {x: 0.15, y: 0.5}
+    sideViewSize: {x: 0.08, y: 0.18}
+    showInTopView: 1
+    topViewPosition: {x: 0.15, y: 0.4}
+    topViewSize: {x: 0.08, y: 0.25}
   contraband: []
-  boothLines: []
-  lineIfApproved: 
-  lineIfRejected: 
-  lineIfImprisoned: 
+  boothLines:
+  - "Buenos d\xEDas, mijo. Ay, you look so skinny. Are they feeding you in this little
+    box?"
+  - "I'm going to my granddaughter's quincea\xF1era. Fifteen years old! When I was
+    fifteen I was already married. Different times. Worse times. But better tamales."
+  - Two hundred tamales. Pork, chicken, and rajas. The rajas are for the vegetarian
+    boyfriend. Nobody likes him.
+  - Here, take one. No? You'll take one. I'll leave it on the counter. You'll eat
+    it when I'm gone. I know.
+  lineIfApproved: Que Dios te bendiga, mijo. Eat the tamal.
+  lineIfRejected: ...Okay. I'll call her. She'll understand.
+  lineIfImprisoned: For the TAMALES?! My grandson is a lawyer! ...He's in his first
+    semester, but still!
   bribeAmount: 0
   bribeLine: 

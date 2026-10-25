@@ -16,7 +16,8 @@ In-game date: **2026-03-14** (placeholder). Dialogue is mostly English with Span
 | Registration owner | Guadalupe Ramírez Ochoa |
 | Registration plate | GTO-4417 |
 | Car plate | GTO-4417 |
-| Car | Old station wagon, faded green |
+| Car | Sedan (draft: all cars are sedans) |
+| X-ray extras | Tamal pot (back seat), gift box (trunk) |
 | Contraband | none |
 | Bribe | none |
 
@@ -34,7 +35,7 @@ In-game date: **2026-03-14** (placeholder). Dialogue is mostly English with Span
 
 ## T2: Chuy (clean car, bad papers, so Reject is correct)
 
-**Jesús "Chuy" Valdez Mora**, 26, mechanic. He has a job interview at a truck shop in El Paso at 10 a.m. He borrowed his cousin's pickup, so **the registration is under his cousin's name**. He's honest and nothing is hidden. By the book he gets rejected, and by the book he misses the job.
+**Jesús "Chuy" Valdez Mora**, 26, mechanic. He has a job interview at a truck shop in El Paso at 10 a.m. He borrowed his cousin's car, so **the registration is under his cousin's name**. He's honest and nothing is hidden. By the book he gets rejected, and by the book he misses the job.
 
 | Field | Value |
 |---|---|
@@ -44,25 +45,26 @@ In-game date: **2026-03-14** (placeholder). Dialogue is mostly English with Span
 | Registration owner | **Ernesto Valdez Mora** (mismatch) |
 | Registration plate | CHH-2093 |
 | Car plate | CHH-2093 |
-| Car | Pickup, dusty red |
+| Car | Sedan (pickup later) |
+| X-ray extras | Metal toolbox in the trunk (glows bright, a false alarm) |
 | Contraband | none |
 | Bribe | none |
 
 **Booth lines**
 1. "Hey, boss! Long line today, eh? I've been practicing my handshake in the mirror for forty minutes."
 2. "Job interview. Diesel mechanic. They said 'come in person.' So. Here's my person."
-3. "The truck? It's my cousin Neto's. He said it's fine. Neto says a lot of things are fine. Neto set his own kitchen on fire. Twice."
+3. "The car? It's my cousin Neto's. He said it's fine. Neto says a lot of things are fine. Neto set his own kitchen on fire. Twice."
 4. "If I'm late I'll just tell them I was stuck at the border. They'll understand. ...Right? They'll understand?"
 
 - **Approved:** "¡Gracias, jefe! If I get the job, I'll fix your car for free. If you have a car. Do they pay you enough for a car?"
 - **Rejected:** "No, no, no, it's — okay. Okay. I'll call Neto. Neto will fix it." *(Neto will not fix it.)*
-- **Imprisoned:** "For borrowing a TRUCK?! Neto! NETO, THIS IS YOUR FAULT!"
+- **Imprisoned:** "For borrowing a CAR?! Neto! NETO, THIS IS YOUR FAULT!"
 
 ---
 
 ## T3: El Flaco (contraband, so Imprison is correct, and he offers a bribe)
 
-**Ramón "El Flaco" Treviño**, 38, produce van driver. He's in debt to people who don't send reminder letters. They told him to drive the van and not to look in the back. **Two people are hidden behind the mango crates.** From the side, one blocks the other, so **the second one only shows in the top view**. That's the first lesson that both views matter.
+**Ramón "El Flaco" Treviño**, 38, produce van driver. He's in debt to people who don't send reminder letters. They told him to drive the van and not to look in the back. **Two people are curled up in the trunk.** From the side, one blocks the other, so **the second one only shows in the top view**. That's the first lesson that both views matter.
 
 | Field | Value |
 |---|---|
@@ -72,9 +74,10 @@ In-game date: **2026-03-14** (placeholder). Dialogue is mostly English with Span
 | Registration owner | Ramón Treviño Garza |
 | Registration plate | NLE-5560 |
 | Car plate | NLE-5560 |
-| Car | Box van, white, says "MANGOS TREVIÑO" |
-| Contraband | **Hidden passenger A**: side (0.72, 0.45), top (0.78, 0.35) |
-| | **Hidden passenger B**: side hidden, top (0.78, 0.65) |
+| Car | Sedan (van later) |
+| X-ray extras | Mango crates on the back seat |
+| Contraband | **Hidden passenger A** in the trunk: side (0.16, 0.45), top (0.17, 0.32) |
+| | **Hidden passenger B** in the trunk: side hidden, top (0.17, 0.68) |
 | Bribe | **$200** |
 
 **Booth lines**

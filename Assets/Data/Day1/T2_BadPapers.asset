@@ -12,17 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
   m_Name: T2_BadPapers
   m_EditorClassIdentifier: Assembly-CSharp::TravelerData
-  passportName: Miguel
-  passportNumber: Aguilar
-  passportExpiry: 09-22-2027
-  registrationOwner: Miguel Aguilar
-  registrationPlate: ILL-2212
-  vehiclePlate: ILL-2122
+  passportName: "Jes\xFAs Valdez Mora"
+  passportNumber: MX-7781-JV
+  passportExpiry: 2027-11-20
+  registrationOwner: Ernesto Valdez Mora
+  registrationPlate: CHH-2093
+  vehiclePlate: CHH-2093
   vehicleColor: {r: 0.6509434, g: 0.12588999, b: 0.1839724, a: 1}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: Toolbox
+    shape: 0
+    brightness: 0.75
+    showInSideView: 1
+    sideViewPosition: {x: 0.14, y: 0.45}
+    sideViewSize: {x: 0.12, y: 0.2}
+    showInTopView: 1
+    topViewPosition: {x: 0.14, y: 0.5}
+    topViewSize: {x: 0.1, y: 0.35}
   contraband: []
-  boothLines: []
-  lineIfApproved: 
-  lineIfRejected: 
-  lineIfImprisoned: 
+  boothLines:
+  - Hey, boss! Long line today, eh? I've been practicing my handshake in the mirror
+    for forty minutes.
+  - Job interview. Diesel mechanic. They said 'come in person.' So. Here's my person.
+  - The car? It's my cousin Neto's. He said it's fine. Neto says a lot of things
+    are fine. Neto set his own kitchen on fire. Twice.
+  - If I'm late I'll just tell them I was stuck at the border. They'll understand.
+    ...Right? They'll understand?
+  lineIfApproved: "\xA1Gracias, jefe! If I get the job, I'll fix your car for free.
+    If you have a car. Do they pay you enough for a car?"
+  lineIfRejected: No, no, no, it's... okay. Okay. I'll call Neto. Neto will fix it.
+  lineIfImprisoned: For borrowing a CAR?! Neto! NETO, THIS IS YOUR FAULT!
   bribeAmount: 0
   bribeLine: 
