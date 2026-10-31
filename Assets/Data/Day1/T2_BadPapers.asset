@@ -45,6 +45,7 @@ MonoBehaviour:
     If you have a car. Do they pay you enough for a car?"
   lineIfRejected: No, no, no, it's... okay. Okay. I'll call Neto. Neto will fix it.
   lineIfImprisoned: For borrowing a TRUCK?! Neto! NETO, THIS IS YOUR FAULT!
+  returnVisits: []
   bribeAmount: 0
   bribeLine: 
   newsIfApproved:
@@ -54,11 +55,11 @@ MonoBehaviour:
     daysLater: 0
     frontPage: 0
   newsIfRejected:
-  - headline: Man Recovered from Rio Grande Near Anapra
-    body: 'He carried no identification. In his pocket: a folded listing for a diesel
-      mechanic job in El Paso, and the keys to a red pickup.'
+  - headline: El Paso Truck Shop Fills Mechanic Job
+    body: A young man arrived at noon, out of breath, two hours late. "I told him
+      we'd call him," said the owner. "He wrote his number on my hand. Twice."
     daysLater: 1
-    frontPage: 1
+    frontPage: 0
   newsIfImprisoned:
   - headline: "Ju\xE1rez Man Reports Truck \"Missing\" for Third Time This Year"
     body: Ernesto Valdez says he lent it to family. "They always bring it back,"

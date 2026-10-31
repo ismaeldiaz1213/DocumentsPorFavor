@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D2_Huracan
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: "Hugo Berm\xFAdez Paz"
+  passportNumber: MX-1998-HB
+  passportExpiry: 2029-05-05
+  registrationOwner: "El Hurac\xE1n de Hermosillo"
+  registrationPlate: SON-0001
+  vehiclePlate: SON-0001
+  vehicleColor: {r: 0.85, g: 0.7, b: 0.25, a: 1}
+  vehicleModel: {fileID: 11400000, guid: 79444bccb4201a84eabaf02286d2a00a, type: 2}
+  harmlessExtras:
+  - label: Gear bag
+    shape: 0
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 6adb03a30e01bb449ab7efbd9795d3e1, type: 3}
+    topSprite: {fileID: 21300000, guid: a5c2395ad5e9f5d4cb8858a8e72aeb42, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.18, y: 0.33}
+    sideViewSize: {x: 0.09, y: 0.19}
+    showInTopView: 1
+    topViewPosition: {x: 0.18, y: 0.55}
+    topViewSize: {x: 0.09, y: 0.17}
+  - label: Championship belt
+    shape: 0
+    brightness: 0.8
+    sideSprite: {fileID: 21300000, guid: fa794a35fc0b5b44dacb9a0f11f8c25f, type: 3}
+    topSprite: {fileID: 21300000, guid: 3fee5ea7fce337f45ab4dad5c3854e17, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.32, y: 0.4}
+    sideViewSize: {x: 0.1, y: 0.11}
+    showInTopView: 1
+    topViewPosition: {x: 0.32, y: 0.3}
+    topViewSize: {x: 0.1, y: 0.11}
+  - label: Steel chair
+    shape: 0
+    brightness: 0.85
+    sideSprite: {fileID: 21300000, guid: 5c915411342717a4a9952b2eec8d2996, type: 3}
+    topSprite: {fileID: 21300000, guid: 2d1d6aa2fdac053468cb4a7958ee06c4, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.5, y: 0.42}
+    sideViewSize: {x: 0.07, y: 0.22}
+    showInTopView: 1
+    topViewPosition: {x: 0.5, y: 0.65}
+    topViewSize: {x: 0.07, y: 0.19}
+  contraband: []
+  boothLines:
+  - "\xA1Buenas tardes, ciudadano! I am EL HURAC\xC1N DE HERMOSILLO! Three-time champion
+    of the Arena Coliseo!"
+  - The mask stays on. The mask ALWAYS stays on. My own mother has not seen my face
+    since 1998. She says thank God.
+  - The registration? In my name. My TRUE name. The one the people chant. The other
+    name is for the government.
+  - Tonight I fight El Gringo Loco in El Paso. He's from Lubbock. Very loco. He does
+    taxes the rest of the week.
+  lineIfApproved: "\xA1EL HURAC\xC1N AGRADECE! The ring awaits!"
+  lineIfRejected: "The Hurac\xE1n... retreats. A STRATEGIC retreat. Tell El Gringo
+    Loco he got lucky."
+  lineIfImprisoned: "You cannot cage a HURAC\xC1N! ...Okay, you can. Can I keep the
+    mask on? It's very important to me."
+  returnVisits: []
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: Masked Wrestler Keeps Title in El Paso
+    body: He dedicated the win to his mother, who was not in attendance. "She doesn't
+      watch," he said. "She prays."
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: El Paso Lucha Card Goes On Without Headliner
+    body: El Gringo Loco declared himself champion by default, then left early to
+      file a tax extension.
+    daysLater: 0
+    frontPage: 0
+  newsIfImprisoned:
+  - headline: Detainee Refuses to Remove Mask for Booking Photo
+    body: After six hours, officials agreed to photograph him from behind. "Most
+      polite man we've ever had," said a guard.
+    daysLater: 0
+    frontPage: 0

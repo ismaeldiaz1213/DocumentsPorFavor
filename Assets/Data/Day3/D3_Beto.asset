@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D3_Beto
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: Roberto Salinas Cruz
+  passportNumber: MX-2027-RS
+  passportExpiry: 2037-07-29
+  registrationOwner: Roberto Salinas Cruz
+  registrationPlate: JAL-0771
+  vehiclePlate: JAL-0771
+  vehicleColor: {r: 0.45, g: 0.52, b: 0.66, a: 1}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: "Guitarr\xF3n case"
+    shape: 1
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 1e4fd084a1af48b4f9d8eea79e79fdd9, type: 3}
+    topSprite: {fileID: 21300000, guid: d21f8efacb47da74eacc1385912c485a, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.36, y: 0.62}
+    sideViewSize: {x: 0.16, y: 0.3}
+    showInTopView: 1
+    topViewPosition: {x: 0.36, y: 0.5}
+    topViewSize: {x: 0.16, y: 0.34}
+  - label: Trumpet
+    shape: 0
+    brightness: 0.85
+    sideSprite: {fileID: 21300000, guid: 7199548c67819934abbd3960b6f27002, type: 3}
+    topSprite: {fileID: 21300000, guid: 2401f7ef96c149840a10ecd401c53f2f, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.12, y: 0.45}
+    sideViewSize: {x: 0.09, y: 0.1}
+    showInTopView: 1
+    topViewPosition: {x: 0.12, y: 0.4}
+    topViewSize: {x: 0.09, y: 0.08}
+  contraband: []
+  boothLines:
+  - "\xA1Oficial! Remember me? Roberto, trumpet. The expired one. Not anymore! Renewed!
+    It took all day and I had to play for the clerk."
+  - The photo is terrible. I look like my father. My father looked like a potato
+    with a mustache.
+  - Today is a baptism in Anthony. Smaller crowd. Babies don't tip. But the grandmothers
+    do.
+  lineIfApproved: "\xA1Aj\xFAa! This time I play one for you, oficial. Right here.
+    ...Okay, in the car."
+  lineIfRejected: But it's NEW. It still smells like the printer!
+  lineIfImprisoned: AGAIN?! ...At least I know the guards' names now.
+  returnVisits:
+  - earlierVisit: {fileID: 11400000, guid: 04269b66648691543b312778a00a88fe, type: 2}
+    decisionThen: 0
+    boothLines:
+    - "\xA1Oficial! Remember me? I hit the high note. The bride cried. The groom's
+      mother cried. I cried. And look: new passport, like you never saw the old one."
+    - The photo is terrible. I look like my father. My father looked like a potato
+      with a mustache.
+    - Today is a baptism in Anthony. Smaller crowd. Babies don't tip. But the grandmothers
+      do.
+  - earlierVisit: {fileID: 11400000, guid: 04269b66648691543b312778a00a88fe, type: 2}
+    decisionThen: 2
+    boothLines:
+    - "\xA1Oficial! It's me. They let me go. They said I was \"a disturbance.\" I
+      was IN TUNE. Look: new passport. Please."
+    - The photo is terrible. I look like my father. My father looked like a potato
+      with a mustache.
+    - Today is a baptism in Anthony. Smaller crowd. Babies don't tip. But the grandmothers
+      do.
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: Baptism in Anthony Features Surprise Trumpet Solo
+    body: The baby slept through it. "Best review I ever got," said the trumpet player.
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: Baptism Goes On With Recorder Solo by Cousin, 9
+    body: Witnesses described the performance as "brave."
+    daysLater: 0
+    frontPage: 0
+  newsIfImprisoned:
+  - headline: Detention Center Hears Familiar Humming
+    body: '"He''s back," said one guard. "Honestly? Good."'
+    daysLater: 0
+    frontPage: 0

@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D2_Chuy
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: "Jes\xFAs Valdez Mora"
+  passportNumber: MX-7781-JV
+  passportExpiry: 2027-11-20
+  registrationOwner: "Jes\xFAs Valdez Mora"
+  registrationPlate: CHH-2093
+  vehiclePlate: CHH-2093
+  vehicleColor: {r: 0.72, g: 0.38, b: 0.3, a: 1}
+  vehicleModel: {fileID: 11400000, guid: a331920dbfd016c4e8fc755bf5d95b8d, type: 2}
+  harmlessExtras:
+  - label: Toolbox
+    shape: 0
+    brightness: 0.75
+    sideSprite: {fileID: 21300000, guid: 6fe138e34c85e1741b6920d2a9378a1b, type: 3}
+    topSprite: {fileID: 21300000, guid: d5a93625e80946e47a402c33ee2eb108, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.22, y: 0.55}
+    sideViewSize: {x: 0.12, y: 0.18}
+    showInTopView: 1
+    topViewPosition: {x: 0.2, y: 0.5}
+    topViewSize: {x: 0.1, y: 0.35}
+  - label: Box of brake rotors
+    shape: 0
+    brightness: 0.85
+    sideSprite: {fileID: 21300000, guid: c99e427a9f3664745ac0f7ec783daac6, type: 3}
+    topSprite: {fileID: 21300000, guid: cf810f1564b4ee949a8e33f5dd67401b, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.4, y: 0.5}
+    sideViewSize: {x: 0.07, y: 0.14}
+    showInTopView: 1
+    topViewPosition: {x: 0.4, y: 0.4}
+    topViewSize: {x: 0.07, y: 0.19}
+  contraband: []
+  boothLines:
+  - "\xA1Jefe! Remember me? Interview guy. I got there at noon, the job was gone.
+    But the owner felt bad. Trial day today. So!"
+  - The registration's mine now, look. Neto signed it over. Cost me a carne asada
+    and four hours of listening to Neto.
+  - The box? Brake rotors. For a guy at the shop. Very legal. Very boring.
+  - Some guys at the gas station asked if I cross every day. I said yeah. They said
+    "good." Just "good." Weird, right?
+  lineIfApproved: "\xA1Gracias, jefe! See you tomorrow. Same Chuy, same truck. Same
+    time!"
+  lineIfRejected: But it's MINE now! Neto signed it! ...Okay. Okay. Tomorrow, then.
+  lineIfImprisoned: Brake rotors, jefe! They're BRAKE ROTORS! Ask anyone! Ask a car!
+  returnVisits:
+  - earlierVisit: {fileID: 11400000, guid: abea7859380c2bd44b66d5c4d296138e, type: 2}
+    decisionThen: 0
+    boothLines:
+    - "\xA1Jefe! It's me! I GOT THE JOB! Diesel mechanic! Look at my hands. Real
+      grease. Professional grease."
+    - The registration's mine now, look. Neto signed it over. Cost me a carne asada
+      and four hours of listening to Neto.
+    - The box? Brake rotors. For a guy at the shop. Very legal. Very boring.
+    - Some guys at the gas station asked if I cross every day. I said yeah. They
+      said "good." Just "good." Weird, right?
+  - earlierVisit: {fileID: 11400000, guid: abea7859380c2bd44b66d5c4d296138e, type: 2}
+    decisionThen: 2
+    boothLines:
+    - Jefe. It's me. They let me out this morning. Neto came with the papers. He
+      cried more than me. A lot more.
+    - The registration's mine now, look. Neto signed it over. Cost me a carne asada
+      and four hours of listening to Neto.
+    - The box? Brake rotors. For a guy at the shop. Very legal. Very boring.
+    - Some guys at the gas station asked if I cross every day. I said yeah. They
+      said "good." Just "good." Weird, right?
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: Commuters Report Strangers Asking About Their Routes
+    body: "Drivers who cross every day say men at Ju\xE1rez gas stations have been
+      asking about schedules. One offered to pay for a woman's gas. \"Nobody pays
+      for your gas,\" she said."
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: 'Diesel Shop Owner: "Can''t Find Anyone Reliable"'
+    body: '"The good ones get stuck at the bridge," he said. "Then somebody else
+      gets to them first."'
+    daysLater: 0
+    frontPage: 0
+  newsIfImprisoned:
+  - headline: Brake Rotors Entered Into Evidence; Charges Dropped
+    body: A spokesperson confirmed the parts were "just brake rotors." The truck's
+      owner could not be reached. His cousin says he is "thinking about some offers."
+    daysLater: 0
+    frontPage: 0

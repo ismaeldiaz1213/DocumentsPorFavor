@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D3_Lucia
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: "Luc\xEDa Herrera Dom\xEDnguez"
+  passportNumber: MX-4409-LH
+  passportExpiry: 2027-07-31
+  registrationOwner: "Luc\xEDa Herrera Dom\xEDnguez"
+  registrationPlate: CHH-3318
+  vehiclePlate: CHH-3318
+  vehicleColor: {r: 0.8, g: 0.56, b: 0.6, a: 1}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: Hospital bag
+    shape: 0
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 6adb03a30e01bb449ab7efbd9795d3e1, type: 3}
+    topSprite: {fileID: 21300000, guid: a5c2395ad5e9f5d4cb8858a8e72aeb42, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.36, y: 0.62}
+    sideViewSize: {x: 0.09, y: 0.19}
+    showInTopView: 1
+    topViewPosition: {x: 0.36, y: 0.35}
+    topViewSize: {x: 0.09, y: 0.17}
+  - label: Baby gift
+    shape: 0
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 66d5be9a1e549f74ca3506d0913bf0e7, type: 3}
+    topSprite: {fileID: 21300000, guid: 397bc8d8bc46d644dac2b7bdc02f3a69, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.14, y: 0.48}
+    sideViewSize: {x: 0.08, y: 0.18}
+    showInTopView: 1
+    topViewPosition: {x: 0.14, y: 0.5}
+    topViewSize: {x: 0.08, y: 0.25}
+  contraband: []
+  boothLines:
+  - "Buenos d\xEDas. Sorry. I'm fine. It's just... (breathes) ...contractions. They're
+    far apart. Kind of far."
+  - My husband is already in El Paso. He works there. The baby's room is there. Everything
+    is there. Even the little socks.
+  - The passport? I know. Three days. I was going to renew it, but look at me. I've
+    been a little busy being a house.
+  - Please be fast. Not for me. For her. She's very impatient. Like her father.
+  lineIfApproved: Gracias. Ay... gracias. I'll tell her about you someday. The good
+    parts.
+  lineIfRejected: "Okay. Okay. The hospital in Ju\xE1rez. It's fine. It's fine. Somebody
+    call my husband. Please, somebody call him."
+  lineIfImprisoned: No, no, no, I need a HOSPITAL! Please, she's coming. She's coming
+    NOW.
+  returnVisits: []
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: First Baby of August at Thomason Is a Girl
+    body: Seven pounds, two ounces. Her father fainted. Her mother says she "already
+      has opinions."
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: Baby Born in Car on the Bridge of the Americas
+    body: "Traffic stopped both ways for forty minutes. Mother and daughter were
+      taken to a hospital in Ju\xE1rez. The father watched from the other side."
+    daysLater: 0
+    frontPage: 1
+  newsIfImprisoned:
+  - headline: Detainee Gives Birth in Holding Cell
+    body: No medical staff were on duty. A spokesperson said the matter is "under
+      review." The infant is a U.S. citizen.
+    daysLater: 0
+    frontPage: 1

@@ -100,6 +100,7 @@ MonoBehaviour:
     okay. Okay.
   lineIfImprisoned: ...Are they gonna be okay? The ones in the back. Somebody should
     give them water. Please.
+  returnVisits: []
   bribeAmount: 40
   bribeLine: Look... jefe. Those are... very heavy mangos. Forty dollars says they're
     mangos. It's all I have. I don't want trouble. I just want to drive.

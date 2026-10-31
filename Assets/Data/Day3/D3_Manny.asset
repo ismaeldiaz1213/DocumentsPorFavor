@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D3_Manny
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: Ricardo Ortega Luna
+  passportNumber: MX-1966-RO
+  passportExpiry: 2030-11-11
+  registrationOwner: Manuel Ortega Luna
+  registrationPlate: CHH-0412
+  vehiclePlate: CHH-0412
+  vehicleColor: {r: 0.5, g: 0.52, b: 0.38, a: 1}
+  vehicleModel: {fileID: 11400000, guid: a331920dbfd016c4e8fc755bf5d95b8d, type: 2}
+  harmlessExtras:
+  - label: Garment bag
+    shape: 0
+    brightness: 0.3
+    sideSprite: {fileID: 21300000, guid: 6adb03a30e01bb449ab7efbd9795d3e1, type: 3}
+    topSprite: {fileID: 21300000, guid: a5c2395ad5e9f5d4cb8858a8e72aeb42, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.2, y: 0.52}
+    sideViewSize: {x: 0.09, y: 0.19}
+    showInTopView: 1
+    topViewPosition: {x: 0.2, y: 0.5}
+    topViewSize: {x: 0.09, y: 0.17}
+  - label: Folded flag
+    shape: 0
+    brightness: 0.4
+    sideSprite: {fileID: 21300000, guid: 7da31465b6e5aa04999d58dc32f3c4ad, type: 3}
+    topSprite: {fileID: 21300000, guid: 7355ba662b264a94eb5971fe5c5699d2, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.7, y: 0.62}
+    sideViewSize: {x: 0.08, y: 0.06}
+    showInTopView: 1
+    topViewPosition: {x: 0.7, y: 0.4}
+    topViewSize: {x: 0.08, y: 0.14}
+  contraband: []
+  boothLines:
+  - Afternoon. Sergeant Ortega. Well. Was. Two tours, Iraq. Fallujah, 2004. You were
+    in diapers, probably.
+  - My daughter's getting married Saturday. El Paso. She asked me to walk her down
+    the aisle. She's asked every year since she was six.
+  - "They deported me in 2011. A DUI. I served my time, then they served me to Ju\xE1rez.
+    Fourteen years. I still say \"y'all.\""
+  - The passport's my brother's. We look alike. Everybody says so. ...He's handsomer.
+    Don't tell him.
+  lineIfApproved: Thank you, son. Hooah.
+  lineIfRejected: ...Copy that. She said she'd do a video call. That's nice of her.
+    That's real nice.
+  lineIfImprisoned: Twenty years, they'll give me. For walking my daughter down an
+    aisle. ...Put in the report that I didn't fight you.
+  returnVisits: []
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: Bride Walks Down the Aisle With Father in Dress Uniform
+    body: Guests say he kept looking at the doors. He danced anyway.
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: Deported Veterans Hold Vigil at Friendship Park
+    body: One man held a phone up to the fence for an hour. On the screen, someone
+      on the other side was getting married.
+    daysLater: 0
+    frontPage: 1
+  newsIfImprisoned:
+  - headline: Veteran, 58, Faces Federal Reentry Charge
+    body: Prosecutors are seeking twenty years. At his first hearing he wore a borrowed
+      suit and stood when the judge came in. Nobody else did.
+    daysLater: 0
+    frontPage: 1

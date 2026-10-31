@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D2_Marisol
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: Marisol Fuentes Ibarra
+  passportNumber: MX-6610-MF
+  passportExpiry: 2030-01-09
+  registrationOwner: Marisol Fuentes Ibarra
+  registrationPlate: CHH-6602
+  vehiclePlate: CHH-6620
+  vehicleColor: {r: 0.6, g: 0.6, b: 0.64, a: 1}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: Work bag
+    shape: 0
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 6adb03a30e01bb449ab7efbd9795d3e1, type: 3}
+    topSprite: {fileID: 21300000, guid: a5c2395ad5e9f5d4cb8858a8e72aeb42, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.13, y: 0.47}
+    sideViewSize: {x: 0.09, y: 0.19}
+    showInTopView: 1
+    topViewPosition: {x: 0.13, y: 0.5}
+    topViewSize: {x: 0.09, y: 0.17}
+  contraband: []
+  boothLines:
+  - Hi. Night shift, ICU, University Medical Center. Six patients tonight. Can we
+    make this quick?
+  - I bought the car last month. Used. The guy who sold it to me had a cousin at
+    the DMV, he said that made it easier.
+  - ...That's bad, isn't it? You're making a face. You have the same face as my patients'
+    families.
+  lineIfApproved: Thank you. If you ever end up in the ICU, ask for me. ...Don't
+    end up in the ICU.
+  lineIfRejected: Okay. I'll call in. They'll pull someone from the ER. The ER is
+    already short. Okay.
+  lineIfImprisoned: For a PLATE? I have a man on a ventilator waiting for me!
+  returnVisits: []
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: Nurses Work Through the Night After Crash on I-10
+    body: Eleven were brought to University Medical Center. All survived. "We had
+      everyone we needed," a nurse said. "Barely."
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: Short-Staffed ICU Diverts Ambulances Overnight
+    body: One unit ran a nurse short. A spokesperson said patient outcomes are "under
+      review." Two families were asked to wait in the hallway.
+    daysLater: 1
+    frontPage: 0
+  newsIfImprisoned:
+  - headline: "Ju\xE1rez Car Lot Sold the Same Plates Twice, Police Say"
+    body: At least four buyers have come forward. One of them is still in federal
+      custody.
+    daysLater: 0
+    frontPage: 0

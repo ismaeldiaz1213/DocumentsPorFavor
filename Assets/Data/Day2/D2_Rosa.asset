@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D2_Rosa
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: Rosa Elena Medina Paz
+  passportNumber: MX-2214-RM
+  passportExpiry: 2028-09-03
+  registrationOwner: Rosa Elena Medina Paz
+  registrationPlate: SON-1187
+  vehiclePlate: SON-1187
+  vehicleColor: {r: 0.76, g: 0.68, b: 0.5, a: 1}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: Cleaning bag
+    shape: 0
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 6adb03a30e01bb449ab7efbd9795d3e1, type: 3}
+    topSprite: {fileID: 21300000, guid: a5c2395ad5e9f5d4cb8858a8e72aeb42, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.13, y: 0.47}
+    sideViewSize: {x: 0.09, y: 0.19}
+    showInTopView: 1
+    topViewPosition: {x: 0.13, y: 0.5}
+    topViewSize: {x: 0.09, y: 0.17}
+  contraband:
+  - label: Hidden child
+    shape: 0
+    brightness: 0.5
+    sideSprite: {fileID: 21300000, guid: 7a925648a8512e247b5fa3fa5121dc03, type: 3}
+    topSprite: {fileID: 21300000, guid: 2d7949bb7249133418946c737ca9095a, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.39, y: 0.37}
+    sideViewSize: {x: 0.07, y: 0.22}
+    showInTopView: 1
+    topViewPosition: {x: 0.41, y: 0.62}
+    topViewSize: {x: 0.07, y: 0.19}
+  boothLines:
+  - Buenas tardes. I clean offices in El Paso. Five years, every morning, this bridge.
+    Maybe you've seen me.
+  - My papers are good. Work permit, everything. I am very legal. Very, very legal.
+  - No radio, sorry. It's broken. Can we go? I'm very tired. It's... very quiet in
+    the car today.
+  lineIfApproved: Gracias. Gracias. You'll never see him. I promise. He'll be so
+    good.
+  lineIfRejected: Okay. We go back. ...There are other ways across. Worse ones. But
+    there are.
+  lineIfImprisoned: He's EIGHT. His father is not a good man. Please don't put him
+    with the men. He's scared of the dark. Please tell them he's scared of the dark.
+  returnVisits: []
+  bribeAmount: 25
+  bribeLine: Please. Twenty-five dollars. It's what I have until Friday. He's very
+    quiet. He knows how to be quiet.
+  newsIfApproved:
+  - headline: Lamar Elementary Welcomes New Third-Grader
+    body: His teacher says he barely speaks yet, but he draws all day. Mostly bridges.
+      Mostly the same one.
+    daysLater: 1
+    frontPage: 0
+  newsIfRejected:
+  - headline: Two Sets of Footprints Lead Into the Desert Near Sunland Park
+    body: One large, one small. The search was called off at dusk. The heat index
+      reached 112.
+    daysLater: 1
+    frontPage: 1
+  newsIfImprisoned:
+  - headline: Children's Shelter Reports Record Intake
+    body: A volunteer said one boy, about eight, asked if the lights could stay on.
+      They could not.
+    daysLater: 0
+    frontPage: 1
+  - headline: Cleaning Company Reports Worker Missing
+    body: '"Five years and she never missed a morning," said her supervisor. "Her
+      locker still has her son''s drawings in it."'
+    daysLater: 1
+    frontPage: 0

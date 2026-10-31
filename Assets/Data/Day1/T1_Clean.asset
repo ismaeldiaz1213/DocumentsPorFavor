@@ -57,6 +57,7 @@ MonoBehaviour:
   lineIfRejected: ...Okay. I'll call her. She'll understand.
   lineIfImprisoned: For the TAMALES?! My grandson is a lawyer! ...He's in his first
     semester, but still!
+  returnVisits: []
   bribeAmount: 0
   bribeLine: 
   newsIfApproved:

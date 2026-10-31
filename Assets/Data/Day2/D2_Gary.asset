@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D2_Gary
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: Gary Dale Hutchins
+  passportNumber: US-5521-GH
+  passportExpiry: 2031-04-12
+  registrationOwner: Gary Dale Hutchins
+  registrationPlate: TX-8KD-4421
+  vehiclePlate: TX-8KD-4421
+  vehicleColor: {r: 0.86, g: 0.86, b: 0.82, a: 1}
+  vehicleModel: {fileID: 11400000, guid: a331920dbfd016c4e8fc755bf5d95b8d, type: 2}
+  harmlessExtras:
+  - label: Cooler
+    shape: 0
+    brightness: 0.45
+    sideSprite: {fileID: 21300000, guid: 5c5800912d922b745bd6488b4ef90496, type: 3}
+    topSprite: {fileID: 21300000, guid: 5e0a41f787b64354da8b932f20114c79, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.14, y: 0.53}
+    sideViewSize: {x: 0.09, y: 0.19}
+    showInTopView: 1
+    topViewPosition: {x: 0.14, y: 0.3}
+    topViewSize: {x: 0.09, y: 0.17}
+  - label: Crate of soda
+    shape: 0
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: a05f1616976c24b49a70f551e2046e2d, type: 3}
+    topSprite: {fileID: 21300000, guid: 0b871b98e341f204ea66c55c06f63c73, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.25, y: 0.52}
+    sideViewSize: {x: 0.08, y: 0.17}
+    showInTopView: 1
+    topViewPosition: {x: 0.24, y: 0.3}
+    topViewSize: {x: 0.08, y: 0.22}
+  - label: Golf bag
+    shape: 0
+    brightness: 0.75
+    sideSprite: {fileID: 21300000, guid: 3cd261cde82b72448bfc1a3d3452a256, type: 3}
+    topSprite: {fileID: 21300000, guid: 71c671efc8bf89a4ea4f7b2965b978d0, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.38, y: 0.48}
+    sideViewSize: {x: 0.15, y: 0.11}
+    showInTopView: 1
+    topViewPosition: {x: 0.32, y: 0.7}
+    topViewSize: {x: 0.15, y: 0.11}
+  contraband: []
+  boothLines:
+  - Howdy. You speak English? Good. Good for you. Real proud of you.
+  - "Been down in Ju\xE1rez getting my teeth done. Eight crowns, three hundred bucks.
+    Dr. Ram\xEDrez. Don't tell anybody, they'll all want to go."
+  - Now don't take this personal, but y'all need to build that wall higher. Not you.
+    You're one of the good ones. You got a badge.
+  - Cooler's beer. Crate's Mexican Coke, the real-sugar kind. Y'all got that one
+    thing right.
+  lineIfApproved: Appreciate it, amigo. See? System works when the right folks run
+    it.
+  lineIfRejected: Rejected? I'm AMERICAN. I'll be on the news by tonight. Not in
+    a good way. For YOU.
+  lineIfImprisoned: I was BORN here! ...Is this about the wall thing? That was a
+    joke! Mostly!
+  returnVisits: []
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: 'Letter to the Editor: "Secure Our Border"'
+    body: "\"Anybody can waltz right in. Nobody checks a thing.\" G. Hutchins, Las
+      Cruces. P.S. \"Dr. Ram\xEDrez in Ju\xE1rez does crowns for $300. Ask for Lupe.\""
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: "Las Cruces Man's Video About \"Night in Ju\xE1rez\" Goes Viral"
+    body: In 47 minutes he praises the tacos, the hotel staff, and a stranger who
+      lent him a phone charger. He ends by calling for a wall.
+    daysLater: 0
+    frontPage: 0
+  newsIfImprisoned:
+  - headline: County Commission Candidate Suspends Campaign
+    body: Gary Hutchins, who ran on border security, says he needs "time with family."
+      Reporters described his new teeth as "very white."
+    daysLater: 0
+    frontPage: 0

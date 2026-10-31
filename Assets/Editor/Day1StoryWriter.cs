@@ -160,9 +160,9 @@ public static class Day1StoryWriter
 
         t.newsIfApproved = Stories(Story("El Paso Truck Shop Adds Night Shift",
             "\"Finally found a mechanic who shows up early,\" said the owner. \"He asked if we had coffee before he asked about the pay.\""));
-        t.newsIfRejected = Stories(Story("Man Recovered from Rio Grande Near Anapra",
-            "He carried no identification. In his pocket: a folded listing for a diesel mechanic job in El Paso, and the keys to a red pickup.",
-            daysLater: 1, front: true));
+        t.newsIfRejected = Stories(Story("El Paso Truck Shop Fills Mechanic Job",
+            "A young man arrived at noon, out of breath, two hours late. \"I told him we'd call him,\" said the owner. \"He wrote his number on my hand. Twice.\"",
+            daysLater: 1));
         t.newsIfImprisoned = Stories(Story("Juárez Man Reports Truck \"Missing\" for Third Time This Year",
             "Ernesto Valdez says he lent it to family. \"They always bring it back,\" he said. \"Usually.\""));
 
@@ -250,7 +250,7 @@ public static class Day1StoryWriter
 
     // ---------- Helpers ----------
 
-    static void Documents(TravelerData t, string name, string number, string expiry, string owner, string registrationPlate, string carPlate, VehicleModel car)
+    internal static void Documents(TravelerData t, string name, string number, string expiry, string owner, string registrationPlate, string carPlate, VehicleModel car)
     {
         t.passportName = name;
         t.passportNumber = number;
@@ -261,20 +261,20 @@ public static class Day1StoryWriter
         t.vehicleModel = car;
     }
 
-    static void NoBribe(TravelerData t)
+    internal static void NoBribe(TravelerData t)
     {
         t.bribeAmount = 0;
         t.bribeLine = "";
     }
 
-    static NewsStory Story(string headline, string body, int daysLater = 0, bool front = false) =>
+    internal static NewsStory Story(string headline, string body, int daysLater = 0, bool front = false) =>
         new NewsStory { headline = headline, body = body, daysLater = daysLater, frontPage = front };
 
-    static List<NewsStory> Stories(params NewsStory[] stories) => new List<NewsStory>(stories);
+    internal static List<NewsStory> Stories(params NewsStory[] stories) => new List<NewsStory>(stories);
 
     // Pass null for a position to hide the item in that view.
     // icon: name of a detailed X-ray picture made by XRayArt (e.g. "person"), or null for a plain shape.
-    static XRayItem Item(string label, XRayShape shape, float brightness,
+    internal static XRayItem Item(string label, XRayShape shape, float brightness,
         Vector2? sidePosition, Vector2 sideSize, Vector2? topPosition, Vector2 topSize, string icon = null)
     {
         var item = new XRayItem
@@ -297,12 +297,12 @@ public static class Day1StoryWriter
         return item;
     }
 
-    static Vector2 V(float x, float y) => new Vector2(x, y);
+    internal static Vector2 V(float x, float y) => new Vector2(x, y);
 
     // Loads a traveler asset, creating it (with a starting car color) if it doesn't exist yet.
-    static TravelerData Traveler(string assetName, Color colorIfNew)
+    internal static TravelerData Traveler(string assetName, Color colorIfNew, string folder = DayFolder)
     {
-        string path = $"{DayFolder}/{assetName}.asset";
+        string path = $"{folder}/{assetName}.asset";
         TravelerData traveler = AssetDatabase.LoadAssetAtPath<TravelerData>(path);
         if (traveler == null)
         {

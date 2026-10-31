@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D3_Chuy
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: "Jes\xFAs Valdez Mora"
+  passportNumber: MX-7781-JV
+  passportExpiry: 2027-11-20
+  registrationOwner: "Jes\xFAs Valdez Mora"
+  registrationPlate: CHH-2093
+  vehiclePlate: CHH-2093
+  vehicleColor: {r: 0.72, g: 0.38, b: 0.3, a: 1}
+  vehicleModel: {fileID: 11400000, guid: a331920dbfd016c4e8fc755bf5d95b8d, type: 2}
+  harmlessExtras:
+  - label: Toolbox
+    shape: 0
+    brightness: 0.75
+    sideSprite: {fileID: 21300000, guid: 6fe138e34c85e1741b6920d2a9378a1b, type: 3}
+    topSprite: {fileID: 21300000, guid: d5a93625e80946e47a402c33ee2eb108, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.22, y: 0.55}
+    sideViewSize: {x: 0.12, y: 0.18}
+    showInTopView: 1
+    topViewPosition: {x: 0.2, y: 0.5}
+    topViewSize: {x: 0.1, y: 0.35}
+  contraband:
+  - label: Package under the seat
+    shape: 0
+    brightness: 0.45
+    sideSprite: {fileID: 21300000, guid: 6af574ab70779094ba9d9238a3370063, type: 3}
+    topSprite: {fileID: 21300000, guid: 5ea513409483fbd4e9fdc6a01fb63070, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.66, y: 0.44}
+    sideViewSize: {x: 0.05, y: 0.083}
+    showInTopView: 1
+    topViewPosition: {x: 0.66, y: 0.36}
+    topViewSize: {x: 0.05, y: 0.11}
+  - label: Package in the spare
+    shape: 0
+    brightness: 0.45
+    sideSprite: {fileID: 21300000, guid: 6af574ab70779094ba9d9238a3370063, type: 3}
+    topSprite: {fileID: 21300000, guid: 5ea513409483fbd4e9fdc6a01fb63070, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.33, y: 0.22}
+    sideViewSize: {x: 0.05, y: 0.083}
+    showInTopView: 1
+    topViewPosition: {x: 0.33, y: 0.52}
+    topViewSize: {x: 0.05, y: 0.11}
+  - label: Package in the gas tank
+    shape: 0
+    brightness: 0.45
+    sideSprite: {fileID: 21300000, guid: 6af574ab70779094ba9d9238a3370063, type: 3}
+    topSprite: {fileID: 21300000, guid: 5ea513409483fbd4e9fdc6a01fb63070, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.47, y: 0.27}
+    sideViewSize: {x: 0.05, y: 0.083}
+    showInTopView: 1
+    topViewPosition: {x: 0.47, y: 0.28}
+    topViewSize: {x: 0.05, y: 0.11}
+  - label: Package under the tools
+    shape: 0
+    brightness: 0.45
+    sideSprite: {fileID: 21300000, guid: 6af574ab70779094ba9d9238a3370063, type: 3}
+    topSprite: {fileID: 21300000, guid: 5ea513409483fbd4e9fdc6a01fb63070, type: 3}
+    showInSideView: 0
+    sideViewPosition: {x: 0.5, y: 0.5}
+    sideViewSize: {x: 0.05, y: 0.083}
+    showInTopView: 1
+    topViewPosition: {x: 0.2, y: 0.62}
+    topViewSize: {x: 0.05, y: 0.11}
+  - label: Package in the door
+    shape: 0
+    brightness: 0.45
+    sideSprite: {fileID: 21300000, guid: 6af574ab70779094ba9d9238a3370063, type: 3}
+    topSprite: {fileID: 21300000, guid: 5ea513409483fbd4e9fdc6a01fb63070, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.76, y: 0.5}
+    sideViewSize: {x: 0.05, y: 0.083}
+    showInTopView: 0
+    topViewPosition: {x: 0.5, y: 0.5}
+    topViewSize: {x: 0.05, y: 0.11}
+  boothLines:
+  - Hey, jefe. ...Hey. Third time, eh? We're basically friends now. Are we friends?
+  - Hot today. Is it hot? It's hot. The truck has no AC. That's why I'm sweating.
+    That's the only reason.
+  - Just going to work. Normal day. Normal Chuy. Normal truck. Nothing in it. I mean,
+    normal stuff in it. Tools.
+  - Can you go a little fast today? Not for any reason. I'm just late. Normal late.
+  lineIfApproved: ...Thank you. One time. They said just one time. Then I'm out.
+    ...They said one time, right?
+  lineIfRejected: Back? Jefe, I can't go back with it. And I can't go back without
+    it. ...Okay. I'll figure it out. I always figure it out.
+  lineIfImprisoned: No, no, no, jefe, please! They know where my mom lives! They
+    sent me a picture of Neto's kids outside their school. If this doesn't get there,
+    they don't come for me. They go for THEM. Please!
+  returnVisits: []
+  bribeAmount: 200
+  bribeLine: Jefe. Please. Two hundred. It's not even mine, it's theirs. They don't
+    care about the money. They care that it gets there.
+  newsIfApproved:
+  - headline: Four Dead in Albuquerque Overdose Cluster
+    body: The pills were pressed to look like ordinary painkillers. Neighbors at
+      two of the homes remember a red pickup with Chihuahua plates.
+    daysLater: 0
+    frontPage: 1
+  - headline: Diesel Shop Loses Its Best Mechanic
+    body: '"Said he found something that paid better," the owner said. "He didn''t
+      look happy about it."'
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: "Red Pickup Found on Ju\xE1rez Overpass, Engine Running"
+    body: 'The driver''s door was open. On the seat: a toolbox, a phone with 31 missed
+      calls, and a photo of two children outside a school.'
+    daysLater: 0
+    frontPage: 1
+  newsIfImprisoned:
+  - headline: Record Drug Seizure at the Bridge
+    body: Federal officials called it "a major win." The driver, 26, did not ask
+      for a lawyer. He asked for a phone.
+    daysLater: 0
+    frontPage: 1
+  - headline: "Ju\xE1rez Family Leaves Home Overnight"
+    body: Neighbors found the door open and a pot still warm on the stove. Before
+      dawn, a man was seen putting two children in a car. He did not say where they
+      were going.
+    daysLater: 0
+    frontPage: 0

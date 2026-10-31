@@ -117,7 +117,7 @@ public class GameDirector : MonoBehaviour
         // when they reach the booth; you can decide once the scan is done.
         Coroutine scan = StartCoroutine(stage.ScanCar());
         yield return stage.DriverWalksToBooth();
-        desk.ShowTraveler(traveler);
+        desk.ShowTraveler(traveler, BoothLinesFor(traveler));
         yield return scan;
 
         if (tutorial)
@@ -333,6 +333,15 @@ public class GameDirector : MonoBehaviour
             case Decision.Reject: return "REJECTED";
             default: return "IMPRISONED";
         }
+    }
+
+    // Someone you've met before remembers what you did to them last time.
+    List<string> BoothLinesFor(TravelerData traveler)
+    {
+        foreach (ReturnVisit visit in traveler.returnVisits)
+            if (history.Any(r => r.traveler == visit.earlierVisit && r.decision == visit.decisionThen))
+                return visit.boothLines;
+        return traveler.boothLines;
     }
 
     static string FarewellLine(TravelerData traveler, Decision decision)

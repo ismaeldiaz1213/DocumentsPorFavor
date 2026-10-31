@@ -78,7 +78,7 @@ public class DeskUI : MonoBehaviour
         moneyText.text = $"SAVINGS {Money.Format(money)}";
     }
 
-    public void ShowTraveler(TravelerData traveler)
+    public void ShowTraveler(TravelerData traveler, List<string> boothLines)
     {
         passport.SetActive(true);
         passportName.text = traveler.passportName;
@@ -94,7 +94,7 @@ public class DeskUI : MonoBehaviour
 
         speakerText.text = traveler.passportName;
         pendingLines.Clear();
-        foreach (string line in traveler.boothLines)
+        foreach (string line in boothLines)
             pendingLines.Enqueue(line);
         lineText.text = "";
         NextLine();

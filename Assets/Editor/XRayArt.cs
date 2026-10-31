@@ -29,6 +29,18 @@ public static class XRayArt
         SaveIcon("gift", GiftSide(), GiftTop());
         SaveIcon("trumpet", TrumpetSide(), TrumpetTop());
         SaveIcon("guitar", GuitarSide(), GuitarTop());
+
+        // Days 2 and 3
+        SaveIcon("child", ChildSide(), ChildTop());
+        SaveIcon("brick", BrickSide(), BrickTop());
+        SaveIcon("cooler", CoolerSide(), CoolerTop());
+        SaveIcon("golf", GolfSide(), GolfTop());
+        SaveIcon("rotors", RotorsSide(), RotorsTop());
+        SaveIcon("belt", BeltSide(), BeltTop());
+        SaveIcon("chair", ChairSide(), ChairTop());
+        SaveIcon("suitcase", SuitcaseSide(), SuitcaseTop());
+        SaveIcon("peyote", PeyoteSide(), PeyoteTop());
+        SaveIcon("flag", FlagSide(), FlagTop());
     }
 
     static void SaveVehicle(string model, XRayCanvas side, XRayCanvas top)
@@ -579,6 +591,225 @@ public static class XRayArt
         c.Ellipse(9, 9, 8f, 7f, 1.5f, 0.55f);
         c.Line(16, 9, 23, 9, 0.6f);
         c.Line(16, 10, 23, 10, 0.6f);
+        return c;
+    }
+
+    // ---------- Days 2 and 3: people ----------
+
+    // A small child lying on their side, folded up under a seat.
+    static XRayCanvas ChildSide()
+    {
+        var c = new XRayCanvas(14, 16);
+        c.FillEllipse(7, 6, 4.5f, 5f, 0.15f);             // body
+        c.FillEllipse(10, 12, 3f, 3.2f, 0.17f);           // head, big for the body
+        c.Ellipse(10, 12, 2.7f, 2.9f, 0.9f, 0.3f);        // skull
+        for (int i = 0; i < 5; i++)                       // small curved spine
+        {
+            float t = i / 4f;
+            c.Disc(Mathf.Lerp(8.5f, 4.5f, t) - Mathf.Sin(t * Mathf.PI), Mathf.Lerp(9.5f, 3f, t), 0.5f, 0.24f);
+        }
+        c.Line(5, 3, 11, 5, 0.26f);                       // thigh
+        c.Line(11, 5, 10.5f, 0, 0.24f);                   // shin
+        c.Line(9, 8, 12, 6, 0.18f);                       // arm
+        return c;
+    }
+
+    static XRayCanvas ChildTop()
+    {
+        var c = new XRayCanvas(14, 14);
+        c.FillEllipse(7, 6, 4.5f, 4f, 0.15f);
+        c.FillEllipse(7, 10.5f, 2.8f, 2.6f, 0.17f);
+        c.Ellipse(7, 10.5f, 2.5f, 2.3f, 0.8f, 0.28f);
+        for (int i = 0; i < 4; i++)
+            c.Disc(7, 8 - i * 1.3f, 0.5f, 0.24f);
+        c.Line(3.5f, 7, 4, 2, 0.18f);
+        c.Line(10.5f, 7, 10, 2, 0.18f);
+        return c;
+    }
+
+    // ---------- Days 2 and 3: contraband ----------
+
+    // A taped package: dense powder, wrapped in layers.
+    static XRayCanvas BrickSide()
+    {
+        var c = new XRayCanvas(10, 6);
+        c.FillRect(0, 0, 9, 5, 0.42f);
+        c.Rect(0, 0, 9, 5, 0.3f);
+        c.Line(3, 0, 3, 5, 0.2f);                         // tape
+        c.Line(6, 0, 6, 5, 0.2f);
+        return c;
+    }
+
+    static XRayCanvas BrickTop()
+    {
+        var c = new XRayCanvas(10, 8);
+        c.FillRect(0, 0, 9, 7, 0.42f);
+        c.Rect(0, 0, 9, 7, 0.3f);
+        c.Line(0, 0, 9, 7, 0.15f);                        // tape, crossed
+        c.Line(0, 7, 9, 0, 0.15f);
+        return c;
+    }
+
+    // A sack of dried cactus buttons: soft, lumpy, easy to mistake for groceries.
+    static XRayCanvas PeyoteSide()
+    {
+        var c = new XRayCanvas(16, 12);
+        c.FillEllipse(8, 5.5f, 7.5f, 5.5f, 0.12f);
+        c.Line(6, 11, 10, 11, 0.3f);                      // tied neck
+        for (int i = 0; i < 9; i++)
+            c.Disc(3 + (i % 3) * 5 + (i / 3 % 2), 2.5f + (i / 3) * 3, 1.6f, 0.18f);
+        return c;
+    }
+
+    static XRayCanvas PeyoteTop()
+    {
+        var c = new XRayCanvas(16, 14);
+        c.FillEllipse(8, 7, 7.5f, 6.5f, 0.12f);
+        for (int i = 0; i < 12; i++)
+            c.Disc(3 + (i % 4) * 3.4f, 3 + (i / 4) * 4, 1.5f, 0.18f);
+        return c;
+    }
+
+    // ---------- Days 2 and 3: luggage ----------
+
+    static XRayCanvas CoolerSide()
+    {
+        var c = new XRayCanvas(18, 14);
+        c.FillRect(0, 0, 17, 11, 0.2f);
+        c.Rect(0, 0, 17, 11, 0.45f);
+        c.Line(0, 12, 17, 12, 0.45f);                     // lid
+        for (int x = 2; x < 16; x += 3)                   // cans standing up
+            c.FillRect(x, 1, x + 1, 7, 0.55f);
+        return c;
+    }
+
+    static XRayCanvas CoolerTop()
+    {
+        var c = new XRayCanvas(18, 12);
+        c.FillRect(0, 0, 17, 11, 0.2f);
+        c.Rect(0, 0, 17, 11, 0.45f);
+        for (int y = 3; y < 11; y += 3)
+            for (int x = 3; x < 16; x += 3)
+                c.Ring(x, y, 1.2f, 0.6f, 0.6f);           // can tops
+        return c;
+    }
+
+    // A golf bag lying down: shafts are thin bright lines, heads are dense lumps.
+    static XRayCanvas GolfSide()
+    {
+        var c = new XRayCanvas(30, 8);
+        c.FillRect(0, 1, 22, 6, 0.15f);                   // bag
+        for (int i = 0; i < 4; i++)
+        {
+            c.Line(2, 2 + i, 26 + i % 2, 2 + i, 0.6f);    // shafts
+            c.FillEllipse(27 + i % 2, 2 + i, 2f, 1f, 0.9f); // club heads
+        }
+        return c;
+    }
+
+    static XRayCanvas GolfTop()
+    {
+        var c = new XRayCanvas(30, 8);
+        c.FillRect(0, 2, 22, 5, 0.15f);
+        for (int i = 0; i < 3; i++)
+        {
+            c.Line(2, 2.5f + i, 26, 2 + i * 1.5f, 0.6f);
+            c.Disc(27, 2 + i * 1.5f, 1.4f, 0.9f);
+        }
+        return c;
+    }
+
+    // A box of brake rotors: heavy iron discs, the brightest thing in the truck.
+    static XRayCanvas RotorsSide()
+    {
+        var c = new XRayCanvas(14, 10);
+        c.Rect(0, 0, 13, 9, 0.3f);
+        for (int i = 0; i < 4; i++)
+            c.FillRect(1, 1 + i * 2, 12, 1 + i * 2, 0.9f);
+        return c;
+    }
+
+    static XRayCanvas RotorsTop()
+    {
+        var c = new XRayCanvas(14, 14);
+        c.Rect(0, 0, 13, 13, 0.3f);
+        c.Ring(7, 7, 5.5f, 2f, 0.9f);
+        c.Ring(7, 7, 2f, 1f, 0.9f);
+        return c;
+    }
+
+    // A championship belt: leather (faint) with a big metal plate in the middle.
+    static XRayCanvas BeltSide()
+    {
+        var c = new XRayCanvas(20, 8);
+        c.FillRect(0, 2, 19, 5, 0.18f);
+        c.FillEllipse(10, 3.5f, 4.5f, 3.5f, 0.85f);
+        c.Disc(4, 3.5f, 1.4f, 0.7f);
+        c.Disc(16, 3.5f, 1.4f, 0.7f);
+        return c;
+    }
+
+    static XRayCanvas BeltTop() => BeltSide();
+
+    // A folded steel chair. Every wrestler brings one. Nobody knows why.
+    static XRayCanvas ChairSide()
+    {
+        var c = new XRayCanvas(14, 16);
+        c.Line(2, 0, 11, 15, 0.85f);
+        c.Line(11, 0, 2, 15, 0.85f);
+        c.Line(4, 9, 13, 9, 0.8f);                        // seat, folded
+        c.Line(2, 15, 6, 15, 0.8f);
+        return c;
+    }
+
+    static XRayCanvas ChairTop()
+    {
+        var c = new XRayCanvas(14, 14);
+        c.Rect(1, 1, 12, 12, 0.85f);
+        c.Rect(3, 3, 10, 10, 0.5f);
+        return c;
+    }
+
+    static XRayCanvas SuitcaseSide()
+    {
+        var c = new XRayCanvas(18, 14);
+        c.FillRect(0, 1, 17, 11, 0.2f);
+        c.Rect(0, 1, 17, 11, 0.4f);
+        c.Line(6, 12, 11, 12, 0.6f);                      // handle
+        c.Line(6, 11, 6, 12, 0.6f);
+        c.Line(11, 11, 11, 12, 0.6f);
+        c.Disc(2, 0.5f, 1f, 0.7f);                        // wheels
+        c.Disc(15, 0.5f, 1f, 0.7f);
+        c.Line(2, 4, 15, 8, 0.12f);                       // folded clothes
+        c.Line(2, 7, 15, 5, 0.12f);
+        return c;
+    }
+
+    static XRayCanvas SuitcaseTop()
+    {
+        var c = new XRayCanvas(18, 12);
+        c.FillRect(0, 0, 17, 11, 0.2f);
+        c.Rect(0, 0, 17, 11, 0.4f);
+        c.Line(1, 5, 16, 5, 0.6f);                        // zipper frame
+        c.Line(3, 2, 14, 9, 0.12f);
+        return c;
+    }
+
+    // A folded flag in a triangular wooden case. Thin from the side.
+    static XRayCanvas FlagSide()
+    {
+        var c = new XRayCanvas(16, 4);
+        c.FillRect(0, 0, 15, 3, 0.25f);
+        c.Rect(0, 0, 15, 3, 0.4f);
+        return c;
+    }
+
+    static XRayCanvas FlagTop()
+    {
+        var c = new XRayCanvas(16, 10);
+        c.Polygon(new[] { V(0, 0), V(15, 0), V(7.5f, 9) }, 0.25f, 0.45f);
+        c.Line(2.5f, 1, 7.5f, 7, 0.15f);                  // folds
+        c.Line(12.5f, 1, 7.5f, 7, 0.15f);
         return c;
     }
 

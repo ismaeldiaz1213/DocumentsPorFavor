@@ -36,6 +36,10 @@ public class TravelerData : ScriptableObject
     [TextArea] public string lineIfRejected;
     [TextArea] public string lineIfImprisoned;
 
+    [Header("Coming back (someone you've met before)")]
+    [Tooltip("If you made this decision on an earlier visit, they say these booth lines instead. First match wins.")]
+    public List<ReturnVisit> returnVisits = new List<ReturnVisit>();
+
     [Header("Bribe (leave amount at 0 for no bribe)")]
     public int bribeAmount;
     [TextArea] public string bribeLine;
@@ -57,4 +61,14 @@ public class TravelerData : ScriptableObject
         }
     }
     public bool OffersBribe => bribeAmount > 0;
+}
+
+// "If you approved/rejected/imprisoned me last time, I say this instead."
+[System.Serializable]
+public class ReturnVisit
+{
+    [Tooltip("The traveler asset from the earlier day (e.g. Day 1's Chuy).")]
+    public TravelerData earlierVisit;
+    public Decision decisionThen;
+    [TextArea] public List<string> boothLines = new List<string>();
 }

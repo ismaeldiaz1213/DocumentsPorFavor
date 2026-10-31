@@ -58,6 +58,7 @@ MonoBehaviour:
     a cell phone.
   lineIfImprisoned: For an EXPIRED PASSPORT? At least let me bring the trumpet. The
     cell needs music.
+  returnVisits: []
   bribeAmount: 0
   bribeLine: 
   newsIfApproved:

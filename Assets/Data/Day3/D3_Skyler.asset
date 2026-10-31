@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D3_Skyler
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  passportName: Skyler Brennan-Oakes
+  passportNumber: US-7734-SB
+  passportExpiry: 2033-02-14
+  registrationOwner: Skyler Brennan-Oakes
+  registrationPlate: OR-482-KMB
+  vehiclePlate: OR-482-KMB
+  vehicleColor: {r: 0.4, g: 0.56, b: 0.46, a: 1}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: Suitcase
+    shape: 0
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 6adb03a30e01bb449ab7efbd9795d3e1, type: 3}
+    topSprite: {fileID: 21300000, guid: a5c2395ad5e9f5d4cb8858a8e72aeb42, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.1, y: 0.47}
+    sideViewSize: {x: 0.09, y: 0.19}
+    showInTopView: 1
+    topViewPosition: {x: 0.1, y: 0.35}
+    topViewSize: {x: 0.09, y: 0.17}
+  contraband:
+  - label: Sack of peyote
+    shape: 1
+    brightness: 0.4
+    sideSprite: {fileID: 21300000, guid: 719ba64f1a7f7e3478f9c0116e9502e6, type: 3}
+    topSprite: {fileID: 21300000, guid: a9b924452778e8340a61bf0a363e8f88, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.19, y: 0.47}
+    sideViewSize: {x: 0.08, y: 0.17}
+    showInTopView: 1
+    topViewPosition: {x: 0.17, y: 0.66}
+    topViewSize: {x: 0.08, y: 0.19}
+  - label: Sack of peyote
+    shape: 1
+    brightness: 0.4
+    sideSprite: {fileID: 21300000, guid: 719ba64f1a7f7e3478f9c0116e9502e6, type: 3}
+    topSprite: {fileID: 21300000, guid: a9b924452778e8340a61bf0a363e8f88, type: 3}
+    showInSideView: 0
+    sideViewPosition: {x: 0.5, y: 0.5}
+    sideViewSize: {x: 0, y: 0}
+    showInTopView: 1
+    topViewPosition: {x: 0.62, y: 0.72}
+    topViewSize: {x: 0.08, y: 0.19}
+  boothLines:
+  - 'Hey! Hi. Hola. Before anything, I just want to say: I see you. This system is
+    violent, and you''re part of it, but, like, with dignity.'
+  - I was in Oaxaca for a retreat. Plant medicine. So healing. My facilitator says
+    I'm basically indigenous now. Spiritually.
+  - Everything in the trunk is ceremonial. It's sacred? So it's not really "drugs."
+    It's more like... a relationship.
+  - Do you know the history of this land? I could tell you. I took a class. It's
+    a whole thing.
+  lineIfApproved: Thank you. I'm going to sit with this. Literally. I'm going to
+    sit with all of it.
+  lineIfRejected: That's fine. Honestly? I was thinking about moving to Oaxaca anyway.
+    It's SO cheap.
+  lineIfImprisoned: Wait. This is actually so meaningful? I'm experiencing the system?
+    Can I get my phone back, for documentation?
+  returnVisits: []
+  bribeAmount: 100
+  bribeLine: Okay, so I'm deeply against bribery as a colonial structure. But hypothetically,
+    is a hundred enough? That's like one sound bath. I can Venmo.
+  newsIfApproved:
+  - headline: Three Hospitalized After Austin "Plant Ceremony"
+    body: Organizers called it "a misunderstanding about the dosage." Tickets were
+      $1,200. They were not refunded.
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: American Opens Wellness Retreat in Oaxaca
+    body: He bought the land from a local family "for basically nothing." "They were
+      so grateful," he said. The family now works the front desk.
+    daysLater: 0
+    frontPage: 0
+  newsIfImprisoned:
+  - headline: Released After Four Hours, Austin Man Launches Podcast
+    body: The first episode, "My Time Inside," runs three hours. Detainees who were
+      held longer than four hours were not interviewed.
+    daysLater: 0
+    frontPage: 0
