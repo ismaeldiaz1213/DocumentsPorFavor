@@ -29,6 +29,10 @@ public class CarView : MonoBehaviour
         body.color = traveler.vehicleColor;
         name = "Car - " + traveler.name;
 
+        // The driver wears their own face and clothes (drawn by PortraitArt).
+        Sprite walker = PortraitArt.Body(traveler.face);
+        if (walker != null) driver.GetComponent<SpriteRenderer>().sprite = walker;
+
         // Swap in this traveler's kind of vehicle (sedan, pickup, van...).
         VehicleModel model = traveler.vehicleModel;
         if (model != null && model.bodySprite != null)

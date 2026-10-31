@@ -12,9 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
   m_Name: D3_Beto
   m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  face:
+    skin: 2
+    hair: 1
+    hairColor: {r: 0.22745098, g: 0.20784314, b: 0.1882353, a: 1}
+    headwear: 1
+    headwearColor: {r: 0.14901961, g: 0.14509805, b: 0.18039216, a: 1}
+    mustache: 1
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 1
+    shirt: {r: 0.22745098, g: 0.22745098, b: 0.26666668, a: 1}
+  speakerName: 
   passportName: Roberto Salinas Cruz
   passportNumber: MX-2027-RS
+  nationality: MEX
   passportExpiry: 2037-07-29
+  photoIsSomeoneElse: 0
+  photoFace:
+    skin: 2
+    hair: 1
+    hairColor: {r: 0.17, g: 0.13, b: 0.11, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.35, g: 0.27, b: 0.21, a: 1}
+    mustache: 0
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.85, g: 0.81, b: 0.72, a: 1}
+  hasPermit: 1
+  permitName: Roberto Salinas Cruz
+  permitPurpose: "WORK \xB7 MUSICIAN"
+  permitExpiry: 2028-06-30
   registrationOwner: Roberto Salinas Cruz
   registrationPlate: JAL-0771
   vehiclePlate: JAL-0771
@@ -55,6 +86,10 @@ MonoBehaviour:
     ...Okay, in the car."
   lineIfRejected: But it's NEW. It still smells like the printer!
   lineIfImprisoned: AGAIN?! ...At least I know the guards' names now.
+  onlyIfApproved: {fileID: 0}
+  onlyIfNotApproved: {fileID: 0}
+  isFamily: 0
+  carriesFamily: 0
   returnVisits:
   - earlierVisit: {fileID: 11400000, guid: 04269b66648691543b312778a00a88fe, type: 2}
     decisionThen: 0

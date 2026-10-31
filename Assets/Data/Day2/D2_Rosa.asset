@@ -12,9 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
   m_Name: D2_Rosa
   m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  face:
+    skin: 3
+    hair: 2
+    hairColor: {r: 0.1254902, g: 0.09411765, b: 0.078431375, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.3529412, g: 0.27450982, b: 0.21176471, a: 1}
+    mustache: 0
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.36862746, g: 0.54901963, b: 0.53333336, a: 1}
+  speakerName: 
   passportName: Rosa Elena Medina Paz
   passportNumber: MX-2214-RM
+  nationality: MEX
   passportExpiry: 2028-09-03
+  photoIsSomeoneElse: 0
+  photoFace:
+    skin: 2
+    hair: 1
+    hairColor: {r: 0.17, g: 0.13, b: 0.11, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.35, g: 0.27, b: 0.21, a: 1}
+    mustache: 0
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.85, g: 0.81, b: 0.72, a: 1}
+  hasPermit: 1
+  permitName: Rosa Elena Medina Paz
+  permitPurpose: WORK
+  permitExpiry: 2028-01-15
   registrationOwner: Rosa Elena Medina Paz
   registrationPlate: SON-1187
   vehiclePlate: SON-1187
@@ -56,6 +87,10 @@ MonoBehaviour:
     there are.
   lineIfImprisoned: He's EIGHT. His father is not a good man. Please don't put him
     with the men. He's scared of the dark. Please tell them he's scared of the dark.
+  onlyIfApproved: {fileID: 0}
+  onlyIfNotApproved: {fileID: 0}
+  isFamily: 0
+  carriesFamily: 0
   returnVisits: []
   bribeAmount: 25
   bribeLine: Please. Twenty-five dollars. It's what I have until Friday. He's very

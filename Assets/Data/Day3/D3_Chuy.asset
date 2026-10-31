@@ -12,9 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
   m_Name: D3_Chuy
   m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  face:
+    skin: 3
+    hair: 1
+    hairColor: {r: 0.1254902, g: 0.09411765, b: 0.078431375, a: 1}
+    headwear: 2
+    headwearColor: {r: 0.65882355, g: 0.3137255, b: 0.24705882, a: 1}
+    mustache: 0
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.3647059, g: 0.47843137, b: 0.6, a: 1}
+  speakerName: 
   passportName: "Jes\xFAs Valdez Mora"
   passportNumber: MX-7781-JV
+  nationality: MEX
   passportExpiry: 2027-11-20
+  photoIsSomeoneElse: 0
+  photoFace:
+    skin: 2
+    hair: 1
+    hairColor: {r: 0.17, g: 0.13, b: 0.11, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.35, g: 0.27, b: 0.21, a: 1}
+    mustache: 0
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.85, g: 0.81, b: 0.72, a: 1}
+  hasPermit: 1
+  permitName: "Jes\xFAs Valdez Mora"
+  permitPurpose: WORK
+  permitExpiry: 2028-08-02
   registrationOwner: "Jes\xFAs Valdez Mora"
   registrationPlate: CHH-2093
   vehiclePlate: CHH-2093
@@ -102,6 +133,10 @@ MonoBehaviour:
   lineIfImprisoned: No, no, no, jefe, please! They know where my mom lives! They
     sent me a picture of Neto's kids outside their school. If this doesn't get there,
     they don't come for me. They go for THEM. Please!
+  onlyIfApproved: {fileID: 0}
+  onlyIfNotApproved: {fileID: 0}
+  isFamily: 0
+  carriesFamily: 0
   returnVisits: []
   bribeAmount: 200
   bribeLine: Jefe. Please. Two hundred. It's not even mine, it's theirs. They don't

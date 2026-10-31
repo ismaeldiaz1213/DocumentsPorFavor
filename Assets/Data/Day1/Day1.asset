@@ -14,8 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DayData
   dayNumber: 1
   todaysDate: 2027-08-01
+  permitsRequired: 0
+  xrayScanner: 0
+  registrationRequired: 0
+  memoTitle: "MEMO  \xB7  DAY 1"
+  memo: "Welcome to Booth 3.\n\nToday you check PASSPORTS only:\n    \xB7  Not expired.
+    Today's date is at the top of your screen.\n    \xB7  The photo must be the face
+    at your window.\n\nAll good: APPROVE. Anything wrong: REJECT.\n\nYou are paid
+    for every correct decision. Mistakes are citations. Reach -10 and you are done
+    here.\n\nThe shift ends at 19:00. The line does not care about your feelings.\n\n--
+    El Jefe"
+  shiftSeconds: 420
   travelers:
   - {fileID: 11400000, guid: f492872b37690a94488e27d3780197f9, type: 2}
-  - {fileID: 11400000, guid: abea7859380c2bd44b66d5c4d296138e, type: 2}
   - {fileID: 11400000, guid: 04269b66648691543b312778a00a88fe, type: 2}
+  - {fileID: 11400000, guid: bc248f5efbbd2fb468aa3dabc16f7d12, type: 2}
+  - {fileID: 11400000, guid: 0e9153a75d5f5ed49973691c6166b260, type: 2}
   - {fileID: 11400000, guid: 742853d8f85e5144faf6c20f8aaaf1c0, type: 2}

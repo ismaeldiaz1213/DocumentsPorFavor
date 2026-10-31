@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D1_Hector
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  face:
+    skin: 1
+    hair: 4
+    hairColor: {r: 0.22745098, g: 0.16470589, b: 0.1254902, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.3529412, g: 0.27450982, b: 0.21176471, a: 1}
+    mustache: 1
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.49411765, g: 0.49411765, b: 0.5254902, a: 1}
+  speakerName: 
+  passportName: "H\xE9ctor Lozano Pe\xF1a"
+  passportNumber: MX-1971-HL
+  nationality: MEX
+  passportExpiry: 2030-02-02
+  photoIsSomeoneElse: 1
+  photoFace:
+    skin: 1
+    hair: 5
+    hairColor: {r: 0.7254902, g: 0.7058824, b: 0.6666667, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.3529412, g: 0.27450982, b: 0.21176471, a: 1}
+    mustache: 1
+    beard: 0
+    glasses: 1
+    lipstick: 0
+    wrinkles: 1
+    shirt: {r: 0.91764706, g: 0.8745098, b: 0.76862746, a: 1}
+  hasPermit: 0
+  permitName: 
+  permitPurpose: 
+  permitExpiry: 
+  registrationOwner: "H\xE9ctor Lozano Pe\xF1a"
+  registrationPlate: CHH-7710
+  vehiclePlate: CHH-7710
+  vehicleColor: {r: 0.55, g: 0.6, b: 0.7, a: 1}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: Backpack
+    shape: 0
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 6adb03a30e01bb449ab7efbd9795d3e1, type: 3}
+    topSprite: {fileID: 21300000, guid: a5c2395ad5e9f5d4cb8858a8e72aeb42, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.36, y: 0.55}
+    sideViewSize: {x: 0.08, y: 0.17}
+    showInTopView: 1
+    topViewPosition: {x: 0.36, y: 0.62}
+    topViewSize: {x: 0.08, y: 0.17}
+  contraband: []
+  boothLines:
+  - "Good afternoon, sir. I am H\xE9ctor Lozano Pe\xF1a. Fifty-four years old. A
+    grown man. With a mortgage."
+  - The mustache? Yes. It's real. I grew it this morning. ...Over many years. This
+    morning I finished.
+  - I'm going to El Paso for business. Grown man business. Taxes. And then, after
+    the taxes, a concert.
+  - Please don't call my wife. She's very strict. She's my mom. My WIFE. She's my
+    wife.
+  lineIfApproved: 'YES! I mean: thank you, citizen. I will drive safely. As a grown
+    man.'
+  lineIfRejected: ...Can you not tell my dad? My dad is me. Can you not tell me?
+  lineIfImprisoned: I'M SIXTEEN! Okay? I'm sixteen. Please call my mom. Actually,
+    don't.
+  onlyIfApproved: {fileID: 0}
+  onlyIfNotApproved: {fileID: 0}
+  isFamily: 0
+  carriesFamily: 0
+  returnVisits: []
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: Teen Crowd-Surfs at El Paso Concert in Father's Reading Glasses
+    body: His parents learned about it from the local news. This is the local news.
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: "Ju\xE1rez Father Finds Passport in Son's Backpack"
+    body: '"Next to it, an eyebrow pencil," he said. "I don''t want to know."'
+    daysLater: 0
+    frontPage: 0
+  newsIfImprisoned:
+  - headline: Minor Held Overnight, Released to Parents
+    body: His mother described the drive home as "long."
+    daysLater: 0
+    frontPage: 0

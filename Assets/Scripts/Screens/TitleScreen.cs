@@ -19,8 +19,10 @@ public class TitleScreen : MonoBehaviour
     {
         started = false;
         root.SetActive(true);
+        Sfx.Loop(Sound.Music, true, 0.6f);
         while (!started)
             yield return null;
         root.SetActive(false);
+        Sfx.Loop(Sound.Music, false);
     }
 }

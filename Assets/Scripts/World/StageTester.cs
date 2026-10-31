@@ -12,7 +12,7 @@ public class StageTester : MonoBehaviour
     // Start can be a coroutine: Unity runs it step by step across frames.
     IEnumerator Start()
     {
-        stage.LineUp(day.travelers);
+        stage.OpenLane(day.travelers);
 
         for (int i = 0; i < day.travelers.Count; i++)
         {

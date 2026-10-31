@@ -5,50 +5,76 @@ using UnityEngine;
 
 public enum Decision { Approve, Reject, Imprison }
 
-// The rulebook: what the government says the "correct" call is.
+// The rulebook: what the government says the "correct" call is on a given day.
 // Pure logic, no scene objects, so it is easy to read and test.
+// Each day turns on more checks (see DayData): passports always, then permits,
+// then the X-ray, then the vehicle registration.
 public static class Rules
 {
     const string DateFormat = "yyyy-MM-dd";
 
-    // Every reason the paperwork is invalid. Empty list = paperwork is fine.
-    public static List<string> FindPaperworkProblems(TravelerData traveler, string todaysDate)
+    // Every reason the paperwork is invalid today. Empty list = paperwork is fine.
+    public static List<string> FindPaperworkProblems(TravelerData traveler, DayData day)
     {
         var problems = new List<string>();
 
-        if (!SameText(traveler.passportName, traveler.registrationOwner))
-            problems.Add("Passport name does not match registration owner");
-
-        if (!SameText(traveler.registrationPlate, traveler.vehiclePlate))
-            problems.Add("Registration plate does not match the car's plate");
-
-        if (!TryParseDate(traveler.passportExpiry, out DateTime expiry))
-        {
-            Debug.LogWarning($"{traveler.name}: passport expiry '{traveler.passportExpiry}' is not YYYY-MM-DD.", traveler);
-            problems.Add("Passport expiry date is unreadable");
-        }
-        else if (!TryParseDate(todaysDate, out DateTime today))
-        {
-            Debug.LogWarning($"Today's date '{todaysDate}' is not YYYY-MM-DD.");
-        }
-        else if (expiry < today)
-        {
+        // Passport: always.
+        if (traveler.photoIsSomeoneElse)
+            problems.Add("Passport photo is someone else");
+        if (IsExpired(traveler.passportExpiry, day.todaysDate, traveler, "passport expiry"))
             problems.Add("Passport is expired");
+
+        // Entry permit: from the day permits start, for everyone who isn't a US citizen.
+        if (day.permitsRequired && !traveler.IsUSCitizen)
+        {
+            if (!traveler.hasPermit)
+                problems.Add("No entry permit");
+            else
+            {
+                if (!SameText(traveler.permitName, traveler.passportName))
+                    problems.Add("Permit name does not match passport");
+                if (IsExpired(traveler.permitExpiry, day.todaysDate, traveler, "permit expiry"))
+                    problems.Add("Entry permit is expired");
+            }
+        }
+
+        // Vehicle registration: from the day it starts.
+        if (day.registrationRequired)
+        {
+            if (!SameText(traveler.passportName, traveler.registrationOwner))
+                problems.Add("Registration owner does not match passport");
+            if (!SameText(traveler.registrationPlate, traveler.vehiclePlate))
+                problems.Add("Registration plate does not match the car's plate");
         }
 
         return problems;
     }
 
-    // Contraband -> arrest. Bad paperwork -> turn back. Otherwise -> let them in.
-    public static Decision CorrectDecision(TravelerData traveler, string todaysDate)
+    // Contraband (once the scanner works) -> arrest. Bad paperwork -> turn back. Otherwise -> let them in.
+    public static Decision CorrectDecision(TravelerData traveler, DayData day)
     {
-        if (traveler.HasContraband)
+        if (day.xrayScanner && traveler.HasContraband)
             return Decision.Imprison;
 
-        if (FindPaperworkProblems(traveler, todaysDate).Count > 0)
+        if (FindPaperworkProblems(traveler, day).Count > 0)
             return Decision.Reject;
 
         return Decision.Approve;
+    }
+
+    static bool IsExpired(string expiryText, string todaysDate, TravelerData traveler, string what)
+    {
+        if (!TryParseDate(expiryText, out DateTime expiry))
+        {
+            Debug.LogWarning($"{traveler.name}: {what} '{expiryText}' is not YYYY-MM-DD.", traveler);
+            return true;
+        }
+        if (!TryParseDate(todaysDate, out DateTime today))
+        {
+            Debug.LogWarning($"Today's date '{todaysDate}' is not YYYY-MM-DD.");
+            return false;
+        }
+        return expiry < today;
     }
 
     static bool SameText(string a, string b) =>

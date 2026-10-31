@@ -72,6 +72,7 @@ public class XRayPanel : MonoBehaviour
             // Found in one view = found in both.
             if (found.Add(item))
             {
+                Sfx.Play(Sound.Found);
                 sideView.MarkFound(item);
                 topView.MarkFound(item);
             }
@@ -79,6 +80,7 @@ public class XRayPanel : MonoBehaviour
         }
 
         WrongClicks++;
+        Sfx.Play(Sound.Wrong);
         view.ShowMiss(point);
         if (boss != null) boss.Yell();
         WrongClicked?.Invoke();

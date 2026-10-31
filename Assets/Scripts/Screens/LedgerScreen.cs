@@ -54,11 +54,14 @@ public class LedgerScreen : MonoBehaviour
         PayFood = PayMedicine = PayNephew = true;
         Refresh();
 
+        Sfx.Play(Sound.Paper);
+        Sfx.Loop(Sound.Music, true, 0.5f);
         closed = false;
         root.SetActive(true);
         while (!closed)
             yield return null;
         root.SetActive(false);
+        Sfx.Loop(Sound.Music, false);
     }
 
     public int TotalAfterBills =>

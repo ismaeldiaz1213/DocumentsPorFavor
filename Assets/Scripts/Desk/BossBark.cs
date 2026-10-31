@@ -43,6 +43,7 @@ public class BossBark : MonoBehaviour
         lastLine = index;
 
         text.text = "BOSS: " + lines[index];
+        Sfx.Play(Sound.Boss);
         StopAllCoroutines();
         StartCoroutine(ClearAfterDelay());
     }

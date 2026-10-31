@@ -22,20 +22,22 @@ public static class Scoring
     public const int LetInCriminal = -3;    // approved a car with contraband (bribe or not)
     public const int WrongDecision = -1;    // any other wrong call
     public const int WrongClick = -1;       // clicked X-ray on something that isn't contraband (applied live)
+    public const int FiredAt = -10;         // a record this low and they take your badge
 
     // Citations earned when a car leaves the booth.
-    public static List<Citation> CitationsFor(TravelerData traveler, string todaysDate, Decision decision, int contrabandFound)
+    public static List<Citation> CitationsFor(TravelerData traveler, DayData day, Decision decision, int contrabandFound)
     {
         var citations = new List<Citation>();
 
-        int missed = traveler.contraband.Count - contrabandFound;
+        // Before the scanner arrives, nobody can be blamed for what they couldn't see.
+        int missed = day.xrayScanner ? traveler.contraband.Count - contrabandFound : 0;
         for (int i = 0; i < missed; i++)
             citations.Add(new Citation("Missed contraband on X-ray", MissedContraband));
 
-        Decision correct = Rules.CorrectDecision(traveler, todaysDate);
+        Decision correct = Rules.CorrectDecision(traveler, day);
         if (decision == correct) return citations;
 
-        if (decision == Decision.Approve && traveler.HasContraband)
+        if (decision == Decision.Approve && correct == Decision.Imprison)
             citations.Add(new Citation("Let in a smuggler", LetInCriminal));
         else
             citations.Add(new Citation(WrongDecisionReason(correct, decision), WrongDecision));

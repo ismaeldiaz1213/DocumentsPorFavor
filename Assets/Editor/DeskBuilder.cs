@@ -52,14 +52,20 @@ public static class DeskBuilder
         BuildHud(front, ui);
         BuildCitationSlip(front, ui);
         BuildDayBanner(front, ui);
+        BuildScannerCover(front, ui);
+        BuildMegaphone(front, ui, stage);
+        BuildRulebook(front, ui);
+
+        // Reminder on the counter, right above the X-ray monitor (once the scanner is installed).
+        TextMeshProUGUI hint = Label("XRayHint", front, "X-RAY  ·  CLICK ANYTHING HIDDEN IN THE CAR  ·  WRONG CLICK = -1 POINT",
+            15, Palette.Warning, TextAlignmentOptions.Center, 1250, 521, 640, 20, bold: true);
+        hint.transform.SetAsFirstSibling();
+        Ref(ui, "xrayHint", hint.gameObject);
         ui.ApplyModifiedPropertiesWithoutUndo();
 
-        // Always-visible reminder on the counter, right above the X-ray monitor.
-        Label("XRayHint", front, "X-RAY  ·  CLICK ANYTHING HIDDEN IN THE CAR  ·  WRONG CLICK = -1 POINT",
-            15, Palette.Warning, TextAlignmentOptions.Center, 1250, 521, 640, 20, bold: true).transform.SetAsFirstSibling();
-
         // Full-screen pages, in drawing order (the title ends up on top).
-        TutorialGuide guide = BuildTutorialGuide(front);
+        TutorialGuide guide = BuildTutorialGuide(front, desk, stage);
+        NoteScreen note = BuildNote(front);
         LedgerScreen ledger = BuildLedger(front);
         NewspaperScreen newspaper = BuildNewspaper(front);
         EndingScreen ending = BuildEnding(front);
@@ -71,7 +77,7 @@ public static class DeskBuilder
         GameObject placeholder = GameObject.Find("DeskPlaceholder");
         if (placeholder != null) placeholder.SetActive(false);
 
-        WireDirector(stage, xray, desk, title, guide, ledger, newspaper, ending);
+        WireDirector(stage, xray, desk, title, note, guide, ledger, newspaper, ending);
         AddSceneToBuild(canvas.gameObject.scene.path);
 
         EditorSceneManager.MarkSceneDirty(canvas.gameObject.scene);
@@ -94,41 +100,61 @@ public static class DeskBuilder
 
     static void BuildDialogue(Transform parent, SerializedObject ui)
     {
-        Image box = Panel("Dialogue", parent, 40, 330, 760, 175, Palette.WithAlpha(Palette.Speech, 0.95f));
-        Ref(ui, "speakerText", Label("Speaker", box.transform, "", 24, Palette.Warning, TextAlignmentOptions.Left, 20, 128, 720, 34, bold: true));
-        Ref(ui, "lineText", AutoSize(Label("Line", box.transform, "", 26, Palette.Paper, TextAlignmentOptions.TopLeft, 20, 12, 640, 112), 18));
-        Ref(ui, "nextLineButton", MakeButton("Next", box.transform, 680, 14, 64, 46, Palette.Metal, ">>", 22, out _));
+        // The booth window: whoever is talking shows their face here.
+        Image frame = Panel("BoothWindow", parent, 40, 330, 150, 175, Palette.Metal);
+        Image glass = Panel("Glass", frame.transform, 8, 8, 134, 159, Palette.Glass);
+        glass.gameObject.AddComponent<RectMask2D>(); // the face slides up from below the frame
+        Image face = Panel("Face", glass.transform, 7, 0, 120, 144, Color.white);
+        face.preserveAspect = true;
+        face.enabled = false;
+        Ref(ui, "windowFace", face);
+
+        Image box = Panel("Dialogue", parent, 200, 330, 600, 175, Palette.WithAlpha(Palette.Speech, 0.95f));
+        Ref(ui, "speakerText", Label("Speaker", box.transform, "", 22, Palette.Warning, TextAlignmentOptions.Left, 18, 132, 570, 32, bold: true));
+        Ref(ui, "lineText", AutoSize(Label("Line", box.transform, "", 25, Palette.Paper, TextAlignmentOptions.TopLeft, 18, 12, 490, 116), 16));
+        Ref(ui, "nextLineButton", MakeButton("Next", box.transform, 518, 14, 68, 46, Palette.Metal, ">>", 22, out TextMeshProUGUI nextLabel));
+        Ref(ui, "nextLineLabel", nextLabel);
     }
 
+    // Three documents side by side. Each one only appears on the days it's checked.
     static void BuildDocuments(Transform parent, SerializedObject ui)
     {
         // Passport
-        Image passport = Panel("Passport", parent, 40, 40, 370, 262, Palette.Paper);
+        Image passport = Panel("Passport", parent, 40, 40, 245, 262, Palette.Paper);
         Ref(ui, "passport", passport.gameObject);
-        DocumentHeader(passport.transform, "PASAPORTE · PASSPORT", Palette.PassportGreen);
-        Image photo = Panel("Photo", passport.transform, 18, 46, 92, 150, Palette.PaperShadow);
-        Panel("Head", photo.transform, 28, 84, 36, 40, Palette.WithAlpha(Palette.PaperInk, 0.35f));
-        Panel("Shoulders", photo.transform, 14, 16, 64, 60, Palette.WithAlpha(Palette.PaperInk, 0.35f));
+        DocumentHeader(passport.transform, "PASAPORTE · PASSPORT", Palette.PassportGreen, 245);
+        Image photoFrame = Panel("PhotoFrame", passport.transform, 12, 70, 84, 104, Palette.PaperShadow);
+        Image photo = Panel("Photo", photoFrame.transform, 4, 4, 76, 96, Color.white);
+        photo.preserveAspect = true;
+        Ref(ui, "passportPhoto", photo);
+        Ref(ui, "passportNumber", Label("Number", passport.transform, "", 13, Palette.WithAlpha(Palette.PaperInk, 0.7f), TextAlignmentOptions.Center, 6, 44, 96, 20));
 
-        Ref(ui, "passportName", Field(passport.transform, "NAME", 125, 166, 232, 22));
-        Ref(ui, "passportNumber", Field(passport.transform, "PASSPORT No.", 125, 108, 232, 22));
-        Ref(ui, "passportExpiry", Field(passport.transform, "EXPIRES", 125, 50, 232, 22));
+        Ref(ui, "passportName", Field(passport.transform, "NAME", 106, 166, 130, 18));
+        Ref(ui, "passportNationality", Field(passport.transform, "NATIONALITY", 106, 108, 130, 20));
+        Ref(ui, "passportExpiry", Field(passport.transform, "EXPIRES", 106, 50, 130, 20));
+
+        // Entry permit
+        Image permit = Panel("Permit", parent, 297, 40, 245, 262, Palette.Paper);
+        Ref(ui, "permit", permit.gameObject);
+        DocumentHeader(permit.transform, "ENTRY PERMIT · PERMISO", Palette.Bribe, 245);
+        Ref(ui, "permitName", Field(permit.transform, "NAME", 16, 166, 215, 20));
+        Ref(ui, "permitPurpose", Field(permit.transform, "PURPOSE", 16, 108, 215, 20));
+        Ref(ui, "permitExpiry", Field(permit.transform, "VALID UNTIL", 16, 50, 215, 20));
 
         // Registration
-        Image registration = Panel("Registration", parent, 430, 40, 370, 262, Palette.Paper);
+        Image registration = Panel("Registration", parent, 554, 40, 245, 262, Palette.Paper);
         Ref(ui, "registration", registration.gameObject);
-        DocumentHeader(registration.transform, "VEHICLE REGISTRATION", Palette.RegistrationBlue);
-
-        Ref(ui, "registrationOwner", Field(registration.transform, "OWNER", 20, 166, 330, 22));
-        Ref(ui, "registrationPlate", Field(registration.transform, "PLATE", 20, 108, 330, 28));
-        Ref(ui, "registrationModel", Field(registration.transform, "MODEL", 20, 50, 330, 22));
+        DocumentHeader(registration.transform, "VEHICLE REGISTRATION", Palette.RegistrationBlue, 245);
+        Ref(ui, "registrationOwner", Field(registration.transform, "OWNER", 16, 166, 215, 20));
+        Ref(ui, "registrationPlate", Field(registration.transform, "PLATE", 16, 108, 215, 26));
+        Ref(ui, "registrationModel", Field(registration.transform, "MODEL", 16, 50, 215, 20));
     }
 
-    static void DocumentHeader(Transform document, string title, Color color)
+    static void DocumentHeader(Transform document, string title, Color color, float width)
     {
-        Image header = Panel("Header", document, 0, 214, 370, 48, color);
-        TextMeshProUGUI label = Label("Title", header.transform, title, 20, Palette.Paper, TextAlignmentOptions.Center, 10, 4, 350, 40, bold: true);
-        AutoSize(label, 12);
+        Image header = Panel("Header", document, 0, 214, width, 48, color);
+        TextMeshProUGUI label = Label("Title", header.transform, title, 18, Palette.Paper, TextAlignmentOptions.Center, 8, 4, width - 16, 40, bold: true);
+        AutoSize(label, 11);
     }
 
     static void BuildPlateCam(Transform parent, SerializedObject ui)
@@ -154,11 +180,13 @@ public static class DeskBuilder
 
     static void BuildHud(Transform parent, SerializedObject ui)
     {
-        Image hud = Panel("HUD", parent, 20, 988, 560, 72, Palette.WithAlpha(Palette.Ink, 0.8f));
+        Image hud = Panel("HUD", parent, 20, 988, 720, 72, Palette.WithAlpha(Palette.Ink, 0.8f));
         hud.raycastTarget = false;
         Ref(ui, "dayText", Label("Day", hud.transform, "DAY 1", 24, Palette.Paper, TextAlignmentOptions.Left, 16, 36, 530, 32, bold: true));
-        Ref(ui, "pointsText", Label("Points", hud.transform, "POINTS 0", 22, Palette.Warning, TextAlignmentOptions.Left, 16, 6, 250, 30));
-        Ref(ui, "moneyText", Label("Money", hud.transform, "SAVINGS $0", 22, Palette.Bribe, TextAlignmentOptions.Left, 280, 6, 270, 30));
+        Ref(ui, "pointsText", Label("Points", hud.transform, "RECORD 0", 21, Palette.Paper, TextAlignmentOptions.Left, 16, 6, 330, 30));
+        Ref(ui, "moneyText", Label("Money", hud.transform, "SAVINGS $0", 21, Palette.Bribe, TextAlignmentOptions.Left, 350, 6, 200, 30));
+        Panel("ClockFace", hud.transform, 560, 6, 150, 60, Palette.Ink);
+        Ref(ui, "clockText", Label("Clock", hud.transform, "07:00", 40, Palette.Warning, TextAlignmentOptions.Center, 560, 6, 150, 60, bold: true));
     }
 
     static void BuildCitationSlip(Transform parent, SerializedObject ui)
@@ -182,13 +210,70 @@ public static class DeskBuilder
         banner.gameObject.SetActive(false);
     }
 
+    // A dark cover over the X-ray monitor until the day the scanner is installed.
+    static void BuildScannerCover(Transform parent, SerializedObject ui)
+    {
+        Image cover = Panel("ScannerCover", parent, 1240, 8, 670, 508, Palette.WithAlpha(Palette.Ink, 0.96f));
+        Ref(ui, "scannerCover", cover.gameObject);
+        for (int i = 0; i < 6; i++)
+            Panel("Stripe", cover.transform, 0, 40 + i * 76, 670, 14, Palette.WithAlpha(Palette.Warning, 0.12f));
+        Label("Text", cover.transform, "X-RAY SCANNER\n<size=55%>INSTALLATION PENDING\nTHANK YOU FOR YOUR PATIENCE</size>",
+            44, Palette.Warning, TextAlignmentOptions.Center, 20, 120, 630, 260, bold: true);
+    }
+
+    // The NEXT megaphone hangs on the booth in the world view (WorldAnchor keeps it there).
+    static void BuildMegaphone(Transform parent, SerializedObject ui, CheckpointStage stage)
+    {
+        var boothDoor = (Transform)new SerializedObject(stage).FindProperty("boothDoor").objectReferenceValue;
+
+        Button megaphone = MakeButton("Megaphone", parent, 0, 0, 190, 70, Palette.Warning, "", 30, out TextMeshProUGUI label);
+        label.text = "NEXT";
+        label.color = Palette.Ink;
+        label.alignment = TextAlignmentOptions.Right;
+        label.rectTransform.offsetMax = new Vector2(-18, 0);
+        // A little megaphone drawn from boxes: handle, body, and the wide mouth.
+        Panel("Handle", megaphone.transform, 22, 16, 10, 22, Palette.Ink);
+        Panel("Body", megaphone.transform, 22, 30, 26, 16, Palette.Ink);
+        Panel("Mouth", megaphone.transform, 48, 20, 14, 36, Palette.Ink);
+        Panel("Sound1", megaphone.transform, 68, 30, 4, 16, Palette.Ink);
+        Anchor(megaphone.gameObject, boothDoor, new Vector3(0.9f, 0.9f, 0f));
+        Ref(ui, "megaphoneButton", megaphone);
+
+        Image shout = Panel("Shout", parent, 0, 0, 270, 64, Palette.Paper);
+        shout.raycastTarget = false;
+        Label("Text", shout.transform, "¡SIGUIENTE!", 34, Palette.PaperInk, TextAlignmentOptions.Center, 0, 0, 270, 64, bold: true);
+        Anchor(shout.gameObject, boothDoor, new Vector3(0.9f, 1.75f, 0f));
+        Ref(ui, "megaphoneShout", shout.gameObject);
+    }
+
+    static void Anchor(GameObject go, Transform target, Vector3 offset)
+    {
+        var anchor = new SerializedObject(go.AddComponent<WorldAnchor>());
+        Ref(anchor, "target", target);
+        anchor.FindProperty("offset").vector3Value = offset;
+        anchor.ApplyModifiedPropertiesWithoutUndo();
+    }
+
+    static void BuildRulebook(Transform parent, SerializedObject ui)
+    {
+        Ref(ui, "rulebookButton", MakeButton("RulesButton", parent, 760, 1000, 160, 56, Palette.PassportGreen, "RULES", 26, out _));
+
+        Image page = Panel("Rulebook", parent, 460, 560, 1000, 470, Palette.Paper);
+        Ref(ui, "rulebookPage", page.gameObject);
+        Image header = Panel("Header", page.transform, 0, 410, 1000, 60, Palette.PassportGreen);
+        Label("Title", header.transform, "RULEBOOK  ·  SANTA TERESA PORT OF ENTRY", 26, Palette.Paper, TextAlignmentOptions.Center, 0, 0, 1000, 60, bold: true);
+        Ref(ui, "rulebookText", AutoSize(Label("Text", page.transform, "", 24, Palette.PaperInk, TextAlignmentOptions.TopLeft, 40, 80, 920, 320), 14));
+        Ref(ui, "rulebookCloseButton", MakeButton("Close", page.transform, 820, 16, 160, 52, Palette.Imprison, "CLOSE", 22, out _));
+        page.gameObject.SetActive(false);
+    }
+
     // ---------- Pages ----------
 
     static TitleScreen BuildTitle(Transform parent)
     {
         RectTransform root = Dim("TitleScreen", parent, 0.82f);
         Label("Title", root, "DOCUMENTS, POR FAVOR!", 110, Palette.Warning, TextAlignmentOptions.Center, 0, 700, 1920, 150, bold: true);
-        Label("Subtitle", root, "Three days at the border.", 36, Palette.Paper, TextAlignmentOptions.Center, 0, 630, 1920, 60);
+        Label("Subtitle", root, "Four days at the border.", 36, Palette.Paper, TextAlignmentOptions.Center, 0, 630, 1920, 60);
 
         Image note = Panel("ContentNote", root, 510, 330, 900, 210, Palette.WithAlpha(Palette.Speech, 0.95f));
         Label("Heading", note.transform, "CONTENT NOTE", 22, Palette.Warning, TextAlignmentOptions.Center, 20, 160, 860, 36, bold: true);
@@ -209,32 +294,39 @@ public static class DeskBuilder
         return title;
     }
 
-    static TutorialGuide BuildTutorialGuide(Transform parent)
+    // José has no panel of his own: he talks in the desk's dialogue box and walks around the world.
+    static TutorialGuide BuildTutorialGuide(Transform parent, DeskUI desk, CheckpointStage stage)
     {
-        Image box = Panel("TutorialGuide", parent, 1180, 810, 720, 240, Palette.WithAlpha(Palette.Speech, 0.96f));
-
-        // A tiny portrait of Primo José: hat, face, mustache.
-        Image portrait = Panel("Portrait", box.transform, 20, 64, 120, 156, Palette.Glass);
-        Panel("Shirt", portrait.transform, 14, 0, 92, 40, Palette.Reject);
-        Panel("Face", portrait.transform, 32, 40, 56, 62, new Color32(0xC6, 0x9C, 0x72, 0xFF));
-        Panel("Mustache", portrait.transform, 40, 56, 40, 10, Palette.Ink);
-        Panel("Eyes", portrait.transform, 44, 80, 32, 6, Palette.Ink);
-        Panel("HatBrim", portrait.transform, 10, 100, 100, 12, Palette.DeskWood);
-        Panel("HatCrown", portrait.transform, 34, 112, 52, 30, Palette.DeskWood);
-
-        Label("Name", box.transform, "PRIMO JOSÉ", 24, Palette.Warning, TextAlignmentOptions.Left, 160, 192, 540, 34, bold: true);
-        TextMeshProUGUI line = AutoSize(Label("Line", box.transform, "", 24, Palette.Paper, TextAlignmentOptions.TopLeft, 160, 64, 540, 124), 16);
-        Button ok = MakeButton("OK", box.transform, 560, 12, 140, 44, Palette.Approve, "OK", 22, out _);
-
         TutorialGuide guide = parent.gameObject.AddComponent<TutorialGuide>();
         var so = new SerializedObject(guide);
-        Ref(so, "root", box.gameObject);
-        Ref(so, "lineText", line);
-        Ref(so, "okButton", ok);
+        Ref(so, "desk", desk);
+        Ref(so, "stage", stage);
+        so.ApplyModifiedPropertiesWithoutUndo();
+        return guide;
+    }
+
+    // A sheet of paper for the intro story and the jefe's morning memos.
+    static NoteScreen BuildNote(Transform parent)
+    {
+        RectTransform root = Dim("Note", parent, 0.9f);
+        Image sheet = Panel("Sheet", root, 410, 100, 1100, 880, Palette.Paper);
+        Transform s = sheet.transform;
+        TextMeshProUGUI title = Label("Title", s, "", 48, Palette.PaperInk, TextAlignmentOptions.Center, 40, 780, 1020, 70, bold: true);
+        Panel("Rule", s, 40, 770, 1020, 3, Palette.PaperShadow);
+        TextMeshProUGUI body = AutoSize(Label("Body", s, "", 30, Palette.PaperInk, TextAlignmentOptions.TopLeft, 70, 140, 960, 610), 16);
+        Button button = MakeButton("Button", s, 400, 40, 300, 70, Palette.Approve, "BEGIN", 28, out TextMeshProUGUI buttonLabel);
+
+        NoteScreen note = parent.gameObject.AddComponent<NoteScreen>();
+        var so = new SerializedObject(note);
+        Ref(so, "root", root.gameObject);
+        Ref(so, "titleText", title);
+        Ref(so, "bodyText", body);
+        Ref(so, "button", button);
+        Ref(so, "buttonLabel", buttonLabel);
         so.ApplyModifiedPropertiesWithoutUndo();
 
-        box.gameObject.SetActive(false);
-        return guide;
+        root.gameObject.SetActive(false);
+        return note;
     }
 
     static LedgerScreen BuildLedger(Transform parent)
@@ -363,7 +455,7 @@ public static class DeskBuilder
 
     // ---------- Wiring ----------
 
-    static void WireDirector(CheckpointStage stage, XRayPanel xray, DeskUI desk, TitleScreen title,
+    static void WireDirector(CheckpointStage stage, XRayPanel xray, DeskUI desk, TitleScreen title, NoteScreen note,
         TutorialGuide guide, LedgerScreen ledger, NewspaperScreen newspaper, EndingScreen ending)
     {
         GameObject host = stage.gameObject;
@@ -379,6 +471,7 @@ public static class DeskBuilder
         Ref(so, "xray", xray);
         Ref(so, "desk", desk);
         Ref(so, "title", title);
+        Ref(so, "note", note);
         Ref(so, "guide", guide);
         Ref(so, "ledger", ledger);
         Ref(so, "newspaper", newspaper);

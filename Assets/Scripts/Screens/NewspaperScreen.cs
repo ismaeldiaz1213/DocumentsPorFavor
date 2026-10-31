@@ -21,7 +21,7 @@ public class NewspaperScreen : MonoBehaviour
 
     void Awake()
     {
-        continueButton.onClick.AddListener(() => closed = true);
+        continueButton.onClick.AddListener(() => { closed = true; Sfx.Play(Sound.Rustle); });
         root.SetActive(false);
     }
 
@@ -31,6 +31,7 @@ public class NewspaperScreen : MonoBehaviour
         int perPage = 1 + sideHeadlines.Length;
         int pages = Mathf.Max(1, Mathf.CeilToInt(stories.Count / (float)perPage));
 
+        Sfx.Play(Sound.Rustle);
         root.SetActive(true);
         for (int page = 0; page < pages; page++)
         {

@@ -3,22 +3,14 @@ using UnityEditor;
 using UnityEngine;
 
 // Editor-only helper (files in an "Editor" folder never ship in the game).
-// Menu "Documents Por Favor > Write Day 1 Story" fills the vehicle models and the
-// Day 1 travelers: documents, dialogue, X-ray contents and newspaper stories.
+// Writes the vehicle models and the first four travelers (Lupita, Chuy, Beto, El Flaco):
+// documents, dialogue, X-ray contents and newspaper stories. StoryWriter (menu
+// "Documents Por Favor > Write Story") runs this, then places everyone in the 4 days.
 // Car colors you picked in the Inspector are kept.
 public static class Day1StoryWriter
 {
     const string DayFolder = "Assets/Data/Day1";
     public const string VehicleFolder = "Assets/Data/Vehicles";
-
-    [MenuItem("Documents Por Favor/Write Day 1 Story")]
-    static void WriteWithConfirmation()
-    {
-        if (EditorUtility.DisplayDialog("Write Day 1 Story",
-                "This overwrites the documents, dialogue, X-ray contents and news of the Day 1 travelers " +
-                "(car colors are kept). Continue?", "Write it", "Cancel"))
-            WriteAll();
-    }
 
     public static void WriteAll()
     {

@@ -4,22 +4,30 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-// Runs the whole game: title, then each day (cars, ledger, newspaper), then the ending.
-// Reads like the game's script: each step waits for the one before it.
+// Runs the whole game: title, intro, then each day (memo, shift, ledger,
+// newspaper), then an ending. Reads like the game's script: each step waits
+// for the one before it.
+//
+// Ways it can end: you finish the last day (you keep the job), your record
+// hits -10 (fired), you can't make rent two nights (evicted), or Abuela goes
+// three nights without her medicine.
 public class GameDirector : MonoBehaviour
 {
+    enum Ending { KeptJob, Fired, Evicted, Abuela }
+
     [Header("Scene")]
     [SerializeField] CheckpointStage stage;
     [SerializeField] XRayPanel xray;
     [SerializeField] DeskUI desk;
     [SerializeField] TitleScreen title;
+    [SerializeField] NoteScreen note;
     [SerializeField] TutorialGuide guide;
     [SerializeField] LedgerScreen ledger;
     [SerializeField] NewspaperScreen newspaper;
     [SerializeField] EndingScreen ending;
 
     [Header("Days")]
-    [Tooltip("The days in order. Add Day2, Day3... here.")]
+    [Tooltip("The days in order. Each one turns on a new rule.")]
     [SerializeField] List<DayData> days = new List<DayData>();
     [SerializeField] float dayBannerSeconds = 2.5f;
 
@@ -32,6 +40,14 @@ public class GameDirector : MonoBehaviour
     [SerializeField] int nephewCosts = 10;
     [Tooltip("Dollars docked from your final pay for every point below zero.")]
     [SerializeField] int dollarsPerPoint = 5;
+
+    [TextArea(6, 14)]
+    [SerializeField] string introText =
+        "AUGUST, 2027. SANTA TERESA PORT OF ENTRY.\n\n" +
+        "The crossing is hiring. Your cousin José works security there, and he vouched for you.\n\n" +
+        "Rent is due every night. It's that kind of apartment. Abuela's medicine is not cheap. Your nephew has outgrown his shoes.\n\n" +
+        "Your older brother Memo was sent back across eight years ago. Abuela still thinks he's in Houston.\n\n" +
+        "Report to Booth 3 at 07:00.";
 
     class PendingStory
     {
@@ -49,7 +65,15 @@ public class GameDirector : MonoBehaviour
 
     Decision? decision;
     bool bribeTaken;
-    bool tutorialClicks; // José comments on wrong clicks during the first traveler
+    bool tutorialClicks; // José comments on wrong clicks while he's teaching the X-ray
+
+    // The shift clock: 07:00 to 19:00 over the day's shiftSeconds.
+    bool clockRunning;
+    float shiftElapsed;
+    int lastHour;
+
+    bool Fired => totalPoints <= Scoring.FiredAt;
+    bool ShiftOver => currentDay != null && shiftElapsed >= currentDay.shiftSeconds;
 
     void OnEnable()
     {
@@ -69,63 +93,149 @@ public class GameDirector : MonoBehaviour
     {
         household = new Household(startingSavings);
         yield return title.Show();
+        yield return note.Show("", introText, "BEGIN", typed: true);
 
         for (int i = 0; i < days.Count; i++)
         {
+            DayData day = days[i];
+            yield return RunDay(day);
+            if (Fired)
+            {
+                ShowEnding(Ending.Fired);
+                yield break;
+            }
+
+            yield return EndOfDay(day);
+            if (household.Evicted)
+            {
+                ShowEnding(Ending.Evicted);
+                yield break;
+            }
+            if (household.LostAbuela)
+            {
+                ShowEnding(Ending.Abuela);
+                yield break;
+            }
+
             bool lastDay = i == days.Count - 1;
-            yield return RunDay(days[i], tutorial: i == 0);
-            yield return EndOfDay(days[i]);
-            yield return newspaper.Show($"EVENING EDITION  ·  {days[i].todaysDate}  ·  25¢",
-                Edition(days[i].dayNumber, lastDay), lastDay ? "CONTINUE" : "NEXT DAY");
+            yield return newspaper.Show($"EVENING EDITION  ·  {day.todaysDate}  ·  25¢",
+                Edition(day.dayNumber, lastDay), lastDay ? "CONTINUE" : "NEXT DAY");
         }
 
-        ending.Show("YOUR LAST SHIFT", EndingText());
+        ShowEnding(Ending.KeptJob);
+    }
+
+    void Update()
+    {
+        // The clock only runs while you're working (not while José is explaining something).
+        if (!clockRunning || guide.IsWaiting) return;
+        shiftElapsed += Time.deltaTime;
+        UpdateClock();
     }
 
     // ---------- A day at the booth ----------
 
-    IEnumerator RunDay(DayData day, bool tutorial)
+    IEnumerator RunDay(DayData day)
     {
         currentDay = day;
         dayPoints = 0;
         bribesToday = 0;
+        shiftElapsed = 0f;
+        lastHour = 7;
+        desk.SetRulesForDay(day);
+        UpdateClock();
         RefreshHud();
 
         yield return desk.ShowDayBanner($"DAY {day.dayNumber}\n<size=50%>{day.todaysDate}</size>", dayBannerSeconds);
+        if (!string.IsNullOrEmpty(day.memo))
+            yield return note.Show(day.memoTitle, day.memo, "BEGIN SHIFT", typed: false);
 
-        if (tutorial)
+        // Some travelers only come if something happened earlier.
+        List<TravelerData> travelers = day.travelers.Where(ShowsUp).ToList();
+        stage.OpenLane(travelers);
+        Coroutine ambience = StartCoroutine(stage.Ambience());
+
+        yield return MorningVisitFromJose(day);
+        clockRunning = true;
+
+        int served = 0;
+        while (stage.AnyoneLeft && !ShiftOver && !Fired)
         {
-            yield return guide.SayAndWait("¡Primo! Your first day! I pulled a lot of strings to get you this job, so don't make me look bad, eh?");
-            yield return guide.SayAndWait("Rent is due, Abuela needs her medicine, and your nephew needs shoes. Every mistake is a citation, and citations come out of your pay. So... no mistakes.");
-            guide.Say("Here comes your first one. Every car goes through the scanner first.");
+            bool teach = served == 0 && (day.dayNumber == 1 || (day.xrayScanner && !days.Any(d => d.dayNumber < day.dayNumber && d.xrayScanner)));
+            if (teach && day.dayNumber == 1)
+                guide.Say("When you're ready for a car, click the megaphone over the booth. ¡Siguiente!");
+
+            yield return desk.WaitForNext(() => ShiftOver);
+            if (ShiftOver) break;
+            yield return RunTraveler(teach);
+            served++;
         }
 
-        stage.LineUp(day.travelers);
-        for (int i = 0; i < day.travelers.Count; i++)
-            yield return RunTraveler(day.travelers[i], tutorial && i == 0);
+        clockRunning = false;
+        StopCoroutine(ambience);
+        if (!Fired)
+        {
+            Sfx.Play(Sound.Whistle);
+            yield return stage.CloseLane();
+        }
+        else
+        {
+            yield return stage.CloseLane();
+        }
     }
 
-    IEnumerator RunTraveler(TravelerData traveler, bool tutorial)
+    // José comes by when there's news: your first day, your brother, the new scanner.
+    IEnumerator MorningVisitFromJose(DayData day)
     {
-        tutorialClicks = tutorial;
-        yield return stage.PullUpToScanner();
+        if (day.dayNumber == 1)
+        {
+            yield return guide.WalkOver();
+            yield return guide.SayAndWait("¡Primo! Over here! It's me, José. Security now. Look, they gave me a hat.");
+            yield return guide.SayAndWait("I pulled a lot of strings to get you this booth, so don't make me look bad, eh? Rent is due, Abuela needs her medicine, and your nephew needs shoes.");
+            yield return guide.SayAndWait("Everybody you talk to shows up right here, in this box on the left, and their face is in the window. Even mine. See? Handsome.");
+        }
+        else if (day.dayNumber == 2)
+        {
+            yield return guide.WalkOver();
+            yield return guide.SayAndWait("Primo. Psst. Before you open.");
+            yield return guide.SayAndWait("I heard something. Memo's in Juárez. Has been for a while.");
+            yield return guide.SayAndWait("If he shows up at your window... I didn't tell you anything. I'm not even here.");
+            yield return guide.WalkBack();
+        }
+        else if (day.xrayScanner && !days.Any(d => d.dayNumber < day.dayNumber && d.xrayScanner))
+        {
+            yield return guide.WalkOver();
+            yield return guide.SayAndWait("¡Primo! The new toy came in. The X-ray! Bottom right. Every car gets scanned now, while the driver walks to your window.");
+        }
+    }
 
-        if (tutorial)
-            guide.Say("See the X-ray monitor, bottom right? It develops while they walk in. Top picture is the car from the side, bottom is from above.");
+    IEnumerator RunTraveler(bool teach)
+    {
+        bool firstDay = currentDay.dayNumber == 1;
+        bool xrayLesson = teach && currentDay.xrayScanner;
+        tutorialClicks = xrayLesson;
+
+        yield return stage.PullUpToScanner();
+        TravelerData traveler = stage.CurrentCar.Traveler;
 
         // The driver walks in while the car is scanned. They start talking
         // when they reach the booth; you can decide once the scan is done.
-        Coroutine scan = StartCoroutine(stage.ScanCar());
+        Coroutine scan = currentDay.xrayScanner ? StartCoroutine(stage.ScanCar()) : null;
         yield return stage.DriverWalksToBooth();
         desk.ShowTraveler(traveler, BoothLinesFor(traveler));
-        yield return scan;
+        if (scan != null) yield return scan;
 
-        if (tutorial)
+        if (teach && firstDay)
         {
-            yield return guide.SayAndWait("If something is hiding in a car, a person, a package, anything that isn't part of a car, you CLICK on it in the X-ray.");
-            yield return guide.SayAndWait("But listen: every click on normal car stuff, an engine, a seat, a spare tire, is ONE POINT off your record. The jefe hates wasted time. Only click what doesn't belong.");
-            yield return guide.SayAndWait("This one? Looks like an abuela and a lot of tamales. Nothing to click. Now the papers: the NAME on the passport must match the OWNER on the registration, the PLATE must match the plate cam, and the passport can't be expired. Today's date is top left.");
-            guide.Say("Clean car, clean papers: APPROVE. Bad papers: REJECT. Something hidden in the car: IMPRISON. Your call, primo.");
+            yield return guide.SayAndWait("Day one, it's just the PASSPORT. Two things. The EXPIRES date can't be before today's date, top left. And the PHOTO has to be the face in the window.");
+            yield return guide.SayAndWait("Papers good: APPROVE. Anything wrong: REJECT. Forget something? The RULES book is up top. And watch the clock. The shift ends at 19:00, and they pay per person.");
+            yield return guide.SayAndWait("Every mistake is a citation. Ten points of citations and they take your badge. So... no mistakes, eh? This one's an abuela with a lot of tamales. Your call.");
+        }
+        else if (xrayLesson)
+        {
+            yield return guide.SayAndWait("If something is hiding in a car, a person, a package, anything that isn't part of the car, you CLICK on it. Top picture is the car from the side, bottom is from above.");
+            yield return guide.SayAndWait("But every click on normal car stuff, an engine, a seat, a spare tire, is ONE POINT off your record. The jefe hates wasted time. Only click what doesn't belong.");
+            yield return guide.SayAndWait("Found something hidden? IMPRISON. I walk them out myself, and the tow truck takes the car. This one's the trumpet guy again. Metal glows bright. Bright doesn't mean illegal.");
         }
 
         decision = null;
@@ -136,7 +246,7 @@ public class GameDirector : MonoBehaviour
         while (decision == null)
         {
             // Smugglers get nervous once you've spotted something on the X-ray.
-            if (!bribeOffered && traveler.OffersBribe && xray.FoundCount > 0)
+            if (!bribeOffered && traveler.OffersBribe && currentDay.xrayScanner && xray.FoundCount > 0)
             {
                 bribeOffered = true;
                 desk.OfferBribe(traveler);
@@ -146,9 +256,9 @@ public class GameDirector : MonoBehaviour
 
         desk.SetDecisionsEnabled(false);
         Decision finalDecision = decision.Value;
-        bool correct = finalDecision == Rules.CorrectDecision(traveler, currentDay.todaysDate);
+        bool correct = finalDecision == Rules.CorrectDecision(traveler, currentDay);
 
-        List<Citation> citations = Scoring.CitationsFor(traveler, currentDay.todaysDate, finalDecision, xray.FoundCount);
+        List<Citation> citations = Scoring.CitationsFor(traveler, currentDay, finalDecision, xray.FoundCount);
         foreach (Citation citation in citations)
             AddPoints(citation.points);
 
@@ -157,27 +267,55 @@ public class GameDirector : MonoBehaviour
             bribesToday += traveler.bribeAmount;
             RefreshHud();
         }
+        if (traveler.isFamily && finalDecision == Decision.Approve)
+            household.memoHome = true;
 
         history.Add(new DecisionRecord(currentDay.dayNumber, traveler, finalDecision, correct, bribeTaken, citations, xray.WrongClicks));
         foreach (NewsStory story in traveler.NewsFor(finalDecision))
             pendingNews.Add(new PendingStory { day = currentDay.dayNumber + story.daysLater, story = story });
 
-        if (tutorial)
-        {
-            tutorialClicks = false;
-            guide.Hide();
-        }
+        tutorialClicks = false;
         desk.Say(FarewellLine(traveler, finalDecision));
         desk.ShowCitations(citations);
+
+        if (teach && (firstDay || xrayLesson))
+        {
+            yield return new WaitForSeconds(1.5f); // let their goodbye land first
+            yield return guide.SayAndWait(correct
+                ? "¡Eso! See? Easy. Okay, back to my post. You got this, primo."
+                : "Ay, primo... That's coming out of your pay. Okay, back to my post. Careful, eh? Abuela's counting on you.");
+        }
+
+        // If you imprison someone, José walks them out. Otherwise he heads back to his post.
+        if (finalDecision == Decision.Imprison)
+            guide.LeftWithPrisoner();
+        else
+            StartCoroutine(guide.WalkBack());
+
         yield return stage.SendAway(finalDecision);
         desk.ClearTraveler();
+    }
 
-        if (tutorial)
+    bool ShowsUp(TravelerData traveler)
+    {
+        if (traveler.onlyIfApproved != null && !WasApproved(traveler.onlyIfApproved)) return false;
+        if (traveler.onlyIfNotApproved != null && WasApproved(traveler.onlyIfNotApproved)) return false;
+        return true;
+    }
+
+    bool WasApproved(TravelerData traveler) =>
+        history.Any(r => r.traveler == traveler && r.decision == Decision.Approve);
+
+    void UpdateClock()
+    {
+        float k = currentDay != null ? Mathf.Clamp01(shiftElapsed / currentDay.shiftSeconds) : 0f;
+        int minutes = Mathf.FloorToInt(k * 12f * 60f / 10f) * 10; // ticks in 10-minute steps
+        int hour = 7 + minutes / 60;
+        desk.SetClock($"{hour:00}:{minutes % 60:00}");
+        if (hour != lastHour)
         {
-            yield return guide.SayAndWait(correct
-                ? "¡Eso! See? Easy. I gotta get back to my own booth. You got this, primo. And hey... Abuela's counting on you."
-                : "Ay, primo... That's coming out of your pay. Okay, I gotta get back to my own booth. Be careful, eh? Abuela's counting on you.");
-            guide.Hide();
+            lastHour = hour;
+            Sfx.Play(Sound.Tick, 0.6f);
         }
     }
 
@@ -208,6 +346,8 @@ public class GameDirector : MonoBehaviour
     string DayLog(List<DecisionRecord> today)
     {
         var text = new StringBuilder();
+        if (today.Count == 0)
+            text.AppendLine("Nobody made it to your window.");
         foreach (DecisionRecord record in today)
         {
             text.AppendLine($"<b>{record.traveler.passportName}</b>");
@@ -218,7 +358,7 @@ public class GameDirector : MonoBehaviour
                 text.AppendLine($"    {citation.reason}<pos=85%>{citation.points}");
         }
         text.AppendLine();
-        text.AppendLine($"<b>Points today: {dayPoints}</b>     Total: {totalPoints}");
+        text.AppendLine($"<b>Points today: {dayPoints}</b>     Record: {totalPoints} (fired at {Scoring.FiredAt})");
         return text.ToString();
     }
 
@@ -253,46 +393,85 @@ public class GameDirector : MonoBehaviour
         return stories;
     }
 
-    // The last page states the numbers, then shows home. It never explains.
-    string EndingText()
+    // ---------- Endings ----------
+
+    // The last page states what happened and the numbers, then shows home. It never explains.
+    void ShowEnding(Ending how)
     {
         int docked = Mathf.Min(0, totalPoints) * dollarsPerPoint;
         int finalSavings = household.savings + docked;
         var text = new StringBuilder();
+        string heading;
 
-        text.AppendLine("You hand in your badge.");
+        switch (how)
+        {
+            case Ending.Fired:
+                heading = "BADGE, POR FAVOR";
+                text.AppendLine($"The jefe holds out his hand. You give him the badge. It's {currentDay.todaysDate}.");
+                break;
+            case Ending.Evicted:
+                heading = "THE LOCKS WERE CHANGED";
+                text.AppendLine("The landlord's nephew changed the locks on a Tuesday. Your things are in boxes on the porch.");
+                break;
+            case Ending.Abuela:
+                heading = "AN EMPTY CHAIR";
+                text.AppendLine("Abuela's chair at the kitchen table stays empty now. Nobody sits in it. Nobody moves it.");
+                break;
+            default:
+                heading = "CONTRACT RENEWED";
+                text.AppendLine("The jefe signs you on for another month. He doesn't look up.");
+                break;
+        }
+
         text.AppendLine(totalPoints == 0
             ? "Your record is clean."
             : $"Citations on your record: <b>{totalPoints}</b>. {Money.Format(-docked)} comes out of your last check.");
         text.AppendLine($"In the coffee can: <b>{Money.Format(finalSavings)}</b>");
         text.AppendLine();
 
-        foreach (string line in HomeImages(finalSavings))
+        foreach (string line in HomeImages(finalSavings, how))
         {
             text.AppendLine(line);
             text.AppendLine();
         }
 
-        return text.ToString();
+        ending.Show(heading, text.ToString(), kept: how == Ending.KeptJob);
     }
 
-    IEnumerable<string> HomeImages(int finalSavings)
+    IEnumerable<string> HomeImages(int finalSavings, Ending how)
     {
-        if (finalSavings < 0)
+        if (finalSavings < 0 && how != Ending.Evicted)
             yield return "There's an envelope from the landlord on the kitchen table. You leave it for tomorrow.";
-        if (household.daysWithoutMedicine >= 2)
-            yield return "Abuela's pill box is still full. She says she feels fine. She doesn't get up to say it.";
-        else if (household.daysWithoutMedicine == 1)
-            yield return "Abuela coughs through the night.";
+        if (how != Ending.Abuela)
+        {
+            if (household.daysWithoutMedicine >= 2)
+                yield return "Abuela's pill box is still full. She says she feels fine. She doesn't get up to say it.";
+            else if (household.daysWithoutMedicine == 1)
+                yield return "Abuela coughs through the night.";
+        }
         if (household.daysNephewWentWithout >= 1)
             yield return "Your nephew's shoes are by the door, taped at the toe.";
         if (household.daysHungry >= 1)
             yield return "Dinner is beans again. Your nephew says he isn't hungry.";
         if (history.Any(r => r.bribeTaken))
             yield return "Folded in your jacket, a few bills that didn't come from your paycheck.";
-        yield return "The porch light is on. Someone waited up.";
-    }
 
+        // Memo. Never said outright.
+        if (household.memoHome)
+            yield return "Memo's boots are by the door, next to your nephew's.";
+        else
+        {
+            DecisionRecord truck = history.FirstOrDefault(r => r.traveler.carriesFamily);
+            if (truck != null && truck.decision == Decision.Imprison)
+                yield return "A letter comes from Otero County with no name on it. Abuela can't read it. She keeps it in her apron.";
+            else
+                yield return "Abuela asks if anyone has heard from Houston.";
+        }
+
+        yield return how == Ending.Evicted
+            ? "Your cousin José's couch is shorter than you are."
+            : "The porch light is on. Someone waited up.";
+    }
 
     // ---------- Small stuff ----------
 
@@ -321,7 +500,7 @@ public class GameDirector : MonoBehaviour
     void RefreshHud()
     {
         if (currentDay != null && household != null)
-            desk.SetHud(currentDay.dayNumber, currentDay.todaysDate, dayPoints, household.savings + bribesToday);
+            desk.SetHud(currentDay.dayNumber, currentDay.todaysDate, totalPoints, household.savings + bribesToday);
     }
 
     static string Outcome(DecisionRecord record)

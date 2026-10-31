@@ -6,6 +6,8 @@ public class Household
     public int daysHungry;
     public int daysWithoutMedicine;
     public int daysNephewWentWithout;
+    public int nightsInDebt;
+    public bool memoHome; // your brother made it across
 
     public Household(int startingSavings)
     {
@@ -14,12 +16,15 @@ public class Household
 
     public void RecordBills(bool paidFood, bool paidMedicine, bool paidNephew)
     {
+        if (savings < 0) nightsInDebt++;
         if (!paidFood) daysHungry++;
         if (!paidMedicine) daysWithoutMedicine++;
         if (!paidNephew) daysNephewWentWithout++;
     }
 
-    public bool IsStruggling => daysHungry >= 2 || daysWithoutMedicine >= 2 || daysNephewWentWithout >= 2;
+    // The ways a family can fall apart. Each one ends the game.
+    public bool Evicted => nightsInDebt >= 2;
+    public bool LostAbuela => daysWithoutMedicine >= 3;
 
     public string FoodStatus
     {
@@ -61,5 +66,8 @@ public class Household
         }
     }
 
-    public string Report() => $"{GrandmaStatus}\n{NephewStatus}\n{FoodStatus}";
+    public string Report() =>
+        $"{GrandmaStatus}\n{NephewStatus}\n{FoodStatus}" +
+        (memoHome ? "\nMemo is asleep on the couch. Abuela hasn't stopped smiling." : "") +
+        (savings < 0 ? "\nThe landlord knocked twice." : "");
 }

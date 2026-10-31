@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D4_Huracan
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  face:
+    skin: 2
+    hair: 0
+    hairColor: {r: 0.1254902, g: 0.09411765, b: 0.078431375, a: 1}
+    headwear: 3
+    headwearColor: {r: 0.65882355, g: 0.3137255, b: 0.24705882, a: 1}
+    mustache: 0
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.9098039, g: 0.7607843, b: 0.3529412, a: 1}
+  speakerName: 
+  passportName: "Hugo Berm\xFAdez Paz"
+  passportNumber: MX-1998-HB
+  nationality: MEX
+  passportExpiry: 2029-05-05
+  photoIsSomeoneElse: 0
+  photoFace:
+    skin: 2
+    hair: 1
+    hairColor: {r: 0.17, g: 0.13, b: 0.11, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.35, g: 0.27, b: 0.21, a: 1}
+    mustache: 0
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.85, g: 0.81, b: 0.72, a: 1}
+  hasPermit: 1
+  permitName: "Hugo Berm\xFAdez Paz"
+  permitPurpose: "WORK \xB7 ATHLETE"
+  permitExpiry: 2028-12-31
+  registrationOwner: "El Hurac\xE1n de Hermosillo"
+  registrationPlate: SON-0001
+  vehiclePlate: SON-0001
+  vehicleColor: {r: 0.85, g: 0.7, b: 0.25, a: 1}
+  vehicleModel: {fileID: 11400000, guid: 79444bccb4201a84eabaf02286d2a00a, type: 2}
+  harmlessExtras:
+  - label: Gear bag
+    shape: 0
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 6adb03a30e01bb449ab7efbd9795d3e1, type: 3}
+    topSprite: {fileID: 21300000, guid: a5c2395ad5e9f5d4cb8858a8e72aeb42, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.18, y: 0.33}
+    sideViewSize: {x: 0.09, y: 0.19}
+    showInTopView: 1
+    topViewPosition: {x: 0.18, y: 0.55}
+    topViewSize: {x: 0.09, y: 0.17}
+  - label: Championship belt
+    shape: 0
+    brightness: 0.8
+    sideSprite: {fileID: 21300000, guid: fa794a35fc0b5b44dacb9a0f11f8c25f, type: 3}
+    topSprite: {fileID: 21300000, guid: 3fee5ea7fce337f45ab4dad5c3854e17, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.32, y: 0.4}
+    sideViewSize: {x: 0.1, y: 0.11}
+    showInTopView: 1
+    topViewPosition: {x: 0.32, y: 0.3}
+    topViewSize: {x: 0.1, y: 0.11}
+  - label: Steel chair
+    shape: 0
+    brightness: 0.85
+    sideSprite: {fileID: 21300000, guid: 5c915411342717a4a9952b2eec8d2996, type: 3}
+    topSprite: {fileID: 21300000, guid: 2d1d6aa2fdac053468cb4a7958ee06c4, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.5, y: 0.42}
+    sideViewSize: {x: 0.07, y: 0.22}
+    showInTopView: 1
+    topViewPosition: {x: 0.5, y: 0.65}
+    topViewSize: {x: 0.07, y: 0.19}
+  contraband: []
+  boothLines:
+  - "\xA1EL HURAC\xC1N RETURNS! Did you see the fight? I won. Of course I won. El
+    Gringo Loco cried. Then he filed his taxes."
+  - Tonight, the rematch. He says I cheated. I did not cheat. I used a CHAIR. Chairs
+    are legal in my heart.
+  - The registration? Same as always. In my TRUE name. The people's name.
+  lineIfApproved: "\xA1EL HURAC\xC1N AGRADECE! Tonight, the belt comes home!"
+  lineIfRejected: "The government name AGAIN? ...The Hurac\xE1n will return. The
+    Hurac\xE1n always returns."
+  lineIfImprisoned: "You cannot cage a HURAC\xC1N! ...Okay, you can. The mask stays
+    on."
+  onlyIfApproved: {fileID: 0}
+  onlyIfNotApproved: {fileID: 0}
+  isFamily: 0
+  carriesFamily: 0
+  returnVisits:
+  - earlierVisit: {fileID: 11400000, guid: bc248f5efbbd2fb468aa3dabc16f7d12, type: 2}
+    decisionThen: 1
+    boothLines:
+    - "The Hurac\xE1n... has returned. Last time you sent me back. El Gringo Loco
+      took my belt. Tonight I take it back."
+    - Tonight, the rematch. He says I cheated. I did not cheat. I used a CHAIR. Chairs
+      are legal in my heart.
+    - The registration? Same as always. In my TRUE name. The people's name.
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: Masked Champion Wins Rematch With Steel Chair
+    body: The referee ruled the chair "technically furniture." El Gringo Loco has
+      filed a complaint, and an extension.
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: El Gringo Loco Keeps Belt After No-Show
+    body: '"He''s scared," said Loco, who then checked his phone for the twentieth
+      time to see if anyone had arrived.'
+    daysLater: 0
+    frontPage: 0
+  newsIfImprisoned:
+  - headline: Masked Detainee Leads Exercise Class
+    body: Guards report morale is "weirdly high."
+    daysLater: 0
+    frontPage: 0

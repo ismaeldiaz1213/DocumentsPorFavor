@@ -14,9 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DayData
   dayNumber: 2
   todaysDate: 2027-08-02
+  permitsRequired: 1
+  xrayScanner: 0
+  registrationRequired: 0
+  memoTitle: "MEMO  \xB7  DAY 2"
+  memo: "NEW RULE: ENTRY PERMITS.\n\nAnyone who is NOT a US citizen needs an ENTRY
+    PERMIT:\n    \xB7  The name must match the passport.\n    \xB7  It must not be
+    expired.\n\nUS citizens need no permit. They will tell you this. Loudly.\n\nNo
+    permit, wrong name, or expired: REJECT.\n\n-- El Jefe"
+  shiftSeconds: 360
   travelers:
   - {fileID: 11400000, guid: deb12ff43212dfa4a8a6caef47cc7ce4, type: 2}
-  - {fileID: 11400000, guid: 6841b510ee9030b41865519b9f7a3908, type: 2}
-  - {fileID: 11400000, guid: f40d81f66d20b2c43b85264d9eaaa013, type: 2}
+  - {fileID: 11400000, guid: abea7859380c2bd44b66d5c4d296138e, type: 2}
   - {fileID: 11400000, guid: f33bef0763051774f9d190fd4560f3e3, type: 2}
-  - {fileID: 11400000, guid: bc248f5efbbd2fb468aa3dabc16f7d12, type: 2}
+  - {fileID: 11400000, guid: 3ff4e288b37b91e41b689dd074781fca, type: 2}
+  - {fileID: 11400000, guid: 789f12e7af4e98d47b5980aee9a81185, type: 2}

@@ -4,9 +4,9 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using static Day1StoryWriter;
 
-// Editor-only helper. Menu "Documents Por Favor > Write Days 2 and 3 Story" fills the
-// Day 2 and Day 3 travelers and adds all three days to the GameDirector in the open scene.
-// Run "Write Day 1 Story" first: Days 2 and 3 remember what you did to Day 1's travelers.
+// Editor-only helper. Writes the rest of the original cast (Gary, Marisol, Rosa, El Huracán,
+// Skyler, Lucía, Manny, and Chuy and Beto's return visits). StoryWriter (menu
+// "Documents Por Favor > Write Story") runs this, then places everyone in the 4 days.
 // Car colors you picked in the Inspector are kept.
 public static class Days2And3StoryWriter
 {
@@ -17,15 +17,6 @@ public static class Days2And3StoryWriter
     // Chuy and Beto drive the same cars every day.
     static readonly Color ChuyRed = new Color(0.72f, 0.38f, 0.3f);
     static readonly Color BetoBlue = new Color(0.45f, 0.52f, 0.66f);
-
-    [MenuItem("Documents Por Favor/Write Days 2 and 3 Story")]
-    static void WriteWithConfirmation()
-    {
-        if (EditorUtility.DisplayDialog("Write Days 2 and 3 Story",
-                "This overwrites the documents, dialogue, X-ray contents and news of the Day 2 and Day 3 travelers " +
-                "(car colors are kept), and sets the days on the GameDirector. Continue?", "Write it", "Cancel"))
-            WriteAll();
-    }
 
     public static void WriteAll()
     {
@@ -464,25 +455,25 @@ public static class Days2And3StoryWriter
 
     // ==================== Helpers ====================
 
-    static List<string> Lines(string first, List<string> rest)
+    internal static List<string> Lines(string first, List<string> rest)
     {
         var lines = new List<string> { first };
         lines.AddRange(rest);
         return lines;
     }
 
-    static ReturnVisit Visit(TravelerData earlierVisit, Decision decisionThen, List<string> boothLines) =>
+    internal static ReturnVisit Visit(TravelerData earlierVisit, Decision decisionThen, List<string> boothLines) =>
         new ReturnVisit { earlierVisit = earlierVisit, decisionThen = decisionThen, boothLines = boothLines };
 
     // Makes sure the folder exists, then returns its path.
-    static string Folder(string path)
+    internal static string Folder(string path)
     {
         if (!AssetDatabase.IsValidFolder(path))
             AssetDatabase.CreateFolder("Assets/Data", System.IO.Path.GetFileName(path));
         return path;
     }
 
-    static DayData Day(string folder, string assetName, int number, string date, params TravelerData[] travelers)
+    internal static DayData Day(string folder, string assetName, int number, string date, params TravelerData[] travelers)
     {
         string path = $"{folder}/{assetName}.asset";
         DayData day = AssetDatabase.LoadAssetAtPath<DayData>(path);
@@ -499,7 +490,7 @@ public static class Days2And3StoryWriter
     }
 
     // Puts Day 1, 2 and 3 in the GameDirector's "Days" list in the open scene.
-    static void AddDaysToDirector(params DayData[] days)
+    internal static void AddDaysToDirector(params DayData[] days)
     {
         GameDirector director = Object.FindFirstObjectByType<GameDirector>();
         if (director == null)

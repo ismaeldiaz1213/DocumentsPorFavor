@@ -14,9 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DayData
   dayNumber: 3
   todaysDate: 2027-08-03
+  permitsRequired: 1
+  xrayScanner: 1
+  registrationRequired: 0
+  memoTitle: "MEMO  \xB7  DAY 3"
+  memo: "NEW EQUIPMENT: X-RAY SCANNER.\n\nEvery car is scanned as it pulls in. Watch
+    the monitor:\n    \xB7  Click anything hidden that is not part of the car.\n   
+    \xB7  Hidden goods or hidden PEOPLE: IMPRISON.\n    \xB7  Clicking on car parts
+    wastes my time. -1 each.\n\nThe scanner cost more than your house. Do not touch
+    it with tamal hands.\n\n-- El Jefe"
+  shiftSeconds: 420
   travelers:
   - {fileID: 11400000, guid: c7991281232e9314fb17407d382f0188, type: 2}
-  - {fileID: 11400000, guid: b0885cfa16d9e2c43a3f5e272faa3c84, type: 2}
-  - {fileID: 11400000, guid: 789f12e7af4e98d47b5980aee9a81185, type: 2}
   - {fileID: 11400000, guid: 5ddf4b4503b51c64cb907a39dc5ee501, type: 2}
-  - {fileID: 11400000, guid: e5ab687c2a0aebb4193c63c8a3bce94e, type: 2}
+  - {fileID: 11400000, guid: f40d81f66d20b2c43b85264d9eaaa013, type: 2}
+  - {fileID: 11400000, guid: b0885cfa16d9e2c43a3f5e272faa3c84, type: 2}

@@ -12,9 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
   m_Name: D3_Manny
   m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  face:
+    skin: 3
+    hair: 5
+    hairColor: {r: 0.7254902, g: 0.7058824, b: 0.6666667, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.3529412, g: 0.27450982, b: 0.21176471, a: 1}
+    mustache: 1
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 1
+    shirt: {r: 0.42745098, g: 0.49411765, b: 0.36078432, a: 1}
+  speakerName: 
   passportName: Ricardo Ortega Luna
   passportNumber: MX-1966-RO
+  nationality: MEX
   passportExpiry: 2030-11-11
+  photoIsSomeoneElse: 1
+  photoFace:
+    skin: 3
+    hair: 1
+    hairColor: {r: 0.22745098, g: 0.20784314, b: 0.1882353, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.3529412, g: 0.27450982, b: 0.21176471, a: 1}
+    mustache: 0
+    beard: 0
+    glasses: 1
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.8509804, g: 0.8117647, b: 0.72156864, a: 1}
+  hasPermit: 1
+  permitName: Ricardo Ortega Luna
+  permitPurpose: VISIT
+  permitExpiry: 2028-11-11
   registrationOwner: Manuel Ortega Luna
   registrationPlate: CHH-0412
   vehiclePlate: CHH-0412
@@ -58,6 +89,10 @@ MonoBehaviour:
     That's real nice.
   lineIfImprisoned: Twenty years, they'll give me. For walking my daughter down an
     aisle. ...Put in the report that I didn't fight you.
+  onlyIfApproved: {fileID: 0}
+  onlyIfNotApproved: {fileID: 0}
+  isFamily: 0
+  carriesFamily: 0
   returnVisits: []
   bribeAmount: 0
   bribeLine: 

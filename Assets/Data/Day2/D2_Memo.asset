@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D2_Memo
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  face:
+    skin: 2
+    hair: 1
+    hairColor: {r: 0.1254902, g: 0.09411765, b: 0.078431375, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.3529412, g: 0.27450982, b: 0.21176471, a: 1}
+    mustache: 0
+    beard: 1
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.41960785, g: 0.41960785, b: 0.4392157, a: 1}
+  speakerName: Memo
+  passportName: "Guillermo Casta\xF1eda R\xEDos"
+  passportNumber: MX-0919-GC
+  nationality: MEX
+  passportExpiry: 2029-09-19
+  photoIsSomeoneElse: 0
+  photoFace:
+    skin: 2
+    hair: 1
+    hairColor: {r: 0.17, g: 0.13, b: 0.11, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.35, g: 0.27, b: 0.21, a: 1}
+    mustache: 0
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.85, g: 0.81, b: 0.72, a: 1}
+  hasPermit: 0
+  permitName: 
+  permitPurpose: 
+  permitExpiry: 
+  registrationOwner: "Guillermo Casta\xF1eda R\xEDos"
+  registrationPlate: CHH-1109
+  vehiclePlate: CHH-1109
+  vehicleColor: {r: 0.58, g: 0.55, b: 0.5, a: 1}
+  vehicleModel: {fileID: 11400000, guid: f5f8173213b1d7a49b642ad775acf5f3, type: 2}
+  harmlessExtras:
+  - label: Duffel bag
+    shape: 0
+    brightness: 0.35
+    sideSprite: {fileID: 21300000, guid: 6adb03a30e01bb449ab7efbd9795d3e1, type: 3}
+    topSprite: {fileID: 21300000, guid: a5c2395ad5e9f5d4cb8858a8e72aeb42, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.36, y: 0.55}
+    sideViewSize: {x: 0.09, y: 0.17}
+    showInTopView: 1
+    topViewPosition: {x: 0.36, y: 0.62}
+    topViewSize: {x: 0.09, y: 0.17}
+  contraband: []
+  boothLines:
+  - ...Hermano.
+  - Don't look at me like that. I know. I know what the paper says.
+  - Eight years. They sent me back with a plastic bag and a bus ticket. I haven't
+    seen Abuela since.
+  - "Jos\xE9 says she's sick. Jos\xE9 says she asks for me. She thinks I'm in Houston.
+    I let her think it."
+  - I still have her rosary. The one she gave me at the bus station. I want to put
+    it back in her hands myself.
+  - One car. One day. Nobody has to know. Please, hermano.
+  lineIfApproved: "...Gracias, hermano. Don't tell Jos\xE9. He'd cry. He cries at
+    everything."
+  lineIfRejected: "Est\xE1 bien. You do your job, hermano. ...I'll find another way."
+  lineIfImprisoned: Hermano?! ...Okay. Okay. Tell her I'm in Houston.
+  onlyIfApproved: {fileID: 0}
+  onlyIfNotApproved: {fileID: 0}
+  isFamily: 1
+  carriesFamily: 0
+  returnVisits: []
+  bribeAmount: 0
+  bribeLine: 
+  newsIfApproved:
+  - headline: Grandmother, 79, Dances at Neighbor's Birthday
+    body: '"First time in years," said the neighbor. "She wouldn''t say what changed."'
+    daysLater: 0
+    frontPage: 0
+  newsIfRejected:
+  - headline: "Price of Crossing Triples, Ju\xE1rez Residents Say"
+    body: A trip north now costs three times what it did in the spring. Some families
+      have started selling their furniture.
+    daysLater: 1
+    frontPage: 0
+  newsIfImprisoned: []

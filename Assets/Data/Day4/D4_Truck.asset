@@ -1,0 +1,179 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d236db0f3d2041b13db79f90f4f69, type: 3}
+  m_Name: D4_Truck
+  m_EditorClassIdentifier: Assembly-CSharp::TravelerData
+  face:
+    skin: 2
+    hair: 5
+    hairColor: {r: 0.7254902, g: 0.7058824, b: 0.6666667, a: 1}
+    headwear: 1
+    headwearColor: {r: 0.7882353, g: 0.65882355, b: 0.41568628, a: 1}
+    mustache: 1
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 1
+    shirt: {r: 0.5411765, g: 0.3529412, b: 0.23529412, a: 1}
+  speakerName: 
+  passportName: Ezequiel Fonseca Lara
+  passportNumber: MX-1960-EF
+  nationality: MEX
+  passportExpiry: 2029-12-01
+  photoIsSomeoneElse: 0
+  photoFace:
+    skin: 2
+    hair: 1
+    hairColor: {r: 0.17, g: 0.13, b: 0.11, a: 1}
+    headwear: 0
+    headwearColor: {r: 0.35, g: 0.27, b: 0.21, a: 1}
+    mustache: 0
+    beard: 0
+    glasses: 0
+    lipstick: 0
+    wrinkles: 0
+    shirt: {r: 0.85, g: 0.81, b: 0.72, a: 1}
+  hasPermit: 1
+  permitName: Ezequiel Fonseca Lara
+  permitPurpose: "WORK \xB7 FREIGHT"
+  permitExpiry: 2028-05-31
+  registrationOwner: Ezequiel Fonseca Lara
+  registrationPlate: CHH-5150
+  vehiclePlate: CHH-5150
+  vehicleColor: {r: 0.82, g: 0.8, b: 0.74, a: 1}
+  vehicleModel: {fileID: 11400000, guid: 79444bccb4201a84eabaf02286d2a00a, type: 2}
+  harmlessExtras:
+  - label: Crate of chairs
+    shape: 0
+    brightness: 0.3
+    sideSprite: {fileID: 21300000, guid: a05f1616976c24b49a70f551e2046e2d, type: 3}
+    topSprite: {fileID: 21300000, guid: 0b871b98e341f204ea66c55c06f63c73, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.18, y: 0.4}
+    sideViewSize: {x: 0.12, y: 0.4}
+    showInTopView: 1
+    topViewPosition: {x: 0.18, y: 0.5}
+    topViewSize: {x: 0.12, y: 0.6}
+  - label: Crate of chairs
+    shape: 0
+    brightness: 0.3
+    sideSprite: {fileID: 21300000, guid: a05f1616976c24b49a70f551e2046e2d, type: 3}
+    topSprite: {fileID: 21300000, guid: 0b871b98e341f204ea66c55c06f63c73, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.66, y: 0.4}
+    sideViewSize: {x: 0.12, y: 0.4}
+    showInTopView: 1
+    topViewPosition: {x: 0.66, y: 0.5}
+    topViewSize: {x: 0.12, y: 0.6}
+  - label: Table
+    shape: 0
+    brightness: 0.4
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
+    showInSideView: 1
+    sideViewPosition: {x: 0.42, y: 0.78}
+    sideViewSize: {x: 0.4, y: 0.05}
+    showInTopView: 1
+    topViewPosition: {x: 0.42, y: 0.15}
+    topViewSize: {x: 0.4, y: 0.1}
+  - label: Rosary
+    shape: 0
+    brightness: 0.95
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
+    showInSideView: 1
+    sideViewPosition: {x: 0.445, y: 0.5}
+    sideViewSize: {x: 0.008, y: 0.06}
+    showInTopView: 1
+    topViewPosition: {x: 0.445, y: 0.42}
+    topViewSize: {x: 0.008, y: 0.06}
+  - label: Rosary
+    shape: 0
+    brightness: 0.95
+    sideSprite: {fileID: 0}
+    topSprite: {fileID: 0}
+    showInSideView: 1
+    sideViewPosition: {x: 0.445, y: 0.515}
+    sideViewSize: {x: 0.026, y: 0.009}
+    showInTopView: 1
+    topViewPosition: {x: 0.445, y: 0.435}
+    topViewSize: {x: 0.026, y: 0.009}
+  contraband:
+  - label: Hidden passenger
+    shape: 0
+    brightness: 0.5
+    sideSprite: {fileID: 21300000, guid: dc0b15879660cb543befce5dad47bf2a, type: 3}
+    topSprite: {fileID: 21300000, guid: 9277ec598dcda284a8e8d30c64ffaa44, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.32, y: 0.42}
+    sideViewSize: {x: 0.1, y: 0.34}
+    showInTopView: 1
+    topViewPosition: {x: 0.32, y: 0.35}
+    topViewSize: {x: 0.1, y: 0.3}
+  - label: Hidden passenger
+    shape: 0
+    brightness: 0.5
+    sideSprite: {fileID: 21300000, guid: fe8ddd856ffae5b4db3a3662f78e120f, type: 3}
+    topSprite: {fileID: 21300000, guid: 900d589b7237bb04baa4e438b603ef26, type: 3}
+    showInSideView: 1
+    sideViewPosition: {x: 0.43, y: 0.42}
+    sideViewSize: {x: 0.1, y: 0.34}
+    showInTopView: 1
+    topViewPosition: {x: 0.43, y: 0.38}
+    topViewSize: {x: 0.1, y: 0.3}
+  - label: Hidden passenger
+    shape: 0
+    brightness: 0.5
+    sideSprite: {fileID: 21300000, guid: dc0b15879660cb543befce5dad47bf2a, type: 3}
+    topSprite: {fileID: 21300000, guid: 9277ec598dcda284a8e8d30c64ffaa44, type: 3}
+    showInSideView: 0
+    sideViewPosition: {x: 0.5, y: 0.5}
+    sideViewSize: {x: 0, y: 0}
+    showInTopView: 1
+    topViewPosition: {x: 0.54, y: 0.68}
+    topViewSize: {x: 0.1, y: 0.3}
+  boothLines:
+  - Buenas. Furniture for a store in Odessa. Chairs, tables. Very heavy wood.
+  - Twenty years I drive this road. You're new. The new ones are always slow. It's
+    okay. I'm patient.
+  - You have family, joven? Then you understand. Everybody is just trying to get
+    home.
+  lineIfApproved: God bless you, joven. Drive safe. ...I mean, I'll drive safe.
+  lineIfRejected: Back, then. ...They won't like going back. Nobody does.
+  lineIfImprisoned: Okay. Okay. They're not mine, you understand? I just drive. ...Be
+    gentle with the young one. He talks about his grandmother the whole way.
+  onlyIfApproved: {fileID: 0}
+  onlyIfNotApproved: {fileID: 11400000, guid: 3ff4e288b37b91e41b689dd074781fca, type: 2}
+  isFamily: 0
+  carriesFamily: 1
+  returnVisits: []
+  bribeAmount: 300
+  bribeLine: Three hundred. For your abuela's medicine. Everybody has an abuela,
+    no?
+  newsIfApproved:
+  - headline: Box Truck Found Near Van Horn; Cooling Unit Had Failed
+    body: Investigators recovered nine people from the trailer. Rescuers said one
+      young man was holding a small wooden rosary. He would not let go of it.
+    daysLater: 0
+    frontPage: 1
+  newsIfRejected:
+  - headline: "Furniture Truck Abandoned on Ju\xE1rez Outskirts"
+    body: The cargo doors were open. Footprints led off in several directions. A
+      rosary hung from the rearview mirror.
+    daysLater: 0
+    frontPage: 1
+  newsIfImprisoned:
+  - headline: Nine Taken Into Custody From Furniture Truck
+    body: Officials said most will be returned within the week. One man asked a guard
+      to get a message to his grandmother in El Paso. He no longer knew her address.
+    daysLater: 0
+    frontPage: 1
