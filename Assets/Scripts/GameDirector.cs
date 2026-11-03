@@ -31,6 +31,10 @@ public class GameDirector : MonoBehaviour
     [SerializeField] List<DayData> days = new List<DayData>();
     [SerializeField] float dayBannerSeconds = 2.5f;
 
+    [Header("Orientation")]
+    [Tooltip("Shown on the first page of the intro slideshow.")]
+    [SerializeField] string employeeNumber = "223891";
+
     [Header("Money")]
     [SerializeField] int startingSavings = 20;
     [SerializeField] int wagePerCorrectDecision = 15;
@@ -92,7 +96,9 @@ public class GameDirector : MonoBehaviour
     IEnumerator Start()
     {
         household = new Household(startingSavings);
+        desk.UseExamplesFrom(days);
         yield return title.Show();
+        yield return IntroCutscene.Play(desk.GetComponentInParent<Canvas>().transform, IntroCutscene.Orientation(employeeNumber));
         yield return note.Show("", introText, "BEGIN", typed: true);
 
         for (int i = 0; i < days.Count; i++)
@@ -163,7 +169,7 @@ public class GameDirector : MonoBehaviour
         {
             bool teach = served == 0 && (day.dayNumber == 1 || (day.xrayScanner && !days.Any(d => d.dayNumber < day.dayNumber && d.xrayScanner)));
             if (teach && day.dayNumber == 1)
-                guide.Say("When you're ready for a car, click the megaphone over the booth. ¡Siguiente!");
+                guide.Say("When you're ready for a car, click the NEXT megaphone over the booth, or press N. ¡Siguiente!");
 
             yield return desk.WaitForNext(() => ShiftOver);
             if (ShiftOver) break;
@@ -212,6 +218,7 @@ public class GameDirector : MonoBehaviour
             yield return guide.WalkOver();
             yield return guide.SayAndWait("¡Primo! Over here! It's me, José. Security now. Look, they gave me a hat.");
             yield return guide.SayAndWait("I pulled a lot of strings for this booth. Everybody you talk to shows up here, and their face is in the window. Even mine. Handsome, eh?");
+            yield return guide.SayAndWait("You're not crossing today, primo. You're the one who decides who crosses. Inspector. Fancy, eh?");
         }
         else if (day.dayNumber == 2)
         {
@@ -247,7 +254,7 @@ public class GameDirector : MonoBehaviour
         if (teach && firstDay)
         {
             yield return guide.SayAndWait("Today it's just the PASSPORT. Not expired, check today's date up top. And the PHOTO has to be the face in the window.");
-            yield return guide.SayAndWait("Good: APPROVE. Wrong: REJECT. Forgot? The RULES book is up top. They pay per person, and the shift ends at 19:00. It goes fast.");
+            yield return guide.SayAndWait("Good: APPROVE (A). Wrong: REJECT (R). Forgot? The RULES book up top has pictures (TAB). They pay per person, and the shift ends at 19:00.");
             yield return guide.SayAndWait("Mistakes go on your record. Don't make me look bad, eh?");
         }
         else if (xrayLesson)
@@ -301,6 +308,7 @@ public class GameDirector : MonoBehaviour
 
         tutorialClicks = false;
         desk.Say(FarewellLine(traveler, finalDecision));
+        desk.ShowVerdict(correct && citations.Count == 0);
         desk.ShowCitations(citations);
 
         // That was the last straw. They stay at the window; the phone is already ringing.

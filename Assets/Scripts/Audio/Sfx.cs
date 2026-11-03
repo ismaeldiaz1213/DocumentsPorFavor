@@ -63,7 +63,22 @@ public class Sfx : MonoBehaviour
 
         // The scene is already loaded the first time; "Play again" reloads it later.
         HookButtons();
-        SceneManager.sceneLoaded += (_, __) => { StopAllLoops(); HookButtons(); };
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // With "Enter Play Mode Options" on, Unity doesn't reload scripts between plays,
+    // so a handler left on SceneManager would outlive this object and poke its
+    // destroyed AudioSources next time. Always unhook on the way out.
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        if (instance == this) instance = null;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StopAllLoops();
+        HookButtons();
     }
 
     void Update()
@@ -142,13 +157,15 @@ public class Sfx : MonoBehaviour
 
     void StopAllLoops()
     {
-        foreach (AudioSource source in loops.Values) source.Stop();
+        foreach (AudioSource source in loops.Values)
+            if (source != null) source.Stop();
         foreach (Sound sound in new List<Sound>(loopTargets.Keys)) loopTargets[sound] = 0f;
     }
 
     // ---------- Buttons ----------
 
-    static void HookButtons()
+    // Called again by code that builds buttons while the game runs.
+    public static void HookButtons()
     {
         foreach (Button button in FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {

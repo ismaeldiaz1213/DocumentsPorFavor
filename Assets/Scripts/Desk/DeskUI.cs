@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
 // Everything on the desk except the X-ray: the booth window, the conversation,
@@ -14,6 +17,12 @@ using UnityEngine.UI;
 //
 // All talking happens in ONE place, the box at the left: travelers, and Primo
 // José when he leans in ("Aside"). After José is done, the traveler's line comes back.
+//
+// Built in code at startup (not by the menu): the illustrated rulebook, the
+// "under construction" cover on the plate cam, the green check / red X verdict
+// stamp, and the keyboard shortcuts:
+//     N next car   SPACE/ENTER next line   A approve   R reject   I imprison
+//     T take bribe   TAB rulebook (ARROWS turn pages, ESC closes)
 public class DeskUI : MonoBehaviour
 {
     [Header("HUD")]
@@ -101,6 +110,13 @@ public class DeskUI : MonoBehaviour
 
     public bool AsideWaiting => asideActive;
 
+    // Built in code (see the top of the file).
+    Rulebook book;
+    GameObject plateCover;
+    Image verdictMark;
+    TextMeshProUGUI verdictLabel;
+    Coroutine verdictRoutine;
+
     void Awake()
     {
         approveButton.onClick.AddListener(() => Decide(Decision.Approve));
@@ -109,8 +125,22 @@ public class DeskUI : MonoBehaviour
         bribeButton.onClick.AddListener(() => { Sfx.Play(Sound.Cash); BribeClicked?.Invoke(); });
         nextLineButton.onClick.AddListener(NextLine);
         megaphoneButton.onClick.AddListener(() => nextCalled = true);
-        rulebookButton.onClick.AddListener(() => { Sfx.Play(Sound.Paper); rulebookPage.SetActive(!rulebookPage.activeSelf); });
         rulebookCloseButton.onClick.AddListener(() => rulebookPage.SetActive(false));
+
+        // The old text-only rulebook page stays hidden; the illustrated book replaces it.
+        Transform overlay = rulebookPage.transform.parent;
+        book = Rulebook.Create(overlay);
+        book.transform.SetSiblingIndex(rulebookPage.transform.GetSiblingIndex() + 1);
+        rulebookButton.onClick.AddListener(book.Toggle);
+
+        BuildPlateCover();
+        BuildVerdict(overlay);
+        AddKeyHint(approveButton, "A");
+        AddKeyHint(rejectButton, "R");
+        AddKeyHint(imprisonButton, "I");
+        AddKeyHint(bribeButton, "T");
+        AddKeyHint(megaphoneButton, "N");
+        AddKeyHint(rulebookButton, "TAB");
 
         ClearTraveler();
         SetDecisionsEnabled(false);
@@ -157,6 +187,130 @@ public class DeskUI : MonoBehaviour
         scannerCover.SetActive(!day.xrayScanner);
         xrayHint.SetActive(day.xrayScanner);
         rulebookText.text = RulebookText(day);
+        book.SetDay(day);
+        // The plate cam only matters once registrations are checked.
+        plateCover.SetActive(!day.registrationRequired);
+    }
+
+    // The rulebook's X-ray page shows real contraband from these days.
+    public void UseExamplesFrom(IEnumerable<DayData> days) => book.UseExamplesFrom(days);
+
+    // ---------- Keyboard ----------
+
+    void Update()
+    {
+        // A clicked button stays "selected", and SPACE/ENTER would press it again. Don't let it.
+        EventSystem events = EventSystem.current;
+        if (events != null && events.currentSelectedGameObject != null && events.currentSelectedGameObject.GetComponent<Button>() != null)
+            events.SetSelectedGameObject(null);
+
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null) return;
+
+        if (keyboard.tabKey.wasPressedThisFrame && rulebookButton.gameObject.activeInHierarchy)
+            book.Toggle();
+        if (book.IsOpen)
+        {
+            if (keyboard.escapeKey.wasPressedThisFrame) book.Close();
+            if (keyboard.rightArrowKey.wasPressedThisFrame) book.Turn(1);
+            if (keyboard.leftArrowKey.wasPressedThisFrame) book.Turn(-1);
+        }
+
+        Press(keyboard.nKey, megaphoneButton);
+        Press(keyboard.aKey, approveButton);
+        Press(keyboard.rKey, rejectButton);
+        Press(keyboard.iKey, imprisonButton);
+        Press(keyboard.tKey, bribeButton);
+        Press(keyboard.spaceKey, nextLineButton);
+        Press(keyboard.enterKey, nextLineButton);
+        Press(keyboard.numpadEnterKey, nextLineButton);
+    }
+
+    // Same as clicking it, but only if it could be clicked right now.
+    static void Press(KeyControl key, Button button)
+    {
+        if (key.wasPressedThisFrame && button.gameObject.activeInHierarchy && button.interactable)
+            button.onClick.Invoke();
+    }
+
+    // "APPROVE" becomes "APPROVE [A]".
+    static void AddKeyHint(Button button, string key)
+    {
+        TMP_Text label = button.GetComponentInChildren<TMP_Text>(true);
+        if (label == null) return;
+        label.enableAutoSizing = true;
+        label.fontSizeMin = 12f;
+        label.fontSizeMax = label.fontSize;
+        label.text = $"{label.text} <size=60%><alpha=#B0>[{key}]</size>";
+    }
+
+    // ---------- Plate cam cover ----------
+
+    void BuildPlateCover()
+    {
+        Transform cam = plateText.transform.parent.parent; // Number > Plate > PlateCam
+        RectTransform cover = UiKit.Stretch("UnderConstruction", cam);
+        cover.gameObject.AddComponent<Image>().color = Palette.WithAlpha(Palette.Ink, 0.97f);
+        for (int i = 0; i < 4; i++)
+        {
+            Image stripe = UiKit.Panel("Stripe", cover, 0, 14 + i * 42, 390, 10, Palette.WithAlpha(Palette.Warning, 0.14f));
+            stripe.raycastTarget = false;
+        }
+        UiKit.Label("Text", cover, "PLATE CAM\n<size=55%>UNDER CONSTRUCTION</size>", 34, Palette.Warning,
+            TextAlignmentOptions.Center, 10, 20, 370, 135, bold: true);
+        plateCover = cover.gameObject;
+    }
+
+    // ---------- Verdict stamp ----------
+
+    void BuildVerdict(Transform overlay)
+    {
+        verdictMark = UiKit.Picture("Verdict", overlay, PixelArt.Check(), 300, 60, 240, 240);
+        verdictMark.transform.SetAsFirstSibling(); // under pages and popups, over the desk
+        verdictLabel = UiKit.Label("Label", verdictMark.transform, "", 34, Palette.Approve, TextAlignmentOptions.Center, -80, -44, 400, 44, bold: true);
+        verdictMark.gameObject.SetActive(false);
+    }
+
+    // A big green check (right call, no citations) or a red X stamped over the papers.
+    public void ShowVerdict(bool good)
+    {
+        verdictMark.sprite = good ? PixelArt.Check() : PixelArt.Cross();
+        verdictLabel.text = good ? "CORRECT" : "CITATION";
+        verdictLabel.color = good ? Palette.Approve : Palette.Reject;
+        Sfx.Play(good ? Sound.Cash : Sound.Wrong, 0.8f);
+        if (verdictRoutine != null) StopCoroutine(verdictRoutine);
+        verdictRoutine = StartCoroutine(VerdictPop());
+    }
+
+    IEnumerator VerdictPop()
+    {
+        GameObject go = verdictMark.gameObject;
+        Transform t = go.transform;
+        go.SetActive(true);
+        float angle = UnityEngine.Random.Range(-10f, 10f);
+        for (float e = 0f; e < 0.18f; e += Time.deltaTime)
+        {
+            float k = e / 0.18f;
+            t.localScale = Vector3.one * Mathf.Lerp(1.8f, 1f, k * k);
+            t.localEulerAngles = new Vector3(0, 0, angle * k);
+            SetVerdictAlpha(k);
+            yield return null;
+        }
+        t.localScale = Vector3.one;
+        SetVerdictAlpha(1f);
+        yield return new WaitForSeconds(1.4f);
+        for (float e = 0f; e < 0.4f; e += Time.deltaTime)
+        {
+            SetVerdictAlpha(1f - e / 0.4f);
+            yield return null;
+        }
+        go.SetActive(false);
+    }
+
+    void SetVerdictAlpha(float a)
+    {
+        verdictMark.color = new Color(1f, 1f, 1f, a);
+        verdictLabel.alpha = a;
     }
 
     static string RulebookText(DayData day)

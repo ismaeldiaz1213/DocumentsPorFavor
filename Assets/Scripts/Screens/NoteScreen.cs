@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 // A sheet of paper with a title, some text and one button. Used for the intro
@@ -18,13 +19,16 @@ public class NoteScreen : MonoBehaviour
     void Awake()
     {
         button.onClick.AddListener(() => clicked = true);
+        buttonLabel.enableAutoSizing = true; // room for the [SPACE] hint
+        buttonLabel.fontSizeMin = 12f;
+        buttonLabel.fontSizeMax = buttonLabel.fontSize;
         root.SetActive(false);
     }
 
     public IEnumerator Show(string title, string body, string buttonText, bool typed)
     {
         titleText.text = title;
-        buttonLabel.text = buttonText;
+        buttonLabel.text = $"{buttonText} <size=60%><alpha=#B0>[SPACE]</size>";
         root.SetActive(true);
         Sfx.Play(Sound.Paper);
 
@@ -35,6 +39,7 @@ public class NoteScreen : MonoBehaviour
         clicked = false;
         while (true)
         {
+            if (ContinuePressed()) clicked = true;
             if (clicked)
             {
                 clicked = false;
@@ -44,5 +49,13 @@ public class NoteScreen : MonoBehaviour
             yield return null;
         }
         root.SetActive(false);
+    }
+
+    // SPACE or ENTER works like the button.
+    public static bool ContinuePressed()
+    {
+        Keyboard keyboard = Keyboard.current;
+        return keyboard != null && (keyboard.spaceKey.wasPressedThisFrame || keyboard.enterKey.wasPressedThisFrame ||
+                                    keyboard.numpadEnterKey.wasPressedThisFrame);
     }
 }
