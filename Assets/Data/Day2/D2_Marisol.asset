@@ -65,16 +65,11 @@ MonoBehaviour:
     topViewSize: {x: 0.09, y: 0.17}
   contraband: []
   boothLines:
-  - Hi. Night shift, ICU, University Medical Center. Six patients tonight. Can we
-    make this quick?
-  - I bought the car last month. Used. The guy who sold it to me had a cousin at
-    the DMV, he said that made it easier.
-  - ...That's bad, isn't it? You're making a face. You have the same face as my patients'
-    families.
+  - Hi. Night shift, ICU. Can we make this quick?
   lineIfApproved: Thank you. If you ever end up in the ICU, ask for me. ...Don't
     end up in the ICU.
-  lineIfRejected: Okay. I'll call in. They'll pull someone from the ER. The ER is
-    already short. Okay.
+  lineIfRejected: The plates? The guy who sold me the car said his cousin at the
+    DMV handled it. Of course he did. ...I'll call in. The ER is already short.
   lineIfImprisoned: For a PLATE? I have a man on a ventilator waiting for me!
   onlyIfApproved: {fileID: 0}
   onlyIfNotApproved: {fileID: 0}

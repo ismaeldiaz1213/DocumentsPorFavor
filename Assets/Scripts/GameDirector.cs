@@ -9,7 +9,7 @@ using UnityEngine;
 // for the one before it.
 //
 // Ways it can end: you finish the last day (you keep the job), your record
-// hits -10 (fired), you can't make rent two nights (evicted), or Abuela goes
+// sinks too low (fired, by phone), you can't make rent two nights (evicted), or Abuela goes
 // three nights without her medicine.
 public class GameDirector : MonoBehaviour
 {
@@ -173,15 +173,35 @@ public class GameDirector : MonoBehaviour
 
         clockRunning = false;
         StopCoroutine(ambience);
-        if (!Fired)
+        if (Fired)
         {
-            Sfx.Play(Sound.Whistle);
-            yield return stage.CloseLane();
+            yield return PhoneCallFromJefe();
+            yield break;
         }
-        else
+
+        Sfx.Play(Sound.Whistle);
+        yield return stage.CloseLane();
+    }
+
+    // The moment your record crosses the line, the booth phone rings. Nobody warned you.
+    IEnumerator PhoneCallFromJefe()
+    {
+        desk.SetDecisionsEnabled(false);
+        desk.ClearTraveler(); // the window goes empty: it's just you and the phone
+        yield return new WaitForSeconds(0.8f);
+        for (int i = 0; i < 3; i++)
         {
-            yield return stage.CloseLane();
+            Sfx.Play(Sound.Ring);
+            yield return new WaitForSeconds(1.8f);
         }
+
+        const string jefe = "EL JEFE  ·  ON THE PHONE";
+        yield return desk.AsideAndWait(jefe, null, "Booth 3. It's me.");
+        yield return desk.AsideAndWait(jefe, null, "I've been looking at your record. I didn't like what I saw.");
+        yield return desk.AsideAndWait(jefe, null, "José swore you were good. Hiring you was a mistake. Mine, and his.");
+        yield return desk.AsideAndWait(jefe, null, "You're done. Leave the badge on the counter. Don't come back tomorrow.");
+        Sfx.Play(Sound.Click);
+        yield return new WaitForSeconds(1f);
     }
 
     // José comes by when there's news: your first day, your brother, the new scanner.
@@ -191,8 +211,7 @@ public class GameDirector : MonoBehaviour
         {
             yield return guide.WalkOver();
             yield return guide.SayAndWait("¡Primo! Over here! It's me, José. Security now. Look, they gave me a hat.");
-            yield return guide.SayAndWait("I pulled a lot of strings to get you this booth, so don't make me look bad, eh? Rent is due, Abuela needs her medicine, and your nephew needs shoes.");
-            yield return guide.SayAndWait("Everybody you talk to shows up right here, in this box on the left, and their face is in the window. Even mine. See? Handsome.");
+            yield return guide.SayAndWait("I pulled a lot of strings for this booth. Everybody you talk to shows up here, and their face is in the window. Even mine. Handsome, eh?");
         }
         else if (day.dayNumber == 2)
         {
@@ -227,15 +246,14 @@ public class GameDirector : MonoBehaviour
 
         if (teach && firstDay)
         {
-            yield return guide.SayAndWait("Day one, it's just the PASSPORT. Two things. The EXPIRES date can't be before today's date, top left. And the PHOTO has to be the face in the window.");
-            yield return guide.SayAndWait("Papers good: APPROVE. Anything wrong: REJECT. Forget something? The RULES book is up top. And watch the clock. The shift ends at 19:00, and they pay per person.");
-            yield return guide.SayAndWait("Every mistake is a citation. Ten points of citations and they take your badge. So... no mistakes, eh? This one's an abuela with a lot of tamales. Your call.");
+            yield return guide.SayAndWait("Today it's just the PASSPORT. Not expired, check today's date up top. And the PHOTO has to be the face in the window.");
+            yield return guide.SayAndWait("Good: APPROVE. Wrong: REJECT. Forgot? The RULES book is up top. They pay per person, and the shift ends at 19:00. It goes fast.");
+            yield return guide.SayAndWait("Mistakes go on your record. Don't make me look bad, eh?");
         }
         else if (xrayLesson)
         {
-            yield return guide.SayAndWait("If something is hiding in a car, a person, a package, anything that isn't part of the car, you CLICK on it. Top picture is the car from the side, bottom is from above.");
-            yield return guide.SayAndWait("But every click on normal car stuff, an engine, a seat, a spare tire, is ONE POINT off your record. The jefe hates wasted time. Only click what doesn't belong.");
-            yield return guide.SayAndWait("Found something hidden? IMPRISON. I walk them out myself, and the tow truck takes the car. This one's the trumpet guy again. Metal glows bright. Bright doesn't mean illegal.");
+            yield return guide.SayAndWait("Anything hiding in the car that isn't part of the car, you CLICK it. Top is the side view, bottom is from above.");
+            yield return guide.SayAndWait("Click an engine or a seat and that's a point off your record. Found something hidden? IMPRISON. I walk them out myself.");
         }
 
         decision = null;
@@ -245,6 +263,13 @@ public class GameDirector : MonoBehaviour
 
         while (decision == null)
         {
+            // Wrong clicks on the X-ray can sink your record before you even decide.
+            if (Fired)
+            {
+                desk.SetDecisionsEnabled(false);
+                tutorialClicks = false;
+                yield break;
+            }
             // Smugglers get nervous once you've spotted something on the X-ray.
             if (!bribeOffered && traveler.OffersBribe && currentDay.xrayScanner && xray.FoundCount > 0)
             {
@@ -277,6 +302,13 @@ public class GameDirector : MonoBehaviour
         tutorialClicks = false;
         desk.Say(FarewellLine(traveler, finalDecision));
         desk.ShowCitations(citations);
+
+        // That was the last straw. They stay at the window; the phone is already ringing.
+        if (Fired)
+        {
+            yield return new WaitForSeconds(2f);
+            yield break;
+        }
 
         if (teach && (firstDay || xrayLesson))
         {
@@ -311,7 +343,7 @@ public class GameDirector : MonoBehaviour
         float k = currentDay != null ? Mathf.Clamp01(shiftElapsed / currentDay.shiftSeconds) : 0f;
         int minutes = Mathf.FloorToInt(k * 12f * 60f / 10f) * 10; // ticks in 10-minute steps
         int hour = 7 + minutes / 60;
-        desk.SetClock($"{hour:00}:{minutes % 60:00}");
+        desk.SetClock($"{hour:00}:{minutes % 60:00}", late: hour >= 17);
         if (hour != lastHour)
         {
             lastHour = hour;
@@ -355,10 +387,14 @@ public class GameDirector : MonoBehaviour
             if (record.wrongClicks > 0)
                 text.AppendLine($"    Wasted the boss's time x{record.wrongClicks}<pos=85%>{record.wrongClicks * Scoring.WrongClick}");
             foreach (Citation citation in record.citations)
+            {
                 text.AppendLine($"    {citation.reason}<pos=85%>{citation.points}");
+                if (!string.IsNullOrEmpty(citation.why))
+                    text.AppendLine($"<size=80%>        {citation.why}</size>");
+            }
         }
         text.AppendLine();
-        text.AppendLine($"<b>Points today: {dayPoints}</b>     Record: {totalPoints} (fired at {Scoring.FiredAt})");
+        text.AppendLine($"<b>Points today: {dayPoints}</b>     Record: {totalPoints}");
         return text.ToString();
     }
 
@@ -407,7 +443,7 @@ public class GameDirector : MonoBehaviour
         {
             case Ending.Fired:
                 heading = "BADGE, POR FAVOR";
-                text.AppendLine($"The jefe holds out his hand. You give him the badge. It's {currentDay.todaysDate}.");
+                text.AppendLine($"You leave the badge on the counter of Booth 3. It's {currentDay.todaysDate}. José doesn't call that night.");
                 break;
             case Ending.Evicted:
                 heading = "THE LOCKS WERE CHANGED";
@@ -500,7 +536,7 @@ public class GameDirector : MonoBehaviour
     void RefreshHud()
     {
         if (currentDay != null && household != null)
-            desk.SetHud(currentDay.dayNumber, currentDay.todaysDate, totalPoints, household.savings + bribesToday);
+            desk.SetHud(currentDay.dayNumber, currentDay.todaysDate, totalPoints);
     }
 
     static string Outcome(DecisionRecord record)

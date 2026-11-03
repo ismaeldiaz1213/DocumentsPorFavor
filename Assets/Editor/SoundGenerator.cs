@@ -130,6 +130,25 @@ public static class SoundGenerator
     // The service bell on the counter.
     static float[] Bell() => BellTone(1.6f, 1760f, new[] { 1f, 2.32f, 4.25f, 6.63f }, new[] { 1f, 0.5f, 0.25f, 0.12f }, 0.6f);
 
+    // An old desk phone: two short bursts of a bell hammered twenty times a second.
+    static float[] Ring()
+    {
+        float[] s = Buffer(1.5f);
+        for (int i = 0; i < s.Length; i++)
+        {
+            float t = T(i);
+            float burst = Mathf.Max(Gate(t, 0f, 0.45f), Gate(t, 0.65f, 1.1f));
+            float hammer = Mathf.Sin(TwoPi * 20f * t) > 0f ? 1f : 0.35f;
+            float bell = Mathf.Sin(TwoPi * 1250f * t) * 0.6f + Mathf.Sin(TwoPi * 1570f * t) * 0.4f;
+            s[i] = bell * hammer * burst;
+        }
+        return Lowpass(s, 3500f);
+    }
+
+    // 1 between start and end, with 10 ms soft edges so it doesn't click.
+    static float Gate(float t, float start, float end) =>
+        Mathf.Clamp01(Mathf.Min(t - start, end - t) / 0.01f);
+
     static float[] Cash()
     {
         float[] s = Buffer(0.9f);
@@ -698,6 +717,7 @@ public static class SoundGenerator
         Save(folder, Sound.Music, 1, Music, 0.6f, loop: true);
         Save(folder, Sound.Lose, 1, Lose, 0.7f);
         Save(folder, Sound.Win, 1, Win, 0.7f);
+        Save(folder, Sound.Ring, 1, Ring, 0.5f); // new sounds go LAST, so the ones above come out the same
     }
 
     static readonly float[] TakePitch = { 1f, 0.93f, 1.07f, 0.97f, 1.04f };

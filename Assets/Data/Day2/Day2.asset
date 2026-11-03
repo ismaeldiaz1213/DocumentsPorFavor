@@ -18,14 +18,14 @@ MonoBehaviour:
   xrayScanner: 0
   registrationRequired: 0
   memoTitle: "MEMO  \xB7  DAY 2"
-  memo: "NEW RULE: ENTRY PERMITS.\n\nAnyone who is NOT a US citizen needs an ENTRY
-    PERMIT:\n    \xB7  The name must match the passport.\n    \xB7  It must not be
-    expired.\n\nUS citizens need no permit. They will tell you this. Loudly.\n\nNo
-    permit, wrong name, or expired: REJECT.\n\n-- El Jefe"
-  shiftSeconds: 360
+  memo: "NEW RULE: ENTRY PERMITS.\n\nNot a US citizen? They need one:\n    \xB7 
+    Name matches the passport.\n    \xB7  Not expired.\n\n-- El Jefe"
+  shiftSeconds: 180
   travelers:
   - {fileID: 11400000, guid: deb12ff43212dfa4a8a6caef47cc7ce4, type: 2}
+  - {fileID: 11400000, guid: fe56e4072620ea24e8cb96470a769971, type: 2}
   - {fileID: 11400000, guid: abea7859380c2bd44b66d5c4d296138e, type: 2}
-  - {fileID: 11400000, guid: f33bef0763051774f9d190fd4560f3e3, type: 2}
   - {fileID: 11400000, guid: 3ff4e288b37b91e41b689dd074781fca, type: 2}
+  - {fileID: 11400000, guid: f33bef0763051774f9d190fd4560f3e3, type: 2}
+  - {fileID: 11400000, guid: b71b32022c516b642b54c709cc16cc5d, type: 2}
   - {fileID: 11400000, guid: 789f12e7af4e98d47b5980aee9a81185, type: 2}

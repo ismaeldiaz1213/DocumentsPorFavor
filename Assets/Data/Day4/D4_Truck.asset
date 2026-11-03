@@ -142,11 +142,9 @@ MonoBehaviour:
     topViewPosition: {x: 0.54, y: 0.68}
     topViewSize: {x: 0.1, y: 0.3}
   boothLines:
-  - Buenas. Furniture for a store in Odessa. Chairs, tables. Very heavy wood.
+  - Buenas. Furniture for a store in Odessa.
   - Twenty years I drive this road. You're new. The new ones are always slow. It's
     okay. I'm patient.
-  - You have family, joven? Then you understand. Everybody is just trying to get
-    home.
   lineIfApproved: God bless you, joven. Drive safe. ...I mean, I'll drive safe.
   lineIfRejected: Back, then. ...They won't like going back. Nobody does.
   lineIfImprisoned: Okay. Okay. They're not mine, you understand? I just drive. ...Be

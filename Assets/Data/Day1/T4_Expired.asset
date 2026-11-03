@@ -79,14 +79,11 @@ MonoBehaviour:
   - "\xA1Buenas tardes, oficial! Roberto Salinas, trumpet, Mariachi Los Desvelados.
     Forty-two years. You've heard of us. No? Your mother has."
   - We have a wedding tonight in Las Cruces. The groom's family paid half up front.
-    The other half depends on me hitting the high note in 'El Son de la Negra.'
-  - My passport? Ah, yes. Expired. Two weeks. But my face is the same, look. Older,
-    maybe. Sadder. Same face.
-  - Do you want me to play something? It helps with the waiting. No? Okay. I'll hum.
+    The other half depends on me hitting the high note.
   lineIfApproved: "\xA1Aj\xFAa! I'll play one for you tonight, oficial. You won't
     hear it, but I'll play it."
-  lineIfRejected: Two weeks... Okay. The bride will have to walk down the aisle to
-    a cell phone.
+  lineIfRejected: Expired? ...Two weeks! Who looks at two weeks? Okay. The bride
+    walks down the aisle to a cell phone.
   lineIfImprisoned: For an EXPIRED PASSPORT? At least let me bring the trumpet. The
     cell needs music.
   onlyIfApproved: {fileID: 0}

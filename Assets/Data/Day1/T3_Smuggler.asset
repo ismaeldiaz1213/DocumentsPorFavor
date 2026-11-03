@@ -120,11 +120,8 @@ MonoBehaviour:
     topViewPosition: {x: 0.57, y: 0.68}
     topViewSize: {x: 0.1, y: 0.3}
   boothLines:
-  - Mangos. It's mangos. Ataulfo. The good ones. Very... mango.
-  - Sorry, it's hot. Is it hot in here? It's hot. You should get a fan. I could get
-    you a fan.
-  - No, I didn't load it. A guy loaded it. A different guy. A guy I don't know. Normal
-    stuff.
+  - Buenas. Mangos, for a market in Midland.
+  - Hot today, eh?
   lineIfApproved: Thank you. Thank you. Don't... don't think about it, okay? I'm
     trying not to.
   lineIfRejected: Back? I can't go back with them. You don't understand what they'll...

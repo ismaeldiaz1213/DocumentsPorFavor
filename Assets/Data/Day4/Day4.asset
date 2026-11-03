@@ -18,14 +18,16 @@ MonoBehaviour:
   xrayScanner: 1
   registrationRequired: 1
   memoTitle: "MEMO  \xB7  DAY 4"
-  memo: "NEW RULE: VEHICLE REGISTRATION.\n\n    \xB7  The OWNER must match the passport.\n   
-    \xB7  The PLATE must match the PLATE CAM.\n\nAlso: Washington says smuggling
-    is up this week. Washington says a lot of things. Check every truck.\n\n-- El
-    Jefe"
-  shiftSeconds: 420
+  memo: "NEW RULE: VEHICLE REGISTRATION.\n\n    \xB7  Owner matches the passport.\n   
+    \xB7  Plate matches the PLATE CAM.\n\nWashington says smuggling is up. Check
+    every truck.\n\n-- El Jefe"
+  shiftSeconds: 210
   travelers:
   - {fileID: 11400000, guid: 6841b510ee9030b41865519b9f7a3908, type: 2}
+  - {fileID: 11400000, guid: c5ce24ed75149cf42b40823726bd3818, type: 2}
   - {fileID: 11400000, guid: f97d5f4d7df4e254b96c205d0afb8bbe, type: 2}
-  - {fileID: 11400000, guid: e5ab687c2a0aebb4193c63c8a3bce94e, type: 2}
   - {fileID: 11400000, guid: 77fb5aa532e1ef74db6799fd6be64ae3, type: 2}
   - {fileID: 11400000, guid: e6556d7d9c8cd724ebfbb899a1bfd98d, type: 2}
+  - {fileID: 11400000, guid: e5ab687c2a0aebb4193c63c8a3bce94e, type: 2}
+  - {fileID: 11400000, guid: 22aceac719f064749b920536685f3474, type: 2}
+  - {fileID: 11400000, guid: fe4c46051a09b324693e527eb935ca18, type: 2}

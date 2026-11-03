@@ -91,10 +91,9 @@ MonoBehaviour:
     Gringo Loco cried. Then he filed his taxes."
   - Tonight, the rematch. He says I cheated. I did not cheat. I used a CHAIR. Chairs
     are legal in my heart.
-  - The registration? Same as always. In my TRUE name. The people's name.
   lineIfApproved: "\xA1EL HURAC\xC1N AGRADECE! Tonight, the belt comes home!"
-  lineIfRejected: "The government name AGAIN? ...The Hurac\xE1n will return. The
-    Hurac\xE1n always returns."
+  lineIfRejected: "The registration? It's in my TRUE name! The name the people chant!
+    ...Bah. The Hurac\xE1n will return. The Hurac\xE1n always returns."
   lineIfImprisoned: "You cannot cage a HURAC\xC1N! ...Okay, you can. The mask stays
     on."
   onlyIfApproved: {fileID: 0}
@@ -109,7 +108,6 @@ MonoBehaviour:
       took my belt. Tonight I take it back."
     - Tonight, the rematch. He says I cheated. I did not cheat. I used a CHAIR. Chairs
       are legal in my heart.
-    - The registration? Same as always. In my TRUE name. The people's name.
   bribeAmount: 0
   bribeLine: 
   newsIfApproved:

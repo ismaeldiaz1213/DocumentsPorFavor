@@ -80,13 +80,9 @@ MonoBehaviour:
     in diapers, probably.
   - My daughter's getting married Saturday. El Paso. She asked me to walk her down
     the aisle. She's asked every year since she was six.
-  - "They deported me in 2011. A DUI. I served my time, then they served me to Ju\xE1rez.
-    Fourteen years. I still say \"y'all.\""
-  - The passport's my brother's. We look alike. Everybody says so. ...He's handsomer.
-    Don't tell him.
   lineIfApproved: Thank you, son. Hooah.
-  lineIfRejected: ...Copy that. She said she'd do a video call. That's nice of her.
-    That's real nice.
+  lineIfRejected: ...Copy that. It's my brother's. Worth a shot. She said she'd do
+    a video call. That's nice of her. That's real nice.
   lineIfImprisoned: Twenty years, they'll give me. For walking my daughter down an
     aisle. ...Put in the report that I didn't fight you.
   onlyIfApproved: {fileID: 0}

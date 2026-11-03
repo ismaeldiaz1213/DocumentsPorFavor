@@ -183,7 +183,7 @@ public class CheckpointStage : MonoBehaviour
         driver.position = currentCar.SeatPosition;
         driver.gameObject.SetActive(true);
         yield return Walk(driver, boothDoor.position);
-        driver.gameObject.SetActive(false); // they're inside the booth now, at your window
+        // They stay right there, standing at your window, until you decide.
     }
 
     // One left-to-right sweep over the car.
@@ -332,28 +332,34 @@ public class CheckpointStage : MonoBehaviour
 
     // ---------- Life on the road ----------
 
-    // Between cars. Never on a schedule, and often nothing at all:
-    // the desert is mostly quiet, which makes the breeze and the odd tumbleweed land.
+    // Between cars. Never on a schedule, and mostly nothing at all: the desert is
+    // quiet, with the odd long lull. When the wind does come, every gust is its own
+    // loudness and pitch, usually soft, so it sits under the game instead of on top.
     public IEnumerator Ambience()
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(8f, 25f));
+            bool lull = Random.value < 0.3f;
+            yield return new WaitForSeconds(lull ? Random.Range(40f, 70f) : Random.Range(15f, 32f));
+
             float roll = Random.value;
-            if (roll < 0.35f)
-                Sfx.Play(Sound.Breeze);
+            if (roll < 0.4f)
+                Sfx.Play(Sound.Breeze, Soft(0.1f, 0.5f), Random.Range(0.8f, 1.1f));
             else if (roll < 0.5f)
             {
-                Sfx.Play(Sound.Gust);
-                if (Random.value < 0.5f) RollTumbleweed(); // a strong gust sometimes brings company
+                Sfx.Play(Sound.Gust, Soft(0.2f, 0.6f), Random.Range(0.85f, 1.1f));
+                if (Random.value < 0.4f) RollTumbleweed(); // a strong gust sometimes brings company
             }
             else if (roll < 0.6f)
                 RollTumbleweed();
-            else if (roll < 0.7f && queue.Count > 0)
-                Sfx.Play(Sound.Horn, 0.3f); // someone in line is getting impatient
+            else if (roll < 0.66f && queue.Count > 0)
+                Sfx.Play(Sound.Horn, 0.25f); // someone in line is getting impatient
             // otherwise: nothing.
         }
     }
+
+    // A random volume between min and max, leaning toward the quiet end.
+    static float Soft(float min, float max) => Mathf.Lerp(min, max, Random.value * Random.value);
 
     // Across the far lane, in either direction.
     void RollTumbleweed()

@@ -78,9 +78,7 @@ MonoBehaviour:
   boothLines:
   - Buenas tardes. I clean offices in El Paso. Five years, every morning, this bridge.
     Maybe you've seen me.
-  - My papers are good. Work permit, everything. I am very legal. Very, very legal.
-  - No radio, sorry. It's broken. Can we go? I'm very tired. It's... very quiet in
-    the car today.
+  - Can we go? I'm very tired.
   lineIfApproved: Gracias. Gracias. You'll never see him. I promise. He'll be so
     good.
   lineIfRejected: Okay. We go back. ...There are other ways across. Worse ones. But

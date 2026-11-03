@@ -115,6 +115,10 @@ public class DeskUI : MonoBehaviour
         ClearTraveler();
         SetDecisionsEnabled(false);
         citationSlip.SetActive(false);
+        // A slip with a long "why" shrinks its text to fit instead of spilling off the paper.
+        citationText.enableAutoSizing = true;
+        citationText.fontSizeMin = 11f;
+        citationText.fontSizeMax = citationText.fontSize;
         dayBanner.SetActive(false);
         megaphoneButton.gameObject.SetActive(false);
         megaphoneShout.SetActive(false);
@@ -129,15 +133,19 @@ public class DeskUI : MonoBehaviour
 
     // ---------- HUD ----------
 
-    public void SetHud(int dayNumber, string date, int record, int money)
+    // Just the day and your record. Nobody tells you where the line is, and money
+    // only comes up at night, when the bills do.
+    public void SetHud(int dayNumber, string date, int record)
     {
         dayText.text = $"DAY {dayNumber}  ·  {date}";
-        string color = record <= Scoring.FiredAt / 2 ? "#A8503F" : "#E8C25A"; // red once you're halfway to fired
-        pointsText.text = $"RECORD <color={color}>{record}</color> <size=70%>/ {Scoring.FiredAt} = FIRED</size>";
-        moneyText.text = $"SAVINGS {Money.Format(money)}";
+        string color = record <= Scoring.FiredAt / 2 ? "#A8503F" : "#E8C25A"; // turns red as it gets bad
+        pointsText.text = $"RECORD <color={color}>{record}</color>";
+        moneyText.gameObject.SetActive(false);
     }
 
-    public void SetClock(string time) => clockText.text = time;
+    // Late in the shift the clock turns red.
+    public void SetClock(string time, bool late) =>
+        clockText.text = late ? $"<color=#A8503F>{time}</color>" : time;
 
     // ---------- Today's rules ----------
 
@@ -401,12 +409,18 @@ public class DeskUI : MonoBehaviour
 
         var text = new StringBuilder();
         foreach (Citation citation in citations)
-            text.AppendLine($"{citation.reason}   <b>{citation.points}</b>");
+        {
+            text.AppendLine($"<b>{citation.reason}   {citation.points}</b>");
+            if (!string.IsNullOrEmpty(citation.why))
+                text.AppendLine($"<size=75%>{citation.why}</size>"); // what you should have seen
+        }
         citationText.text = text.ToString();
         Sfx.Play(Sound.Printer);
 
+        // Longer slips stay up longer: about two extra seconds per citation.
+        float seconds = Mathf.Max(citationSeconds, 4f + 2f * citations.Count);
         if (citationRoutine != null) StopCoroutine(citationRoutine);
-        citationRoutine = StartCoroutine(ShowFor(citationSlip, citationSeconds));
+        citationRoutine = StartCoroutine(ShowFor(citationSlip, seconds));
     }
 
     public IEnumerator ShowDayBanner(string text, float seconds)

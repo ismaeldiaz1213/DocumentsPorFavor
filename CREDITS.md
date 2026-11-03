@@ -1,22 +1,25 @@
-# Credits and outside assets
+# Credits, sources and references
 
-A running list of everything in *Documents, Por Favor!* that was not made from scratch for this project.
-Update it whenever an outside asset is added.
+Everything in *Documents, Por Favor!* that was not made from scratch for this project, every tool
+and reference used to make it, and every real-world name it mentions.
+Keep this file up to date whenever something new is added.
 
 ## Inspiration
 
-- **Papers, Please** (Lucas Pope, 3909 LLC, 2013). This is a fan game in its genre: a border-inspection
-  game with document checks, new rules each day, a shift timer, daily wages and family bills.
-  No art, text, sound or code from Papers, Please is used. The setting (a US-Mexico checkpoint),
-  the characters, the X-ray scanner and the human-smuggling story are original.
+- **Papers, Please** (Lucas Pope / 3909 LLC, 2013). https://papersplea.se
+  This is a fan game in its genre: a border-inspection game with document checks, a new rule
+  each day, a shift timer, daily wages, family bills, citations, a nightly newspaper and multiple endings.
+  No art, text, sound or code from Papers, Please is used. The setting (a US-Mexico port of entry),
+  characters, story, X-ray scanner and all writing are original.
 
 ## Third-party assets in the project
 
-| Asset | Where | Author | License |
-|---|---|---|---|
-| Liberation Sans font | `Assets/TextMesh Pro/Fonts/LiberationSans.ttf` | Red Hat / Ascender | SIL Open Font License 1.1 |
-| TextMesh Pro (essential resources) | `Assets/TextMesh Pro/` | Unity Technologies | Unity Companion License |
-| Unity packages (URP 2D, Input System, uGUI) | `Packages/manifest.json` | Unity Technologies | Unity Companion License |
+| Asset | Where | Author | License | How it's used |
+|---|---|---|---|---|
+| Liberation Sans font | `Assets/TextMesh Pro/Fonts/LiberationSans.ttf` | Red Hat / Ascender ([source](https://github.com/liberationfonts/liberation-fonts)) | SIL Open Font License 1.1 | Used directly for all in-game text |
+| TextMesh Pro essential resources | `Assets/TextMesh Pro/` | Unity Technologies ([docs](https://docs.unity3d.com/Packages/com.unity.textmeshpro@latest)) | Unity Companion License | Used directly for text rendering |
+| Unity packages: Universal Render Pipeline 2D, Input System, uGUI | `Packages/manifest.json` | Unity Technologies | Unity Companion License | The engine's rendering, input and UI systems |
+| Unity WebGL "Minimal" page template | web build `index.html` | Unity Technologies | Unity Companion License | The web page around the browser build. Changed: page title, and the canvas fills the window |
 
 ## Made for this project (no outside source)
 
@@ -24,12 +27,46 @@ Update it whenever an outside asset is added.
   `Assets/Editor/ArtGenerator.cs` and `Assets/Editor/XRayArt.cs`.
 - **Faces and people** (booth-window portraits, passport photos, walking figures, the tumbleweed):
   drawn by code while the game runs, in `Assets/Scripts/Style/PortraitArt.cs` and `Assets/Scripts/World/Tumbleweed.cs`.
-- **Story, dialogue, newspapers**: written for this project (`Assets/Editor/*StoryWriter.cs`, `Design/`).
-- **Sound effects and music**: synthesized by code in `Assets/Editor/SoundGenerator.cs` (sine waves, noise,
-  filters, and Karplus-Strong plucked strings for the guitar). Output: `Assets/Resources/Sounds/`.
-  Any sound taken from an outside pack will be listed in the table above.
+- **Sound effects and music**: synthesized by code in `Assets/Editor/SoundGenerator.cs`
+  (sine/square/saw waves, filtered noise, decay envelopes). Output: `Assets/Resources/Sounds/`.
+  The guitar music is an original melody over a common A minor / E7 / D minor progression.
+- **Story, dialogue, newspaper stories, memos and endings**: written for this project
+  (`Assets/Editor/*StoryWriter.cs`, `Assets/Editor/CommutersWriter.cs`, `Assets/Scripts/GameDirector.cs`, `Design/`).
+  All characters are fictional.
+
+## Techniques and references
+
+- **Karplus-Strong plucked-string synthesis**, used for the guitar. Implemented from the published description; no code copied.
+  K. Karplus and A. Strong, "Digital Synthesis of Plucked-String and Drum Timbres,"
+  *Computer Music Journal* 7(2), 1983, pp. 43-55. Overview: https://en.wikipedia.org/wiki/Karplus%E2%80%93Strong_string_synthesis
+- **Unity Manual and Scripting API** (Unity Technologies), https://docs.unity3d.com. Referenced for coroutines,
+  ScriptableObjects, uGUI, AudioSource, editor menu scripts, `AssetPostprocessor`, and WebGL build settings.
+
+## AI assistance
+
+- **Claude Code** (Anthropic, Claude models), https://claude.com/claude-code.
+  An AI coding assistant used throughout development. Ismael Diaz came up with the game concept, made the design
+  decisions, directed the story and tone, hand-built parts of the scene, playtested, and reviewed everything.
+  Claude Code, under that direction:
+  - wrote and explained most of the C# scripts (game flow, rules, scoring, the desk UI, the X-ray, the checkpoint stage);
+  - wrote the editor generators that produce the pixel art, X-ray pictures, portraits and synthesized sounds;
+  - drafted the travelers' dialogue, newspaper stories, memos and ending text, which were revised to the
+    designer's notes (for example: no hints in dialogue, mundane commuters, story implied rather than stated);
+  - drafted the Game Design Document for the designer to rewrite and edit;
+  - set up the WebGL build and the page that hosts the game on the designer's personal website.
+
+## Real places, names and brands mentioned
+
+The game is fiction set in real places. These are mentioned by name only; no endorsement or affiliation is implied.
+
+- **Places:** Santa Teresa Port of Entry (New Mexico), Ciudad Juárez, El Paso, Las Cruces, Anthony, Sunland Park,
+  Van Horn, Odessa, Midland, Lubbock, Austin, Albuquerque, Hermosillo, Oaxaca, Otero County (detention facility),
+  Bridge of the Americas, Friendship Park, Fallujah (Iraq).
+- **Institutions:** University Medical Center (El Paso), Thomason Hospital, Lamar Elementary, Arena Coliseo (lucha libre arena).
+- **Brands and pop culture:** *Where's Waldo?* (Martin Handford, used in a joke by the boss), Venmo.
 
 ## Tools
 
-- Built with Unity 6 (6000.3.25f1).
-- Code written with help from Claude (Anthropic) through Claude Code.
+- Unity 6.3 LTS (6000.3.25f1), Unity Hub.
+- Visual Studio Code; Git and GitHub.
+- Claude Code (see AI assistance above).

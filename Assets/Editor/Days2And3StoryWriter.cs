@@ -77,9 +77,8 @@ public static class Days2And3StoryWriter
         t.boothLines = new List<string>
         {
             "Howdy. You speak English? Good. Good for you. Real proud of you.",
-            "Been down in Juárez getting my teeth done. Eight crowns, three hundred bucks. Dr. Ramírez. Don't tell anybody, they'll all want to go.",
-            "Now don't take this personal, but y'all need to build that wall higher. Not you. You're one of the good ones. You got a badge.",
-            "Cooler's beer. Crate's Mexican Coke, the real-sugar kind. Y'all got that one thing right.",
+            "Been down in Juárez getting my teeth done. Eight crowns, three hundred bucks. Don't tell anybody, they'll all want to go.",
+            "Now don't take this personal, but y'all need to build that wall higher. Not you. You're one of the good ones.",
         };
         t.lineIfApproved = "Appreciate it, amigo. See? System works when the right folks run it.";
         t.lineIfRejected = "Rejected? I'm AMERICAN. I'll be on the news by tonight. Not in a good way. For YOU.";
@@ -110,12 +109,10 @@ public static class Days2And3StoryWriter
 
         t.boothLines = new List<string>
         {
-            "Hi. Night shift, ICU, University Medical Center. Six patients tonight. Can we make this quick?",
-            "I bought the car last month. Used. The guy who sold it to me had a cousin at the DMV, he said that made it easier.",
-            "...That's bad, isn't it? You're making a face. You have the same face as my patients' families.",
+            "Hi. Night shift, ICU. Can we make this quick?",
         };
         t.lineIfApproved = "Thank you. If you ever end up in the ICU, ask for me. ...Don't end up in the ICU.";
-        t.lineIfRejected = "Okay. I'll call in. They'll pull someone from the ER. The ER is already short. Okay.";
+        t.lineIfRejected = "The plates? The guy who sold me the car said his cousin at the DMV handled it. Of course he did. ...I'll call in. The ER is already short.";
         t.lineIfImprisoned = "For a PLATE? I have a man on a ventilator waiting for me!";
         NoBribe(t);
 
@@ -192,8 +189,7 @@ public static class Days2And3StoryWriter
         t.boothLines = new List<string>
         {
             "Buenas tardes. I clean offices in El Paso. Five years, every morning, this bridge. Maybe you've seen me.",
-            "My papers are good. Work permit, everything. I am very legal. Very, very legal.",
-            "No radio, sorry. It's broken. Can we go? I'm very tired. It's... very quiet in the car today.",
+            "Can we go? I'm very tired.",
         };
         t.lineIfApproved = "Gracias. Gracias. You'll never see him. I promise. He'll be so good.";
         t.lineIfRejected = "Okay. We go back. ...There are other ways across. Worse ones. But there are.";
@@ -232,7 +228,6 @@ public static class Days2And3StoryWriter
         {
             "¡Buenas tardes, ciudadano! I am EL HURACÁN DE HERMOSILLO! Three-time champion of the Arena Coliseo!",
             "The mask stays on. The mask ALWAYS stays on. My own mother has not seen my face since 1998. She says thank God.",
-            "The registration? In my name. My TRUE name. The one the people chant. The other name is for the government.",
             "Tonight I fight El Gringo Loco in El Paso. He's from Lubbock. Very loco. He does taxes the rest of the week.",
         };
         t.lineIfApproved = "¡EL HURACÁN AGRADECE! The ring awaits!";
@@ -313,9 +308,7 @@ public static class Days2And3StoryWriter
         t.boothLines = new List<string>
         {
             "Hey! Hi. Hola. Before anything, I just want to say: I see you. This system is violent, and you're part of it, but, like, with dignity.",
-            "I was in Oaxaca for a retreat. Plant medicine. So healing. My facilitator says I'm basically indigenous now. Spiritually.",
-            "Everything in the trunk is ceremonial. It's sacred? So it's not really \"drugs.\" It's more like... a relationship.",
-            "Do you know the history of this land? I could tell you. I took a class. It's a whole thing.",
+            "I was in Oaxaca for a retreat. So healing. My facilitator says I'm basically indigenous now. Spiritually.",
         };
         t.lineIfApproved = "Thank you. I'm going to sit with this. Literally. I'm going to sit with all of it.";
         t.lineIfRejected = "That's fine. Honestly? I was thinking about moving to Oaxaca anyway. It's SO cheap.";
@@ -350,11 +343,10 @@ public static class Days2And3StoryWriter
         {
             "Buenos días. Sorry. I'm fine. It's just... (breathes) ...contractions. They're far apart. Kind of far.",
             "My husband is already in El Paso. He works there. The baby's room is there. Everything is there. Even the little socks.",
-            "The passport? I know. Three days. I was going to renew it, but look at me. I've been a little busy being a house.",
             "Please be fast. Not for me. For her. She's very impatient. Like her father.",
         };
         t.lineIfApproved = "Gracias. Ay... gracias. I'll tell her about you someday. The good parts.";
-        t.lineIfRejected = "Okay. Okay. The hospital in Juárez. It's fine. It's fine. Somebody call my husband. Please, somebody call him.";
+        t.lineIfRejected = "The passport? ...I knew it. I was going to renew it. Okay. The hospital in Juárez. It's fine. Somebody call my husband. Please.";
         t.lineIfImprisoned = "No, no, no, I need a HOSPITAL! Please, she's coming. She's coming NOW.";
         NoBribe(t);
 
@@ -385,11 +377,9 @@ public static class Days2And3StoryWriter
         {
             "Afternoon. Sergeant Ortega. Well. Was. Two tours, Iraq. Fallujah, 2004. You were in diapers, probably.",
             "My daughter's getting married Saturday. El Paso. She asked me to walk her down the aisle. She's asked every year since she was six.",
-            "They deported me in 2011. A DUI. I served my time, then they served me to Juárez. Fourteen years. I still say \"y'all.\"",
-            "The passport's my brother's. We look alike. Everybody says so. ...He's handsomer. Don't tell him.",
         };
         t.lineIfApproved = "Thank you, son. Hooah.";
-        t.lineIfRejected = "...Copy that. She said she'd do a video call. That's nice of her. That's real nice.";
+        t.lineIfRejected = "...Copy that. It's my brother's. Worth a shot. She said she'd do a video call. That's nice of her. That's real nice.";
         t.lineIfImprisoned = "Twenty years, they'll give me. For walking my daughter down an aisle. ...Put in the report that I didn't fight you.";
         NoBribe(t);
 
@@ -426,10 +416,8 @@ public static class Days2And3StoryWriter
 
         t.boothLines = new List<string>
         {
-            "Hey, jefe. ...Hey. Third time, eh? We're basically friends now. Are we friends?",
-            "Hot today. Is it hot? It's hot. The truck has no AC. That's why I'm sweating. That's the only reason.",
-            "Just going to work. Normal day. Normal Chuy. Normal truck. Nothing in it. I mean, normal stuff in it. Tools.",
-            "Can you go a little fast today? Not for any reason. I'm just late. Normal late.",
+            "Hey, jefe. Third time, eh? We're basically friends now.",
+            "Just going to work.",
         };
         t.lineIfApproved = "...Thank you. One time. They said just one time. Then I'm out. ...They said one time, right?";
         t.lineIfRejected = "Back? Jefe, I can't go back with it. And I can't go back without it. ...Okay. I'll figure it out. I always figure it out.";

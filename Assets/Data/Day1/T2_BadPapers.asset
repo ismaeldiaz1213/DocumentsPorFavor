@@ -68,15 +68,14 @@ MonoBehaviour:
   - Hey, boss! Long line today, eh? I've been practicing my handshake in the mirror
     for forty minutes.
   - Job interview. Diesel mechanic. They said 'come in person.' So. Here's my person.
-  - The permit? Expired yesterday. The renewal is eighty dollars. The job is so I
-    HAVE eighty dollars. You see the problem.
   - The truck? It's my cousin Neto's. He said it's fine. Neto says a lot of things
     are fine. Neto set his own kitchen on fire. Twice.
   - If I'm late I'll just tell them I was stuck at the border. They'll understand.
     ...Right? They'll understand?
   lineIfApproved: "\xA1Gracias, jefe! If I get the job, I'll fix your car for free.
     If you have a car. Do they pay you enough for a car?"
-  lineIfRejected: No, no, no, it's... okay. Okay. I'll call Neto. Neto will fix it.
+  lineIfRejected: The permit? It expired YESTERDAY. One day! ...Okay. Okay. I'll
+    call Neto. Neto will fix it.
   lineIfImprisoned: For borrowing a TRUCK?! Neto! NETO, THIS IS YOUR FAULT!
   onlyIfApproved: {fileID: 0}
   onlyIfNotApproved: {fileID: 0}

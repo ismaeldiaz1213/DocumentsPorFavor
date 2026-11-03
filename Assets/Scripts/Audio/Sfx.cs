@@ -10,7 +10,7 @@ public enum Sound
 {
     Click, Stamp, Paper, Megaphone, Door, Step, KeyChime, EngineStart, CarPass, Brake, Horn, TowBeep,
     ScanSweep, ScanDone, Found, Wrong, Boss, Printer, Cash, Type, Rustle, Bell, Blip,
-    Tick, Whistle, Breeze, Gust, Tumbleweed, Music, Lose, Win,
+    Tick, Whistle, Breeze, Gust, Tumbleweed, Music, Lose, Win, Ring,
 }
 
 // The game's sound player. It creates itself when the game starts, so there is

@@ -73,12 +73,10 @@ public static class StoryWriter
         Person(huracan, huracanFace);
 
         Person(gary, F(0, Hair.Short, "C9A86A", Headwear.Cowboy, "E6E1D3", wrinkles: true, shirt: "A8503F"), "USA");
-        Person(chuy, chuyFace, permit: ("WORK", "2027-08-01")); // expired yesterday
-        chuy.boothLines.Insert(2, "The permit? Expired yesterday. The renewal is eighty dollars. The job is so I HAVE eighty dollars. You see the problem.");
+        Person(chuy, chuyFace, permit: ("WORK", "2027-08-01")); // expired yesterday (he only admits it if you catch it)
+        chuy.lineIfRejected = "The permit? It expired YESTERDAY. One day! ...Okay. Okay. I'll call Neto. Neto will fix it.";
         Person(rosa, F(3, Hair.Long, "201814", shirt: "5E8C88"), permit: ("WORK", "2028-01-15"));
         Person(lucia, F(2, Hair.Long, "5A3B28", lipstick: true, shirt: "E3C07A"), permit: ("VISIT", "2028-03-01"));
-        for (int i = 0; i < lucia.boothLines.Count; i++)
-            lucia.boothLines[i] = lucia.boothLines[i].Replace("Three days.", "Two days.");
 
         Person(beto3, betoFace, permit: ("WORK · MUSICIAN", "2028-06-30"));
         Person(chuy2, chuyFace, permit: ("WORK", "2028-08-02"));
@@ -101,44 +99,44 @@ public static class StoryWriter
         foreach (TravelerData t in new[] { lupita, chuy, flaco, beto, gary, marisol, chuy2, rosa, huracan, beto3, skyler, lucia, manny, chuy3 })
             EditorUtility.SetDirty(t);
 
+        // ----- Everyday commuters (most of the line: a greeting and nothing else) -----
+        CommutersWriter.Commuters c = CommutersWriter.WriteAll();
+
         // ----- The 4 days -----
-        DayData day1 = Day(Day1, "Day1", 1, "2027-08-01", lupita, beto, huracan, hector, flaco);
-        Rules(day1, permits: false, xray: false, registration: false, 420f, "MEMO  ·  DAY 1",
-            "Welcome to Booth 3.\n\n" +
-            "Today you check PASSPORTS only:\n" +
-            "    ·  Not expired. Today's date is at the top of your screen.\n" +
-            "    ·  The photo must be the face at your window.\n\n" +
-            "All good: APPROVE. Anything wrong: REJECT.\n\n" +
-            "You are paid for every correct decision. Mistakes are citations. Reach -10 and you are done here.\n\n" +
-            "The shift ends at 19:00. The line does not care about your feelings.\n\n" +
+        // Shifts are short on purpose: a careful player won't get to everyone.
+        // Story people come early in the line, so running out of time rarely skips them.
+        DayData day1 = Day(Day1, "Day1", 1, "2027-08-01", lupita, c.abel, beto, huracan, flaco, c.nora, hector);
+        Rules(day1, permits: false, xray: false, registration: false, 180f, "MEMO  ·  DAY 1",
+            "Booth 3.\n\n" +
+            "PASSPORTS today:\n" +
+            "    ·  Not expired.\n" +
+            "    ·  The photo is the face at your window.\n\n" +
+            "Good: APPROVE.  Wrong: REJECT.\n" +
+            "You are paid per correct decision.\n\n" +
             "-- El Jefe");
 
-        DayData day2 = Day(Day2, "Day2", 2, "2027-08-02", gary, chuy, rosa, memo, lucia);
-        Rules(day2, permits: true, xray: false, registration: false, 360f, "MEMO  ·  DAY 2",
+        DayData day2 = Day(Day2, "Day2", 2, "2027-08-02", gary, c.ofelia, chuy, memo, rosa, c.tomas, lucia);
+        Rules(day2, permits: true, xray: false, registration: false, 180f, "MEMO  ·  DAY 2",
             "NEW RULE: ENTRY PERMITS.\n\n" +
-            "Anyone who is NOT a US citizen needs an ENTRY PERMIT:\n" +
-            "    ·  The name must match the passport.\n" +
-            "    ·  It must not be expired.\n\n" +
-            "US citizens need no permit. They will tell you this. Loudly.\n\n" +
-            "No permit, wrong name, or expired: REJECT.\n\n" +
+            "Not a US citizen? They need one:\n" +
+            "    ·  Name matches the passport.\n" +
+            "    ·  Not expired.\n\n" +
             "-- El Jefe");
 
-        DayData day3 = Day(Day3, "Day3", 3, "2027-08-03", beto3, manny, chuy2, skyler);
-        Rules(day3, permits: true, xray: true, registration: false, 420f, "MEMO  ·  DAY 3",
-            "NEW EQUIPMENT: X-RAY SCANNER.\n\n" +
-            "Every car is scanned as it pulls in. Watch the monitor:\n" +
-            "    ·  Click anything hidden that is not part of the car.\n" +
-            "    ·  Hidden goods or hidden PEOPLE: IMPRISON.\n" +
-            "    ·  Clicking on car parts wastes my time. -1 each.\n\n" +
-            "The scanner cost more than your house. Do not touch it with tamal hands.\n\n" +
+        DayData day3 = Day(Day3, "Day3", 3, "2027-08-03", beto3, c.dolores, manny, c.kevin, chuy2, c.ana, skyler);
+        Rules(day3, permits: true, xray: true, registration: false, 210f, "MEMO  ·  DAY 3",
+            "NEW: X-RAY SCANNER.\n\n" +
+            "    ·  Click anything hidden that isn't part of the car.\n" +
+            "    ·  Hidden goods or people: IMPRISON.\n\n" +
+            "Don't waste my time clicking car parts.\n\n" +
             "-- El Jefe");
 
-        DayData day4 = Day(Day4, "Day4", 4, "2027-08-04", marisol, huracan4, chuy3, truck, truckWithoutMemo);
-        Rules(day4, permits: true, xray: true, registration: true, 420f, "MEMO  ·  DAY 4",
+        DayData day4 = Day(Day4, "Day4", 4, "2027-08-04", marisol, c.pilar, huracan4, truck, truckWithoutMemo, chuy3, c.ernesto, c.jill);
+        Rules(day4, permits: true, xray: true, registration: true, 210f, "MEMO  ·  DAY 4",
             "NEW RULE: VEHICLE REGISTRATION.\n\n" +
-            "    ·  The OWNER must match the passport.\n" +
-            "    ·  The PLATE must match the PLATE CAM.\n\n" +
-            "Also: Washington says smuggling is up this week. Washington says a lot of things. Check every truck.\n\n" +
+            "    ·  Owner matches the passport.\n" +
+            "    ·  Plate matches the PLATE CAM.\n\n" +
+            "Washington says smuggling is up. Check every truck.\n\n" +
             "-- El Jefe");
 
         AssetDatabase.SaveAssets();
@@ -164,13 +162,10 @@ public static class StoryWriter
 
         t.boothLines = new List<string>
         {
-            "Good afternoon, sir. I am Héctor Lozano Peña. Fifty-four years old. A grown man. With a mortgage.",
-            "The mustache? Yes. It's real. I grew it this morning. ...Over many years. This morning I finished.",
-            "I'm going to El Paso for business. Grown man business. Taxes. And then, after the taxes, a concert.",
-            "Please don't call my wife. She's very strict. She's my mom. My WIFE. She's my wife.",
+            "Good afternoon. Going to El Paso. For business.",
         };
         t.lineIfApproved = "YES! I mean: thank you, citizen. I will drive safely. As a grown man.";
-        t.lineIfRejected = "...Can you not tell my dad? My dad is me. Can you not tell me?";
+        t.lineIfRejected = "...Okay, it's my dad's. Can you not tell my dad? Please don't tell my dad.";
         t.lineIfImprisoned = "I'M SIXTEEN! Okay? I'm sixteen. Please call my mom. Actually, don't.";
         NoBribe(t);
 
@@ -232,7 +227,6 @@ public static class StoryWriter
         var rest = new List<string>
         {
             "Tonight, the rematch. He says I cheated. I did not cheat. I used a CHAIR. Chairs are legal in my heart.",
-            "The registration? Same as always. In my TRUE name. The people's name.",
         };
         t.boothLines = Lines("¡EL HURACÁN RETURNS! Did you see the fight? I won. Of course I won. El Gringo Loco cried. Then he filed his taxes.", rest);
         t.returnVisits = new List<ReturnVisit>
@@ -241,7 +235,7 @@ public static class StoryWriter
                 Lines("The Huracán... has returned. Last time you sent me back. El Gringo Loco took my belt. Tonight I take it back.", rest)),
         };
         t.lineIfApproved = "¡EL HURACÁN AGRADECE! Tonight, the belt comes home!";
-        t.lineIfRejected = "The government name AGAIN? ...The Huracán will return. The Huracán always returns.";
+        t.lineIfRejected = "The registration? It's in my TRUE name! The name the people chant! ...Bah. The Huracán will return. The Huracán always returns.";
         t.lineIfImprisoned = "You cannot cage a HURACÁN! ...Okay, you can. The mask stays on.";
         NoBribe(t);
 
@@ -287,9 +281,8 @@ public static class StoryWriter
 
         t.boothLines = new List<string>
         {
-            "Buenas. Furniture for a store in Odessa. Chairs, tables. Very heavy wood.",
+            "Buenas. Furniture for a store in Odessa.",
             "Twenty years I drive this road. You're new. The new ones are always slow. It's okay. I'm patient.",
-            "You have family, joven? Then you understand. Everybody is just trying to get home.",
         };
         t.lineIfApproved = "God bless you, joven. Drive safe. ...I mean, I'll drive safe.";
         t.lineIfRejected = "Back, then. ...They won't like going back. Nobody does.";
@@ -323,7 +316,7 @@ public static class StoryWriter
         AssetDatabase.LoadAssetAtPath<TravelerData>($"{folder}/{assetName}.asset");
 
     // A face, written compactly: skin 0-4, hair, hair color, then the extras.
-    static Face F(int skin, Hair hair, string hairHex, Headwear headwear = Headwear.None, string headwearHex = "5A4636",
+    internal static Face F(int skin, Hair hair, string hairHex, Headwear headwear = Headwear.None, string headwearHex = "5A4636",
         bool mustache = false, bool beard = false, bool glasses = false, bool lipstick = false, bool wrinkles = false,
         string shirt = "D9CFB8") => new Face
     {
@@ -332,7 +325,7 @@ public static class StoryWriter
     };
 
     // Face, nationality and (optionally) an entry permit in their own name.
-    static void Person(TravelerData t, Face face, string nationality = "MEX", (string purpose, string expiry)? permit = null)
+    internal static void Person(TravelerData t, Face face, string nationality = "MEX", (string purpose, string expiry)? permit = null)
     {
         t.face = face;
         t.nationality = nationality;

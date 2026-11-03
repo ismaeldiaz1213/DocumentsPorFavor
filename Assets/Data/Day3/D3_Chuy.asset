@@ -120,12 +120,8 @@ MonoBehaviour:
     topViewPosition: {x: 0.5, y: 0.5}
     topViewSize: {x: 0.05, y: 0.11}
   boothLines:
-  - Hey, jefe. ...Hey. Third time, eh? We're basically friends now. Are we friends?
-  - Hot today. Is it hot? It's hot. The truck has no AC. That's why I'm sweating.
-    That's the only reason.
-  - Just going to work. Normal day. Normal Chuy. Normal truck. Nothing in it. I mean,
-    normal stuff in it. Tools.
-  - Can you go a little fast today? Not for any reason. I'm just late. Normal late.
+  - Hey, jefe. Third time, eh? We're basically friends now.
+  - Just going to work.
   lineIfApproved: ...Thank you. One time. They said just one time. Then I'm out.
     ...They said one time, right?
   lineIfRejected: Back? Jefe, I can't go back with it. And I can't go back without

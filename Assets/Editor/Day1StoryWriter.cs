@@ -177,12 +177,10 @@ public static class Day1StoryWriter
         t.boothLines = new List<string>
         {
             "¡Buenas tardes, oficial! Roberto Salinas, trumpet, Mariachi Los Desvelados. Forty-two years. You've heard of us. No? Your mother has.",
-            "We have a wedding tonight in Las Cruces. The groom's family paid half up front. The other half depends on me hitting the high note in 'El Son de la Negra.'",
-            "My passport? Ah, yes. Expired. Two weeks. But my face is the same, look. Older, maybe. Sadder. Same face.",
-            "Do you want me to play something? It helps with the waiting. No? Okay. I'll hum.",
+            "We have a wedding tonight in Las Cruces. The groom's family paid half up front. The other half depends on me hitting the high note.",
         };
         t.lineIfApproved = "¡Ajúa! I'll play one for you tonight, oficial. You won't hear it, but I'll play it.";
-        t.lineIfRejected = "Two weeks... Okay. The bride will have to walk down the aisle to a cell phone.";
+        t.lineIfRejected = "Expired? ...Two weeks! Who looks at two weeks? Okay. The bride walks down the aisle to a cell phone.";
         t.lineIfImprisoned = "For an EXPIRED PASSPORT? At least let me bring the trumpet. The cell needs music.";
         NoBribe(t);
 
@@ -217,9 +215,8 @@ public static class Day1StoryWriter
 
         t.boothLines = new List<string>
         {
-            "Mangos. It's mangos. Ataulfo. The good ones. Very... mango.",
-            "Sorry, it's hot. Is it hot in here? It's hot. You should get a fan. I could get you a fan.",
-            "No, I didn't load it. A guy loaded it. A different guy. A guy I don't know. Normal stuff.",
+            "Buenas. Mangos, for a market in Midland.",
+            "Hot today, eh?",
         };
         t.lineIfApproved = "Thank you. Thank you. Don't... don't think about it, okay? I'm trying not to.";
         t.lineIfRejected = "Back? I can't go back with them. You don't understand what they'll... okay. Okay.";

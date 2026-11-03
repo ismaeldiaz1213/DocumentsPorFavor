@@ -80,13 +80,11 @@ MonoBehaviour:
     far apart. Kind of far."
   - My husband is already in El Paso. He works there. The baby's room is there. Everything
     is there. Even the little socks.
-  - The passport? I know. Two days. I was going to renew it, but look at me. I've
-    been a little busy being a house.
   - Please be fast. Not for me. For her. She's very impatient. Like her father.
   lineIfApproved: Gracias. Ay... gracias. I'll tell her about you someday. The good
     parts.
-  lineIfRejected: "Okay. Okay. The hospital in Ju\xE1rez. It's fine. It's fine. Somebody
-    call my husband. Please, somebody call him."
+  lineIfRejected: "The passport? ...I knew it. I was going to renew it. Okay. The
+    hospital in Ju\xE1rez. It's fine. Somebody call my husband. Please."
   lineIfImprisoned: No, no, no, I need a HOSPITAL! Please, she's coming. She's coming
     NOW.
   onlyIfApproved: {fileID: 0}

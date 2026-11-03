@@ -65,17 +65,11 @@ MonoBehaviour:
     topViewSize: {x: 0.08, y: 0.17}
   contraband: []
   boothLines:
-  - "Good afternoon, sir. I am H\xE9ctor Lozano Pe\xF1a. Fifty-four years old. A
-    grown man. With a mortgage."
-  - The mustache? Yes. It's real. I grew it this morning. ...Over many years. This
-    morning I finished.
-  - I'm going to El Paso for business. Grown man business. Taxes. And then, after
-    the taxes, a concert.
-  - Please don't call my wife. She's very strict. She's my mom. My WIFE. She's my
-    wife.
+  - Good afternoon. Going to El Paso. For business.
   lineIfApproved: 'YES! I mean: thank you, citizen. I will drive safely. As a grown
     man.'
-  lineIfRejected: ...Can you not tell my dad? My dad is me. Can you not tell me?
+  lineIfRejected: ...Okay, it's my dad's. Can you not tell my dad? Please don't tell
+    my dad.
   lineIfImprisoned: I'M SIXTEEN! Okay? I'm sixteen. Please call my mom. Actually,
     don't.
   onlyIfApproved: {fileID: 0}

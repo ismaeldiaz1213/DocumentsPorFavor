@@ -89,12 +89,8 @@ MonoBehaviour:
   boothLines:
   - 'Hey! Hi. Hola. Before anything, I just want to say: I see you. This system is
     violent, and you''re part of it, but, like, with dignity.'
-  - I was in Oaxaca for a retreat. Plant medicine. So healing. My facilitator says
-    I'm basically indigenous now. Spiritually.
-  - Everything in the trunk is ceremonial. It's sacred? So it's not really "drugs."
-    It's more like... a relationship.
-  - Do you know the history of this land? I could tell you. I took a class. It's
-    a whole thing.
+  - I was in Oaxaca for a retreat. So healing. My facilitator says I'm basically
+    indigenous now. Spiritually.
   lineIfApproved: Thank you. I'm going to sit with this. Literally. I'm going to
     sit with all of it.
   lineIfRejected: That's fine. Honestly? I was thinking about moving to Oaxaca anyway.

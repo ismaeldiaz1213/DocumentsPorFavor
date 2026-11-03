@@ -89,11 +89,9 @@ MonoBehaviour:
   boothLines:
   - Howdy. You speak English? Good. Good for you. Real proud of you.
   - "Been down in Ju\xE1rez getting my teeth done. Eight crowns, three hundred bucks.
-    Dr. Ram\xEDrez. Don't tell anybody, they'll all want to go."
+    Don't tell anybody, they'll all want to go."
   - Now don't take this personal, but y'all need to build that wall higher. Not you.
-    You're one of the good ones. You got a badge.
-  - Cooler's beer. Crate's Mexican Coke, the real-sugar kind. Y'all got that one
-    thing right.
+    You're one of the good ones.
   lineIfApproved: Appreciate it, amigo. See? System works when the right folks run
     it.
   lineIfRejected: Rejected? I'm AMERICAN. I'll be on the news by tonight. Not in

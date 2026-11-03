@@ -20,21 +20,21 @@ public static class Rules
 
         // Passport: always.
         if (traveler.photoIsSomeoneElse)
-            problems.Add("Passport photo is someone else");
+            problems.Add("The passport photo is not the person at the window.");
         if (IsExpired(traveler.passportExpiry, day.todaysDate, traveler, "passport expiry"))
-            problems.Add("Passport is expired");
+            problems.Add($"The passport expired on {traveler.passportExpiry}.");
 
         // Entry permit: from the day permits start, for everyone who isn't a US citizen.
         if (day.permitsRequired && !traveler.IsUSCitizen)
         {
             if (!traveler.hasPermit)
-                problems.Add("No entry permit");
+                problems.Add("No entry permit, and they are not a US citizen.");
             else
             {
                 if (!SameText(traveler.permitName, traveler.passportName))
-                    problems.Add("Permit name does not match passport");
+                    problems.Add($"The permit says {traveler.permitName}. The passport says {traveler.passportName}.");
                 if (IsExpired(traveler.permitExpiry, day.todaysDate, traveler, "permit expiry"))
-                    problems.Add("Entry permit is expired");
+                    problems.Add($"The entry permit expired on {traveler.permitExpiry}.");
             }
         }
 
@@ -42,9 +42,9 @@ public static class Rules
         if (day.registrationRequired)
         {
             if (!SameText(traveler.passportName, traveler.registrationOwner))
-                problems.Add("Registration owner does not match passport");
+                problems.Add($"The car is registered to {traveler.registrationOwner}, not {traveler.passportName}.");
             if (!SameText(traveler.registrationPlate, traveler.vehiclePlate))
-                problems.Add("Registration plate does not match the car's plate");
+                problems.Add($"The registration says plate {traveler.registrationPlate}. The car says {traveler.vehiclePlate}.");
         }
 
         return problems;
