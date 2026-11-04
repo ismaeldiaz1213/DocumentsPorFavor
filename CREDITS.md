@@ -16,10 +16,10 @@ Keep this file up to date whenever something new is added.
 
 | Asset | Where | Author | License | How it's used |
 |---|---|---|---|---|
-| Liberation Sans font | `Assets/TextMesh Pro/Fonts/LiberationSans.ttf` | Red Hat / Ascender ([source](https://github.com/liberationfonts/liberation-fonts)) | SIL Open Font License 1.1 | Used directly for all in-game text |
-| TextMesh Pro essential resources | `Assets/TextMesh Pro/` | Unity Technologies ([docs](https://docs.unity3d.com/Packages/com.unity.textmeshpro@latest)) | Unity Companion License | Used directly for text rendering |
+| Liberation Sans font | `Assets/TextMesh Pro/Fonts/LiberationSans.ttf` | © 2010 Google Corporation, © 2012 Red Hat, Inc. ([source](https://github.com/liberationfonts/liberation-fonts)) | SIL Open Font License 1.1 | Used directly for all in-game text |
+| TextMesh Pro essential resources (part of Unity UI 2.0 in Unity 6) | `Assets/TextMesh Pro/` | Unity Technologies ([docs](https://docs.unity3d.com/Packages/com.unity.ugui@2.0/manual/TextMeshPro/index.html)) | Unity Companion License | Used directly for text rendering |
 | Unity packages: Universal Render Pipeline 2D, Input System, uGUI | `Packages/manifest.json` | Unity Technologies | Unity Companion License | The engine's rendering, input and UI systems |
-| Unity WebGL "Minimal" page template | web build `index.html` | Unity Technologies | Unity Companion License | The web page around the browser build. Changed: page title, and the canvas fills the window |
+| Unity WebGL "Minimal" page template | web build `index.html` | Unity Technologies | Unity Companion License | The web page around the browser build. Changed: page title, the canvas fills the window, and asset paths are absolute (the copy on ismaeldiaz.com) |
 
 ## Made for this project (no outside source)
 
