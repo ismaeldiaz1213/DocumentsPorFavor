@@ -96,6 +96,19 @@ public static class UiKit
         return button;
     }
 
+    // An empty box with a border, like a rubber stamp or a red-pen circle.
+    // (Unity's Outline effect fills the whole box when the fill is see-through, so draw four bars instead.)
+    public static RectTransform Frame(string name, Transform parent, float x, float y, float w, float h, float thickness, Color color)
+    {
+        RectTransform frame = Rect(name, parent);
+        Place(frame, x, y, w, h);
+        Panel("Bottom", frame, 0, 0, w, thickness, color).raycastTarget = false;
+        Panel("Top", frame, 0, h - thickness, w, thickness, color).raycastTarget = false;
+        Panel("Left", frame, 0, 0, thickness, h, color).raycastTarget = false;
+        Panel("Right", frame, w - thickness, 0, thickness, h, color).raycastTarget = false;
+        return frame;
+    }
+
     // A keyboard key cap: [A]
     public static void Key(Transform parent, string key, float x, float y, float size = 44f)
     {

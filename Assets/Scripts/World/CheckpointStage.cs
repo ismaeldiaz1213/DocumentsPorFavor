@@ -132,8 +132,9 @@ public class CheckpointStage : MonoBehaviour
         if (!alreadyWaiting) Sfx.Play(Sound.CarPass, 0.3f);
     }
 
-    // The end of the shift: everyone still in line turns around and goes home.
-    public IEnumerator CloseLane()
+    // 17:00: everyone still in line has to turn around and go home, and they let you hear about it.
+    // shout(car) is called as each driver leans on the horn.
+    public IEnumerator CloseLane(System.Action<Transform> shout = null)
     {
         if (arrivals != null) StopCoroutine(arrivals);
         stillToArrive.Clear();
@@ -141,11 +142,18 @@ public class CheckpointStage : MonoBehaviour
 
         var leaving = new List<CarView>(queue);
         queue.Clear();
-        Sfx.Play(Sound.Horn, 0.4f);
         Sfx.Play(Sound.CarPass, 0.6f);
         var trips = new List<Coroutine>();
-        foreach (CarView car in leaving)
+        for (int i = 0; i < leaving.Count; i++)
+        {
+            CarView car = leaving[i];
+            Sfx.Play(Sound.Horn, Random.Range(0.45f, 0.7f), Random.Range(0.85f, 1.15f));
+            shout?.Invoke(car.transform);
             trips.Add(StartCoroutine(TurnAround(car)));
+            yield return new WaitForSeconds(Random.Range(0.25f, 0.5f));
+        }
+        // One last long, angry honk from somebody.
+        Sfx.Play(Sound.Horn, 0.6f, 0.8f);
         foreach (Coroutine trip in trips)
             yield return trip;
     }

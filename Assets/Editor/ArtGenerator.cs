@@ -19,7 +19,6 @@ public static class ArtGenerator
 
     // A few extra colors that only the art needs (all sit inside the palette's mood).
     static readonly Color Glow = new Color32(0xBF, 0xE6, 0xF0, 0xFF);
-    static readonly Color Sun = new Color32(0xF4, 0xE9, 0xC8, 0xFF);
     static readonly Color Skin = new Color32(0xC6, 0x9C, 0x72, 0xFF);
     static readonly Color Shirt = new Color32(0xD9, 0xCF, 0xB8, 0xFF);
     static readonly Color Hat = new Color32(0x5A, 0x46, 0x36, 0xFF);
@@ -221,19 +220,8 @@ public static class ArtGenerator
         var c = new PixelCanvas(width, height);
         var random = new System.Random(7);
 
-        // Sky: dusty blue fading to pale yellow at the horizon.
-        for (int y = horizon; y < height; y++)
-            for (int x = 0; x < width; x++)
-                c.Set(x, y, PixelCanvas.Dither(Palette.SkyHorizon, Palette.SkyTop, (y - horizon) / (float)(height - 1 - horizon), x, y, 6));
-
-        // Low, hazy sun.
-        for (int y = 58; y < 84; y++)
-            for (int x = 240; x < 272; x++)
-            {
-                float d = Vector2.Distance(new Vector2(x, y), new Vector2(256f, 71f));
-                if (d <= 6f) c.Set(x, y, Sun);
-                else if (d <= 11f && PixelCanvas.Bayer(x, y) < 0.5f * (1f - (d - 6f) / 5f)) c.Set(x, y, Sun);
-            }
+        // No sky and no sun here: they're left transparent, and DayCycle paints a sky
+        // behind this and moves the sun across it over the shift (sunrise to sunset).
 
         // Far mountains.
         for (int x = 0; x < width; x++)

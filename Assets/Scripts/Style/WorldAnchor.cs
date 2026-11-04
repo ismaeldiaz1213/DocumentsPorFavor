@@ -18,6 +18,13 @@ public class WorldAnchor : MonoBehaviour
         canvas = GetComponentInParent<Canvas>().rootCanvas;
     }
 
+    // For UI made in code: stick to this world object from now on.
+    public void Follow(Transform target, Vector3 offset)
+    {
+        this.target = target;
+        this.offset = offset;
+    }
+
     void LateUpdate()
     {
         if (target == null) return;

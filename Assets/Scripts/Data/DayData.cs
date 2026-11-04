@@ -25,7 +25,7 @@ public class DayData : ScriptableObject
     [TextArea(4, 12)] public string memo;
 
     [Header("Shift")]
-    [Tooltip("Real seconds from 07:00 to 19:00. Whoever is still in line at 19:00 goes home.")]
+    [Tooltip("Real seconds from 07:00 to 17:00. At 17:00 the lane closes: whoever is still in line goes home, and the car at your window is finished for free.")]
     public float shiftSeconds = 360f;
 
     [Tooltip("Travelers in the order they pull up to the booth.")]

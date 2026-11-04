@@ -168,8 +168,8 @@ public static class PixelArt
         c.Rect(124, 28, 1, 8, Hex("4A3E48"));
         c.Rect(118, 40, 14, 2, Hex("3E3340"));
         // sign on the canopy
-        c.Rect(126, 52, 30, 7, Hex("2F3F66"));
-        c.Rect(129, 54, 24, 2, Hex("EFE8D8"));
+        c.Rect(108, 52, 30, 7, Hex("2F3F66"));
+        c.Rect(111, 54, 24, 2, Hex("EFE8D8"));
         // the line of cars, headlights on
         Color[] cars = { Hex("7A3A34"), Hex("4E5D44"), Hex("3A4A60"), Hex("8A6A30"), Hex("5A6670"), Hex("6A3A50") };
         for (int i = 0; i < cars.Length; i++)
@@ -252,6 +252,50 @@ public static class PixelArt
         c.Rect(12, 10, 3, 12, Palette.CactusDark);
         c.Rect(9, 14, 3, 1, Palette.CactusDark);
         c.Rect(9, 14, 1, 4, Palette.CactusDark);
+        return c;
+    });
+
+    // Small icons for the rulebook's HOW TO page.
+    public static Sprite MegaphoneIcon() => Cached("megaphone", () =>
+    {
+        var c = new Canvas(24, 24);
+        c.Disc(12, 12, 11f, Gold);
+        c.Rect(5, 9, 4, 6, Palette.Ink);
+        for (int i = 0; i < 7; i++) c.Rect(9 + i, 9 - i / 2, 1, 6 + i, Palette.Ink);
+        c.Rect(8, 5, 2, 4, Palette.Ink);
+        c.Rect(18, 11, 1, 2, Palette.Ink);
+        c.Rect(20, 9, 1, 6, Palette.Ink);
+        return c;
+    });
+
+    public static Sprite SpeechIcon() => Cached("speech", () =>
+    {
+        var c = new Canvas(24, 24);
+        c.Rect(2, 8, 20, 13, Palette.Speech);
+        c.Rect(5, 5, 4, 3, Palette.Speech);
+        c.Rect(4, 3, 2, 2, Palette.Speech);
+        c.Rect(5, 16, 14, 2, Palette.Paper);
+        c.Rect(5, 12, 10, 2, Palette.Paper);
+        return c;
+    });
+
+    public static Sprite BookIcon() => Cached("book", () =>
+    {
+        var c = new Canvas(24, 24);
+        c.Rect(3, 2, 18, 20, Palette.PassportGreen);
+        c.Rect(3, 2, 3, 20, Shade(Palette.PassportGreen, 0.75f));
+        c.Rect(19, 3, 2, 18, Palette.Paper);
+        c.Rect(9, 14, 8, 2, Gold);
+        c.Rect(9, 10, 8, 1, Gold);
+        return c;
+    });
+
+    public static Sprite CuffsIcon() => Cached("cuffs", () =>
+    {
+        var c = new Canvas(24, 24);
+        c.Ring(7, 11, 6f, 2f, Palette.Metal);
+        c.Ring(17, 11, 6f, 2f, Palette.Metal);
+        c.Rect(11, 15, 2, 2, Palette.Metal);
         return c;
     });
 

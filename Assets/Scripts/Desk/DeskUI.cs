@@ -78,7 +78,7 @@ public class DeskUI : MonoBehaviour
     [Header("Rulebook")]
     [SerializeField] Button rulebookButton;
     [SerializeField] GameObject rulebookPage;
-    [SerializeField] TMP_Text rulebookText;
+    [SerializeField] TMP_Text rulebookText; // the old text-only page; kept hidden (the illustrated Rulebook replaces it)
     [SerializeField] Button rulebookCloseButton;
 
     [Header("Citation slip")]
@@ -140,11 +140,17 @@ public class DeskUI : MonoBehaviour
         AddKeyHint(imprisonButton, "I");
         AddKeyHint(bribeButton, "T");
         AddKeyHint(megaphoneButton, "N");
+        // Keep the NEXT words clear of the little megaphone drawn on the left of the button.
+        TMP_Text megaphoneLabel = megaphoneButton.GetComponentInChildren<TMP_Text>(true);
+        if (megaphoneLabel != null) megaphoneLabel.rectTransform.offsetMin = new Vector2(80f, 0f);
         AddKeyHint(rulebookButton, "TAB");
 
         ClearTraveler();
         SetDecisionsEnabled(false);
         citationSlip.SetActive(false);
+        clockText.enableAutoSizing = true; // room for "CLOSED" at 17:00
+        clockText.fontSizeMin = 14f;
+        clockText.fontSizeMax = clockText.fontSize;
         // A slip with a long "why" shrinks its text to fit instead of spilling off the paper.
         citationText.enableAutoSizing = true;
         citationText.fontSizeMin = 11f;
@@ -186,7 +192,6 @@ public class DeskUI : MonoBehaviour
         imprisonButton.gameObject.SetActive(day.xrayScanner);
         scannerCover.SetActive(!day.xrayScanner);
         xrayHint.SetActive(day.xrayScanner);
-        rulebookText.text = RulebookText(day);
         book.SetDay(day);
         // The plate cam only matters once registrations are checked.
         plateCover.SetActive(!day.registrationRequired);
@@ -194,6 +199,9 @@ public class DeskUI : MonoBehaviour
 
     // The rulebook's X-ray page shows real contraband from these days.
     public void UseExamplesFrom(IEnumerable<DayData> days) => book.UseExamplesFrom(days);
+
+    // Before the shift: the rulebook opens on today's new pages. Waits for BEGIN SHIFT.
+    public IEnumerator Briefing() => book.Brief();
 
     // ---------- Keyboard ----------
 
@@ -209,7 +217,7 @@ public class DeskUI : MonoBehaviour
 
         if (keyboard.tabKey.wasPressedThisFrame && rulebookButton.gameObject.activeInHierarchy)
             book.Toggle();
-        if (book.IsOpen)
+        if (book.IsOpen && !book.InBriefing) // the briefing reads its own keys
         {
             if (keyboard.escapeKey.wasPressedThisFrame) book.Close();
             if (keyboard.rightArrowKey.wasPressedThisFrame) book.Turn(1);
@@ -250,7 +258,7 @@ public class DeskUI : MonoBehaviour
     {
         Transform cam = plateText.transform.parent.parent; // Number > Plate > PlateCam
         RectTransform cover = UiKit.Stretch("UnderConstruction", cam);
-        cover.gameObject.AddComponent<Image>().color = Palette.WithAlpha(Palette.Ink, 0.97f);
+        cover.gameObject.AddComponent<Image>().color = Palette.Ink;
         for (int i = 0; i < 4; i++)
         {
             Image stripe = UiKit.Panel("Stripe", cover, 0, 14 + i * 42, 390, 10, Palette.WithAlpha(Palette.Warning, 0.14f));
@@ -259,6 +267,33 @@ public class DeskUI : MonoBehaviour
         UiKit.Label("Text", cover, "PLATE CAM\n<size=55%>UNDER CONSTRUCTION</size>", 34, Palette.Warning,
             TextAlignmentOptions.Center, 10, 20, 370, 135, bold: true);
         plateCover = cover.gameObject;
+    }
+
+    // ---------- Angry drivers ----------
+
+    // A speech bubble that rides above a car in the world for a couple of seconds.
+    public void Shout(Transform car, string line)
+    {
+        Transform overlay = rulebookPage.transform.parent;
+        Image bubble = UiKit.Panel("Shout", overlay, 0, 0, 300, 54, Palette.Paper);
+        bubble.raycastTarget = false;
+        bubble.rectTransform.pivot = new Vector2(0.5f, 0f);
+        bubble.transform.SetAsFirstSibling(); // behind the desk pages
+        UiKit.Label("Text", bubble.transform, line, 22, Palette.Reject, TextAlignmentOptions.Center, 8, 4, 284, 46, bold: true);
+        bubble.gameObject.AddComponent<WorldAnchor>().Follow(car, new Vector3(0f, 1.4f, 0f));
+        StartCoroutine(FadeAndDestroy(bubble, 2.2f));
+    }
+
+    static IEnumerator FadeAndDestroy(Image bubble, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        CanvasGroup group = bubble.gameObject.AddComponent<CanvasGroup>();
+        for (float e = 0f; e < 0.4f && bubble != null; e += Time.deltaTime)
+        {
+            group.alpha = 1f - e / 0.4f;
+            yield return null;
+        }
+        if (bubble != null) Destroy(bubble.gameObject);
     }
 
     // ---------- Verdict stamp ----------
@@ -272,10 +307,11 @@ public class DeskUI : MonoBehaviour
     }
 
     // A big green check (right call, no citations) or a red X stamped over the papers.
-    public void ShowVerdict(bool good)
+    // unpaid: decided after 17:00, so even a right call earns nothing.
+    public void ShowVerdict(bool good, bool unpaid = false)
     {
         verdictMark.sprite = good ? PixelArt.Check() : PixelArt.Cross();
-        verdictLabel.text = good ? "CORRECT" : "CITATION";
+        verdictLabel.text = (good ? "CORRECT" : "CITATION") + (unpaid ? "\n<size=60%>AFTER 17:00 · UNPAID</size>" : "");
         verdictLabel.color = good ? Palette.Approve : Palette.Reject;
         Sfx.Play(good ? Sound.Cash : Sound.Wrong, 0.8f);
         if (verdictRoutine != null) StopCoroutine(verdictRoutine);
@@ -311,35 +347,6 @@ public class DeskUI : MonoBehaviour
     {
         verdictMark.color = new Color(1f, 1f, 1f, a);
         verdictLabel.alpha = a;
-    }
-
-    static string RulebookText(DayData day)
-    {
-        var text = new StringBuilder();
-        text.AppendLine("<b>PASSPORT</b> (everyone)");
-        text.AppendLine("  · Not expired. Compare with today's date.");
-        text.AppendLine("  · The photo must be the person at your window.");
-        if (day.permitsRequired)
-        {
-            text.AppendLine("<b>ENTRY PERMIT</b> (everyone who is not a US citizen)");
-            text.AppendLine("  · Must have one. Name must match the passport.");
-            text.AppendLine("  · Not expired.");
-        }
-        if (day.registrationRequired)
-        {
-            text.AppendLine("<b>VEHICLE REGISTRATION</b>");
-            text.AppendLine("  · Owner must match the passport.");
-            text.AppendLine("  · Plate must match the PLATE CAM.");
-        }
-        if (day.xrayScanner)
-        {
-            text.AppendLine("<b>X-RAY</b>");
-            text.AppendLine("  · Click anything hidden that isn't part of the car.");
-            text.AppendLine("  · Hidden goods or hidden people: IMPRISON.");
-        }
-        text.AppendLine();
-        text.AppendLine("Anything wrong with the papers: <b>REJECT</b>.  All good: <b>APPROVE</b>.");
-        return text.ToString();
     }
 
     // ---------- The traveler ----------

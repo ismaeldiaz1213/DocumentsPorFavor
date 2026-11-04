@@ -11,9 +11,10 @@ public class DecisionRecord
     public readonly bool bribeTaken;
     public readonly List<Citation> citations;
     public readonly int wrongClicks;
+    public readonly bool paid; // false = decided after 17:00: you finish them, but nobody pays you for it
 
     public DecisionRecord(int day, TravelerData traveler, Decision decision, bool correct, bool bribeTaken,
-        List<Citation> citations, int wrongClicks)
+        List<Citation> citations, int wrongClicks, bool paid = true)
     {
         this.day = day;
         this.traveler = traveler;
@@ -22,5 +23,6 @@ public class DecisionRecord
         this.bribeTaken = bribeTaken;
         this.citations = citations;
         this.wrongClicks = wrongClicks;
+        this.paid = paid;
     }
 }

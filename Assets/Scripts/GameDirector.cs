@@ -45,13 +45,13 @@ public class GameDirector : MonoBehaviour
     [Tooltip("Dollars docked from your final pay for every point below zero.")]
     [SerializeField] int dollarsPerPoint = 5;
 
-    [TextArea(6, 14)]
-    [SerializeField] string introText =
-        "AUGUST, 2027. SANTA TERESA PORT OF ENTRY.\n\n" +
-        "The crossing is hiring. Your cousin José works security there, and he vouched for you.\n\n" +
-        "Rent is due every night. It's that kind of apartment. Abuela's medicine is not cheap. Your nephew has outgrown his shoes.\n\n" +
-        "Your older brother Memo was sent back across eight years ago. Abuela still thinks he's in Houston.\n\n" +
-        "Report to Booth 3 at 07:00.";
+    // What the drivers still in line yell when the lane closes at 17:00.
+    static readonly string[] ClosingShouts =
+    {
+        "¡No manches! Three hours!", "Are you KIDDING me?!", "My kids are in the car!", "Every. Single. Day.",
+        "I'm calling my congressman!", "¡Ándale, pues! Open it!", "I could see the booth!", "Come ON, man!",
+        "Tomorrow at 6, then. Again.", "My ice cream melted!",
+    };
 
     class PendingStory
     {
@@ -71,10 +71,13 @@ public class GameDirector : MonoBehaviour
     bool bribeTaken;
     bool tutorialClicks; // José comments on wrong clicks while he's teaching the X-ray
 
-    // The shift clock: 07:00 to 19:00 over the day's shiftSeconds.
+    // The shift clock: 07:00 to 17:00 over the day's shiftSeconds. At 17:00 the lane
+    // closes: the line goes home, and whoever is at your window is finished unpaid.
     bool clockRunning;
     float shiftElapsed;
     int lastHour;
+    Coroutine closingTime;
+    DayCycle dayCycle; // sunrise at 07:00, sunset at 17:00
 
     bool Fired => totalPoints <= Scoring.FiredAt;
     bool ShiftOver => currentDay != null && shiftElapsed >= currentDay.shiftSeconds;
@@ -97,9 +100,9 @@ public class GameDirector : MonoBehaviour
     {
         household = new Household(startingSavings);
         desk.UseExamplesFrom(days);
+        dayCycle = DayCycle.Create();
         yield return title.Show();
         yield return IntroCutscene.Play(desk.GetComponentInParent<Canvas>().transform, IntroCutscene.Orientation(employeeNumber));
-        yield return note.Show("", introText, "BEGIN", typed: true);
 
         for (int i = 0; i < days.Count; i++)
         {
@@ -137,6 +140,20 @@ public class GameDirector : MonoBehaviour
         if (!clockRunning || guide.IsWaiting) return;
         shiftElapsed += Time.deltaTime;
         UpdateClock();
+        if (ShiftOver && closingTime == null)
+            closingTime = StartCoroutine(ClosingTime());
+    }
+
+    // 17:00. The whistle blows and everybody still in line has to turn around.
+    IEnumerator ClosingTime()
+    {
+        Sfx.Play(Sound.Whistle);
+        int shout = Random.Range(0, ClosingShouts.Length);
+        yield return stage.CloseLane(car =>
+        {
+            desk.Shout(car, ClosingShouts[shout % ClosingShouts.Length]);
+            shout += 1 + Random.Range(0, 2);
+        });
     }
 
     // ---------- A day at the booth ----------
@@ -148,13 +165,14 @@ public class GameDirector : MonoBehaviour
         bribesToday = 0;
         shiftElapsed = 0f;
         lastHour = 7;
+        closingTime = null;
         desk.SetRulesForDay(day);
         UpdateClock();
         RefreshHud();
 
         yield return desk.ShowDayBanner($"DAY {day.dayNumber}\n<size=50%>{day.todaysDate}</size>", dayBannerSeconds);
-        if (!string.IsNullOrEmpty(day.memo))
-            yield return note.Show(day.memoTitle, day.memo, "BEGIN SHIFT", typed: false);
+        // The morning briefing: the rulebook opens on today's new rules, with pictures.
+        yield return desk.Briefing();
 
         // Some travelers only come if something happened earlier.
         List<TravelerData> travelers = day.travelers.Where(ShowsUp).ToList();
@@ -169,7 +187,7 @@ public class GameDirector : MonoBehaviour
         {
             bool teach = served == 0 && (day.dayNumber == 1 || (day.xrayScanner && !days.Any(d => d.dayNumber < day.dayNumber && d.xrayScanner)));
             if (teach && day.dayNumber == 1)
-                guide.Say("When you're ready for a car, click the NEXT megaphone over the booth, or press N. ¡Siguiente!");
+                guide.Say("When you're ready, click the yellow NEXT megaphone on the booth, or press N, and the next car will pull up.");
 
             yield return desk.WaitForNext(() => ShiftOver);
             if (ShiftOver) break;
@@ -185,8 +203,13 @@ public class GameDirector : MonoBehaviour
             yield break;
         }
 
-        Sfx.Play(Sound.Whistle);
-        yield return stage.CloseLane();
+        // Everyone served before 17:00: a quiet whistle. Otherwise wait for the angry line to clear out.
+        if (closingTime != null) yield return closingTime;
+        else
+        {
+            Sfx.Play(Sound.Whistle);
+            yield return stage.CloseLane();
+        }
     }
 
     // The moment your record crosses the line, the booth phone rings. Nobody warned you.
@@ -216,22 +239,22 @@ public class GameDirector : MonoBehaviour
         if (day.dayNumber == 1)
         {
             yield return guide.WalkOver();
-            yield return guide.SayAndWait("¡Primo! Over here! It's me, José. Security now. Look, they gave me a hat.");
-            yield return guide.SayAndWait("I pulled a lot of strings for this booth. Everybody you talk to shows up here, and their face is in the window. Even mine. Handsome, eh?");
-            yield return guide.SayAndWait("You're not crossing today, primo. You're the one who decides who crosses. Inspector. Fancy, eh?");
+            yield return guide.SayAndWait("¡Primo! Over here! It's me, José. I'm on security now. Look, they even gave me a hat.");
+            yield return guide.SayAndWait("Listen. You're not crossing the border today. You're the inspector. You decide who gets into the country.");
+            yield return guide.SayAndWait("I vouched for you, so don't make me look bad. Rent is due every night, and Abuela's medicine isn't cheap.");
         }
         else if (day.dayNumber == 2)
         {
             yield return guide.WalkOver();
-            yield return guide.SayAndWait("Primo. Psst. Before you open.");
-            yield return guide.SayAndWait("I heard something. Memo's in Juárez. Has been for a while.");
-            yield return guide.SayAndWait("If he shows up at your window... I didn't tell you anything. I'm not even here.");
+            yield return guide.SayAndWait("Primo. Psst. Before you open, I need to tell you something.");
+            yield return guide.SayAndWait("It's about your brother Memo. Eight years since they sent him back across, and Abuela still thinks he's in Houston.");
+            yield return guide.SayAndWait("I heard he's in Juárez now. If he shows up at your window... I didn't tell you anything. I'm not even here.");
             yield return guide.WalkBack();
         }
         else if (day.xrayScanner && !days.Any(d => d.dayNumber < day.dayNumber && d.xrayScanner))
         {
             yield return guide.WalkOver();
-            yield return guide.SayAndWait("¡Primo! The new toy came in. The X-ray! Bottom right. Every car gets scanned now, while the driver walks to your window.");
+            yield return guide.SayAndWait("¡Primo! The new X-ray scanner came in. It's the screen at the bottom right. Every car gets scanned while the driver walks up to your window.");
         }
     }
 
@@ -253,14 +276,15 @@ public class GameDirector : MonoBehaviour
 
         if (teach && firstDay)
         {
-            yield return guide.SayAndWait("Today it's just the PASSPORT. Not expired, check today's date up top. And the PHOTO has to be the face in the window.");
-            yield return guide.SayAndWait("Good: APPROVE (A). Wrong: REJECT (R). Forgot? The RULES book up top has pictures (TAB). They pay per person, and the shift ends at 19:00.");
-            yield return guide.SayAndWait("Mistakes go on your record. Don't make me look bad, eh?");
+            yield return guide.SayAndWait("Today you only check the PASSPORT. First, make sure it isn't expired: compare its date with today's date at the top of the screen.");
+            yield return guide.SayAndWait("Second, make sure the photo in the passport is the same person standing at your window.");
+            yield return guide.SayAndWait("If everything looks good, press APPROVE (A). If anything is wrong, press REJECT (R). Forget a rule? Open the RULES book (TAB).");
+            yield return guide.SayAndWait("You get paid for every person you process. At 17:00 the lane closes. Whoever is still in line goes home, and they won't be happy.");
         }
         else if (xrayLesson)
         {
-            yield return guide.SayAndWait("Anything hiding in the car that isn't part of the car, you CLICK it. Top is the side view, bottom is from above.");
-            yield return guide.SayAndWait("Click an engine or a seat and that's a point off your record. Found something hidden? IMPRISON. I walk them out myself.");
+            yield return guide.SayAndWait("If you see anything hidden in the car that isn't part of the car, click on it. The top picture is the side of the car, the bottom one is from above.");
+            yield return guide.SayAndWait("Don't click the engine or the seats: every wrong click costs a point. Found something hidden? Press IMPRISON (I) and I'll walk them out myself.");
         }
 
         decision = null;
@@ -302,13 +326,14 @@ public class GameDirector : MonoBehaviour
         if (traveler.isFamily && finalDecision == Decision.Approve)
             household.memoHome = true;
 
-        history.Add(new DecisionRecord(currentDay.dayNumber, traveler, finalDecision, correct, bribeTaken, citations, xray.WrongClicks));
+        bool paid = !ShiftOver; // decided after 17:00: finished, but off the clock
+        history.Add(new DecisionRecord(currentDay.dayNumber, traveler, finalDecision, correct, bribeTaken, citations, xray.WrongClicks, paid));
         foreach (NewsStory story in traveler.NewsFor(finalDecision))
             pendingNews.Add(new PendingStory { day = currentDay.dayNumber + story.daysLater, story = story });
 
         tutorialClicks = false;
         desk.Say(FarewellLine(traveler, finalDecision));
-        desk.ShowVerdict(correct && citations.Count == 0);
+        desk.ShowVerdict(correct && citations.Count == 0, unpaid: !paid);
         desk.ShowCitations(citations);
 
         // That was the last straw. They stay at the window; the phone is already ringing.
@@ -322,8 +347,8 @@ public class GameDirector : MonoBehaviour
         {
             yield return new WaitForSeconds(1.5f); // let their goodbye land first
             yield return guide.SayAndWait(correct
-                ? "¡Eso! See? Easy. Okay, back to my post. You got this, primo."
-                : "Ay, primo... That's coming out of your pay. Okay, back to my post. Careful, eh? Abuela's counting on you.");
+                ? "¡Eso! See? Easy. Okay, I'm heading back to my post. You've got this, primo."
+                : "Ay, primo... That one goes on your record, and it comes out of your pay. Careful, eh? Abuela's counting on you.");
         }
 
         // If you imprison someone, José walks them out. Otherwise he heads back to his post.
@@ -349,9 +374,11 @@ public class GameDirector : MonoBehaviour
     void UpdateClock()
     {
         float k = currentDay != null ? Mathf.Clamp01(shiftElapsed / currentDay.shiftSeconds) : 0f;
-        int minutes = Mathf.FloorToInt(k * 12f * 60f / 10f) * 10; // ticks in 10-minute steps
+        // The sun keeps sinking a little after 17:00 while the last car is finished.
+        if (dayCycle != null && currentDay != null) dayCycle.Set(shiftElapsed / currentDay.shiftSeconds);
+        int minutes = Mathf.FloorToInt(k * 10f * 60f / 10f) * 10; // 07:00 to 17:00, in 10-minute steps
         int hour = 7 + minutes / 60;
-        desk.SetClock($"{hour:00}:{minutes % 60:00}", late: hour >= 17);
+        desk.SetClock(k >= 1f ? "CLOSED" : $"{hour:00}:{minutes % 60:00}", late: hour >= 16);
         if (hour != lastHour)
         {
             lastHour = hour;
@@ -364,7 +391,7 @@ public class GameDirector : MonoBehaviour
     IEnumerator EndOfDay(DayData day)
     {
         List<DecisionRecord> today = history.Where(r => r.day == day.dayNumber).ToList();
-        int correctCount = today.Count(r => r.correct);
+        int correctCount = today.Count(r => r.correct && r.paid);
         int salary = correctCount * wagePerCorrectDecision;
         int totalBeforeBills = household.savings + salary + bribesToday - rent;
 
@@ -391,7 +418,7 @@ public class GameDirector : MonoBehaviour
         foreach (DecisionRecord record in today)
         {
             text.AppendLine($"<b>{record.traveler.passportName}</b>");
-            text.AppendLine($"    {Outcome(record)}");
+            text.AppendLine($"    {Outcome(record)}" + (record.paid ? "" : "   <size=80%>(after 17:00, unpaid)</size>"));
             if (record.wrongClicks > 0)
                 text.AppendLine($"    Wasted the boss's time x{record.wrongClicks}<pos=85%>{record.wrongClicks * Scoring.WrongClick}");
             foreach (Citation citation in record.citations)

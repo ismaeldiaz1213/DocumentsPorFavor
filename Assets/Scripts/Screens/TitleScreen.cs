@@ -52,13 +52,17 @@ public class TitleScreen : MonoBehaviour
         }
         StopCoroutine(intro);
         Sfx.Play(Sound.Stamp);
-        Sfx.Loop(Sound.Music, false);
+        // The music carries on into the orientation (it lowers itself there).
 
+        // Fade to the orientation's dark background, never to the desk underneath.
+        Image curtain = UiKit.Panel("Curtain", screen, 0, 0, 1920, 1080, Palette.WithAlpha(Palette.Ink, 0f));
+        UiKit.StretchFull(curtain.rectTransform);
         for (float e = 0f; e < 0.5f; e += Time.deltaTime)
         {
-            group.alpha = 1f - e / 0.5f;
+            curtain.color = Palette.WithAlpha(Palette.Ink, e / 0.5f);
             yield return null;
         }
+        Destroy(curtain.gameObject);
         StopCoroutine(wave);
         screen.gameObject.SetActive(false);
     }
@@ -83,7 +87,7 @@ public class TitleScreen : MonoBehaviour
             shade.raycastTarget = false;
         }
 
-        flag = UiKit.Picture("Flag", screen, PixelArt.Flag(0), 1460, 560, 360, 230);
+        flag = UiKit.Picture("Flag", screen, PixelArt.Flag(0), 1560, 505, 300, 190); // its pole stands on the canopy
 
         titleBlock = UiKit.Rect("TitleBlock", screen);
         UiKit.Place(titleBlock, 0, 640, 1920, 380);
@@ -94,43 +98,40 @@ public class TitleScreen : MonoBehaviour
             TextAlignmentOptions.Center, 0, 190, 1920, 170, bold: true);
         title.characterSpacing = 6;
 
-        // "POR FAVOR!" is stamped on in red, a little crooked.
-        Image box = UiKit.Panel("Stamp", titleBlock, 610, 40, 700, 150, Palette.WithAlpha(Palette.Reject, 0.18f));
+        // "POR FAVOR!" is stamped on in red, a little crooked: a pale ink box, a thick border, the words.
+        Image box = UiKit.Panel("Stamp", titleBlock, 610, 30, 700, 140, Palette.WithAlpha(Palette.Paper, 0.85f));
         box.raycastTarget = false;
-        Outline outline = box.gameObject.AddComponent<Outline>();
-        outline.effectColor = Palette.Reject;
-        outline.effectDistance = new Vector2(8, 8);
-        outline.useGraphicAlpha = false;
-        UiKit.Label("Words", box.transform, "POR FAVOR!", 120, Palette.Reject, TextAlignmentOptions.Center, 0, 0, 700, 150, bold: true);
+        UiKit.Frame("Border", box.transform, 8, 8, 684, 124, 7, Palette.Reject);
+        UiKit.Label("Words", box.transform, "POR FAVOR!", 104, Palette.Reject, TextAlignmentOptions.Center, 20, 8, 660, 124, bold: true);
         stamp = box.rectTransform;
         stamp.pivot = new Vector2(0.5f, 0.5f);
-        stamp.anchoredPosition += new Vector2(350, 75);
+        stamp.anchoredPosition += new Vector2(350, 70);
         stamp.localEulerAngles = new Vector3(0, 0, -6f);
 
-        UiKit.Label("Subtitle", titleBlock, "Four days at Booth 3.  Every car is somebody.", 34, Palette.Warning,
-            TextAlignmentOptions.Center, 0, -20, 1920, 50, bold: true);
 
         // START SHIFT reuses the scene's button, so everything listening to it still works.
         start = (RectTransform)startButton.transform;
         start.SetParent(screen, false);
-        UiKit.Place(start, 760, 280, 400, 96);
+        UiKit.Place(start, 720, 300, 480, 96);
         start.pivot = new Vector2(0.5f, 0.5f);
-        start.anchoredPosition += new Vector2(200, 48);
+        start.anchoredPosition += new Vector2(240, 48);
         startButton.image.color = Palette.Approve;
         TMP_Text startLabel = startButton.GetComponentInChildren<TMP_Text>(true);
         if (startLabel != null)
         {
             startLabel.enableAutoSizing = true;
             startLabel.fontSizeMin = 14f;
-            startLabel.text = "START SHIFT <size=55%><alpha=#B0>[SPACE]</size>";
+            startLabel.text = "START SHIFT";
         }
+        UiKit.Label("Press", screen, "or press SPACE", 22, Palette.WithAlpha(Palette.Paper, 0.8f), TextAlignmentOptions.Center, 720, 262, 480, 32);
 
-        Image note = UiKit.Panel("ContentNote", screen, 460, 60, 1000, 150, Palette.WithAlpha(Palette.Speech, 0.9f));
+        // Along the bottom, under the line of cars.
+        Image note = UiKit.Panel("ContentNote", screen, 360, 10, 1200, 100, Palette.WithAlpha(Palette.Speech, 0.92f));
         note.raycastTarget = false;
-        UiKit.Label("Heading", note.transform, "CONTENT NOTE", 20, Palette.Warning, TextAlignmentOptions.Center, 20, 108, 960, 32, bold: true);
-        UiKit.Label("Text", note.transform, contentNote, 22, Palette.Paper, TextAlignmentOptions.Center, 40, 12, 920, 96);
+        UiKit.Label("Heading", note.transform, "CONTENT NOTE", 18, Palette.Warning, TextAlignmentOptions.Center, 20, 68, 1160, 28, bold: true);
+        UiKit.Label("Text", note.transform, contentNote, 21, Palette.Paper, TextAlignmentOptions.Center, 30, 6, 1140, 62);
 
-        UiKit.Label("Credit", screen, credit, 20, Palette.WithAlpha(Palette.Paper, 0.75f), TextAlignmentOptions.Right, 1300, 16, 600, 30);
+        UiKit.Label("Credit", screen, credit, 20, Palette.WithAlpha(Palette.Paper, 0.75f), TextAlignmentOptions.Right, 1580, 16, 320, 60);
     }
 
     // The title drops in, then POR FAVOR! slams down with a stamp.

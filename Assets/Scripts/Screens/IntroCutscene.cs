@@ -36,13 +36,13 @@ public class IntroCutscene : MonoBehaviour
         new Page(Picture.Badge, "YOU ARE NOT CROSSING THE BORDER.",
             "You ARE the border. This is your badge. Wear it at all times."),
         new Page(Picture.Booth, "BOOTH 3  ·  SANTA TERESA PORT OF ENTRY",
-            "Every day, cars line up on the Mexican side. One at a time, each driver walks up to your window and hands you their papers."),
+            "Every day, cars line up on the Mexican side. One at a time, each driver walks up to your window and hands you their papers. At 17:00, the lane closes."),
         new Page(Picture.Passport, "CHECK THE PAPERS. DECIDE.",
-            "Compare every document with the RULEBOOK.\nEverything in order: <color=#6E8B57><b>APPROVE</b></color>.   Anything wrong: <color=#A8503F><b>REJECT</b></color>."),
+            "Compare every document with the RULEBOOK.\nEverything looks good: <color=#6E8B57><b>APPROVE</b></color>.   Anything wrong: <color=#A8503F><b>REJECT</b></color>."),
         new Page(Picture.Record, "YOU ARE PAID PER CORRECT DECISION.",
             "Every mistake prints a CITATION and goes on your record.\nYour supervisor reads your record. He does not like to read it twice."),
         new Page(Picture.Memo, "THE RULES WILL CHANGE.",
-            "Each morning a memo tells you what's new: permits, then an X-ray scanner, then more.\nRead the memo. Then read the rulebook again."),
+            "Each morning a briefing tells you what's new: permits, then an X-ray scanner, then more.\nRead it. Then read the rulebook again."),
         new Page(Picture.Keys, "AT YOUR BOOTH",
             "Click the buttons, or use the keys. The RULES book has pictures of what good and bad papers look like."),
         new Page(Picture.Home, "WELCOME ABOARD, INSPECTOR.",
@@ -113,13 +113,8 @@ public class IntroCutscene : MonoBehaviour
             yield return ShowPage(pages[i], i, pages.Count);
             yield return WaitForAdvance();
         }
+        // No fade out: the day banner (also dark) takes over in the same frame, so the desk never flashes.
         Sfx.Loop(Sound.Music, false);
-
-        for (float t = 0f; t < 0.35f; t += Time.deltaTime)
-        {
-            group.alpha = 1f - t / 0.35f;
-            yield return null;
-        }
     }
 
     IEnumerator ShowPage(Page page, int index, int count)
@@ -252,12 +247,9 @@ public class IntroCutscene : MonoBehaviour
 
     static void Stamp(RectTransform parent, string word, Color color, float x, float y, float angle)
     {
-        Image box = UiKit.Panel(word, parent, x, y, 300, 90, Palette.WithAlpha(color, 0.15f));
+        Image box = UiKit.Panel(word, parent, x, y, 300, 90, Palette.WithAlpha(Palette.Paper, 0.85f));
         box.raycastTarget = false;
-        Outline outline = box.gameObject.AddComponent<Outline>();
-        outline.effectColor = color;
-        outline.effectDistance = new Vector2(5, 5);
-        outline.useGraphicAlpha = false;
+        UiKit.Frame("Border", box.transform, 0, 0, 300, 90, 5, color);
         UiKit.Label("Word", box.transform, word, 46, color, TextAlignmentOptions.Center, 0, 0, 300, 90, bold: true);
         box.rectTransform.localEulerAngles = new Vector3(0, 0, angle);
     }
