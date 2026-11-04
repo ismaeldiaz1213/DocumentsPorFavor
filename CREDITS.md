@@ -27,6 +27,8 @@ Keep this file up to date whenever something new is added.
   `Assets/Editor/ArtGenerator.cs` and `Assets/Editor/XRayArt.cs`.
 - **Faces and people** (booth-window portraits, passport photos, walking figures, the tumbleweed):
   drawn by code while the game runs, in `Assets/Scripts/Style/PortraitArt.cs` and `Assets/Scripts/World/Tumbleweed.cs`.
+- **Title screen, orientation slideshow, rulebook and stamp art, the sky and sun**: drawn by code while the
+  game runs, in `Assets/Scripts/Style/PixelArt.cs` and `Assets/Scripts/World/DayCycle.cs`.
 - **Sound effects and music**: synthesized by code in `Assets/Editor/SoundGenerator.cs`
   (sine/square/saw waves, filtered noise, decay envelopes). Output: `Assets/Resources/Sounds/`.
   The guitar music is an original melody over a common A minor / E7 / D minor progression.

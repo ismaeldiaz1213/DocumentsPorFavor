@@ -24,7 +24,13 @@ public static class WebBuilder
                 "The first time, Unity switches the project to WebGL, which can take several minutes.",
                 "Build", "Cancel"))
             return;
+        BuildNow();
+    }
 
+    // Same build without the dialog, for the command line:
+    //   Unity -batchmode -quit -projectPath . -buildTarget WebGL -executeMethod WebBuilder.BuildNow
+    public static void BuildNow()
+    {
         PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
         PlayerSettings.WebGL.decompressionFallback = true;
         PlayerSettings.WebGL.dataCaching = true;
@@ -47,11 +53,12 @@ public static class WebBuilder
         {
             string full = Path.GetFullPath(Output);
             Debug.Log($"Web build done ({report.summary.totalSize / (1024 * 1024)} MB): {full}");
-            EditorUtility.RevealInFinder(Path.Combine(full, "index.html"));
+            if (!Application.isBatchMode) EditorUtility.RevealInFinder(Path.Combine(full, "index.html"));
         }
         else
         {
             Debug.LogError($"Web build failed: {report.summary.result}. See the Console for the first red error.");
+            if (Application.isBatchMode) EditorApplication.Exit(1);
         }
     }
 }
